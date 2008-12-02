@@ -47,7 +47,6 @@ namespace {
     inline void parsePath_( xpath::detail::ParseInput& pi
                           , xpath::detail::LocationStepList& steps )
     {
-        bool result = true;
         try {
             xpath::detail::ParseState ps(pi);
             if( !xpath::detail::parsePath( pi, steps ) ) {
