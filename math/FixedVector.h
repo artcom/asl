@@ -1,6 +1,6 @@
 /* __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 //
-// Copyright (C) 1993-2008, ART+COM AG Berlin, Germany <www.artcom.de>
+// Copyright (C) 1993-2012, ART+COM AG Berlin, Germany <www.artcom.de>
 //
 // This file is part of the ART+COM Standard Library (asl).
 //
@@ -394,7 +394,7 @@ dot(const FixedVector<SIZE, T> & a, const FixedVector<SIZE, T> & b) {
 
 /* __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 //
-// Copyright (C) 1993-2008, ART+COM AG Berlin, Germany <www.artcom.de>
+// Copyright (C) 1993-2012, ART+COM AG Berlin, Germany <www.artcom.de>
 //
 // This file is part of the ART+COM Standard Library (asl).
 //
