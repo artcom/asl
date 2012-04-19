@@ -95,6 +95,7 @@ public:
     void printCopyright() const;
     void setShortDescription(const std::string & theDescription);
     void setLongDescription(const std::string & theDescription);
+    void setCopyright(const std::string & theCopyright);
 
     int getCount() const {
         return _justArguments.size();
@@ -129,6 +130,7 @@ private:
 
     std::string _myGeneralShortDescription;
     std::string _myGeneralLongDescription;
+    std::string _myCopyright;
 };
 
 /* @} */

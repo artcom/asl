@@ -46,13 +46,24 @@
 
 using namespace std;
 
-#define DB(x) // x
+#define DB(x) //x
 
 namespace asl {
-Arguments::Arguments(const AllowedOption * allowedOptions) {
+    Arguments::Arguments(const AllowedOption * allowedOptions):
+    _myCopyright("Copyright (C) 2003-2012, ART+COM AG Berlin, Germany <www.artcom.de>")
+{
     if (allowedOptions) {
         addAllowedOptions(allowedOptions);
     }
+    // TODO: find a better place for this
+    _allowedOptions["--revision"] = "";
+    _optionDescriptions["--revision"] = "print scm revision and exit";
+    _allowedOptions["--version"] = "";
+    _optionDescriptions["--version"] = "print build date and exit";
+    _allowedOptions["--copyright"] = "";
+    _optionDescriptions["--copyright"] = "print copyright and exit";
+    _allowedOptions["--help"] = "";
+    _optionDescriptions["--help"] = "print this help text and exit";
 }
 
 void
@@ -68,10 +79,6 @@ Arguments::addAllowedOptions(const AllowedOption * allowedOptions) {
         }
         ++i;
     }
-    // TODO: find a better place for this
-    _allowedOptions["--revision"] = "";
-    _allowedOptions["--version"] = "";
-    _allowedOptions["--copyright"] = "";
 }
 
 void
@@ -154,6 +161,10 @@ Arguments::parse(int argc, const char * const argv[], StringEncoding theEncoding
             map<string,string>::const_iterator foundItem = _allowedOptions.find(argv[i]);
             if (foundItem != _allowedOptions.end()) {
                 // TODO: find a better place for this
+                if (foundItem->first == "--help") {
+                    printHelp();
+                    return false;
+                }
                 if (foundItem->first == "--revision") {
                     printRevision();
                     return false;
@@ -193,7 +204,6 @@ Arguments::parse(int argc, const char * const argv[], StringEncoding theEncoding
                 _programName = argv[0];
                 string::size_type myRealNameStart = _programName.rfind(theDirectorySeparator);
                 _programName = _programName.substr(++myRealNameStart);
-                //printCopyright();
             }
         }
 
@@ -205,7 +215,7 @@ Arguments::parse(int argc, const char * const argv[], StringEncoding theEncoding
 //      apps that use asl would be claimed by ART+COM.
 void
 Arguments::printCopyright() const {
-    AC_PRINT << _programName << " Copyright (C) 2003-2009 ART+COM";
+    AC_PRINT << _programName << " " << _myCopyright;
 }
 
 void
@@ -273,7 +283,11 @@ Arguments::printHelp() const {
            if (it->second != "") {
                myHelp << " <" << it->second << ">";
 		   }
-		   myHelp << ": " << _optionDescriptions.find(it->first)->second << endl;
+           std::map<std::string, std::string>::const_iterator itd = _optionDescriptions.find(it->first);
+		   if (itd != _optionDescriptions.end()) {
+               myHelp << ": " << itd->second;
+           }
+           myHelp << endl;
         }
     }
     if (_myGeneralLongDescription.size()) {
@@ -291,6 +305,10 @@ Arguments::setShortDescription(const std::string & theDescription) {
 void
 Arguments::setLongDescription(const std::string & theDescription) {
     _myGeneralLongDescription = theDescription;
+}
+void
+Arguments::setCopyright(const std::string & theCopyright) {
+    _myCopyright = theCopyright;
 }
 } // namespace asl
 
