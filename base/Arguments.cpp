@@ -71,8 +71,8 @@ Arguments::addAllowedOptions(const AllowedOption * allowedOptions) {
     int i = 0;
     while ((string(allowedOptions[i].theName) != "" ||  string(allowedOptions[i].theArgumentName) != "")
             && i < MAX_OPTIONS)
-	{
-		if ( !std::string(allowedOptions[i].theName).empty() ) {
+    {
+        if ( !std::string(allowedOptions[i].theName).empty() ) {
             _allowedOptions[allowedOptions[i].theName] = allowedOptions[i].theArgumentName;
         } else {
             _argumentNames.push_back(allowedOptions[i].theArgumentName);
@@ -83,10 +83,10 @@ Arguments::addAllowedOptions(const AllowedOption * allowedOptions) {
 
 void
 Arguments::addAllowedOptionsWithDocumentation(const AllowedOptionWithDocumentation * allowedOptions) {
-	int i = 0;
+    int i = 0;
     while ((string(allowedOptions[i].theName) != "" ||  string(allowedOptions[i].theArgumentName) != "") && i < MAX_OPTIONS)
     {
-		if (!std::string(allowedOptions[i].theName).empty() ) {
+        if (!std::string(allowedOptions[i].theName).empty() ) {
             _allowedOptions[allowedOptions[i].theName] = allowedOptions[i].theArgumentName;
             _optionDescriptions[allowedOptions[i].theName] = allowedOptions[i].theDocumentation;
         } else {
@@ -94,7 +94,7 @@ Arguments::addAllowedOptionsWithDocumentation(const AllowedOptionWithDocumentati
            _argumentDescriptions.push_back(allowedOptions[i].theDocumentation);
         }
         ++i;
-	}
+    }
 }
 
 const string &
@@ -276,15 +276,15 @@ Arguments::printHelp() const {
     myHelp << std::endl;
     if (_optionDescriptions.size()) {
         myHelp << "Options:" << endl;
-		for (map<string,string>::const_iterator it = _allowedOptions.begin();
-			 it != _allowedOptions.end(); ++it)
-		{
+        for (map<string,string>::const_iterator it = _allowedOptions.begin();
+             it != _allowedOptions.end(); ++it)
+        {
            myHelp << "  " << it->first;
            if (it->second != "") {
                myHelp << " <" << it->second << ">";
-		   }
+           }
            std::map<std::string, std::string>::const_iterator itd = _optionDescriptions.find(it->first);
-		   if (itd != _optionDescriptions.end()) {
+           if (itd != _optionDescriptions.end()) {
                myHelp << ": " << itd->second;
            }
            myHelp << endl;

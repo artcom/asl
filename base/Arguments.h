@@ -69,7 +69,7 @@ public:
         const char * theName;
         const char * theArgumentName;
         const char * theDocumentation;
-	};
+    };
 
     enum {
         OPTION_START_CHAR = '-',
