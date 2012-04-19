@@ -21,7 +21,6 @@ proc_functions.cpp
 Process.cpp
 Ptr.cpp
 ReadWriteLock.cpp
-Revision.cpp
 SingletonManager.cpp
 StackTrace.cpp
 StdOutputRedirector.cpp
@@ -72,7 +71,6 @@ proc_functions.h
 Ptr.h
 RangeSet.h
 ReadWriteLock.h
-Revision.h
 RunLengthEncoder.h
 settings.h
 SingletonBase.h
