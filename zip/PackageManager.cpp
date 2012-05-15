@@ -141,15 +141,24 @@ PackageManager::readStream(const std::string & theRelativePath,
     }
     return Ptr<ReadableStreamHandle>();
 }
+
 Ptr<ReadableBlockHandle>
 PackageManager::readFile(const std::string & theRelativePath,
-                         const std::string & thePackage)
+                         const std::string & thePackage,
+                         bool theThreadLockedFlag)
 {
+    if (theThreadLockedFlag) {
+        _myReadLock.lock();
+    }
+    Ptr<ReadableBlockHandle> myResult = Ptr<ReadableBlockHandle>();
     IPackagePtr myPackage = findPackage(theRelativePath, thePackage);
     if (myPackage) {
-        return myPackage->getFile(theRelativePath);
+        myResult = myPackage->getFile(theRelativePath);
     }
-    return Ptr<ReadableBlockHandle>();
+    if (theThreadLockedFlag) {
+        _myReadLock.unlock();
+    }
+    return myResult;
 }
 
 std::string

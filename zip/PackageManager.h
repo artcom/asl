@@ -99,7 +99,8 @@ class ASL_ZIP_DECL PackageManager {
             @returns the opened file as a asl::ReadableBlock or null if not found.
         */
         Ptr<ReadableBlockHandle> readFile(const std::string & theRelativePath,
-                                    const std::string & thePackageName = "");
+                                    const std::string & thePackageName = "",
+                                    bool theThreadLockedFlag = false);
 
         /// findFiles lists the files in theRelativePath.
         /** Searches theRelativePath in either thePackageName or all packages.
