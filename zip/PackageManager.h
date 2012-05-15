@@ -29,6 +29,8 @@
 
 #include <asl/base/Block.h>
 #include <asl/base/Singleton.h>
+#include <asl/base/ThreadLock.h>
+
 #include <map>
 #include <list>
 #include <string>
