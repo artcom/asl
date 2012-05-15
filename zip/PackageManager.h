@@ -146,6 +146,8 @@ class ASL_ZIP_DECL PackageManager {
                                             const std::string & theRelativePath,
                                             bool doRecursiveSearch);
         IPackagePtr findPackage(const std::string & theRelativePath, const std::string & thePackage);
+        asl::ThreadLock _myReadLock;
+            
 };
 
 typedef Ptr<PackageManager> PackageManagerPtr;
