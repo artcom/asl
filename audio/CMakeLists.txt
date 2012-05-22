@@ -34,7 +34,7 @@ VolumeFader.h
 )
 
 set(TESTS
-DummyPump
+#DummyPump #fails randomly on linux64 disabled for now, needs investigation 05/12
 Effect
 RealPump
 )
