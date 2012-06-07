@@ -37,6 +37,8 @@ if(WIN32 AND GTKMM_FOUND)
                 set(LIB "libxml2")
             elseif(LIB MATCHES "z")
                 set(LIB "zdll")
+            elseif(LIB MATCHES "png14")
+                set(LIB "libpng")
             else(LIB MATCHES "xml2")
                 set(LIB ${LIB})
             endif(LIB MATCHES "xml2")
@@ -47,7 +49,6 @@ if(WIN32 AND GTKMM_FOUND)
     set(GTKMM_LIBRARIES_D ${GTKMM_LIBRARIES_FIXED_D})
     set(GTKMM_LIBRARIES_C ${GTKMM_LIBRARIES_FIXED_C})
 endif(WIN32 AND GTKMM_FOUND)
-
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
     GTKMM DEFAULT_MSG GTKMM_LIBRARIES
