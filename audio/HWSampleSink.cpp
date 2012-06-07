@@ -189,7 +189,6 @@ void HWSampleSink::setVolumes(const std::vector<float> & theVolumes) {
     _myVolume = theVolumes;
 }
 void HWSampleSink::setVolume(float theVolume) {
-    AC_PRINT << (void*)this << " HWSampleSink::setVolume";
     ASSURE(theVolume <= 1.0);
     AutoLocker<ThreadLock> myLocker(_myQueueLock);
     for (unsigned i = 0; i < _myVolume.size(); i ++) {
