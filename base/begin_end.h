@@ -12,32 +12,6 @@
 //
 // Description:  Helper functions for generic programming
 //
-// Last Review: pavel 30.11.2005
-//
-//  review status report: (perfect, ok, fair, poor, disaster)
-//    usefullness            : ok
-//    formatting             : ok
-//    documentation          : poor
-//    test coverage          : poor
-//    names                  : fair
-//    style guide conformance: ok
-//    technical soundness    : fair
-//    dead code              : ok
-//    readability            : fair
-//    understandabilty       : fair
-//    interfaces             : fair
-//    confidence             : fair
-//    integration            : ok
-//    dependencies           : ok
-//    cheesyness             : fair
-//
-//    overall review status  : fair
-//
-//    recommendation:
-//       - check if really necessary
-//       - very short file, potentially merge with other helpers
-//       - improve documentation
-//       - improve test coverage
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 

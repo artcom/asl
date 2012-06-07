@@ -12,30 +12,6 @@
 //
 // Description:  A small collection of log formatters
 //
-// Last Review: pavel 30.11.2005
-//
-//  review status report: (perfect, ok, fair, poor, disaster)
-//    usefullness            : ok
-//    formatting             : ok
-//    documentation          : poor
-//    test coverage          : poor
-//    names                  : ok
-//    style guide conformance: ok
-//    technical soundness    : fair (should be a module)
-//    dead code              : ok
-//    readability            : ok
-//    understandabilty       : ok
-//    interfaces             : ok
-//    confidence             : ok
-//    integration            : ok
-//    dependencies           : ok
-//    cheesyness             : fair
-//
-//    overall review status  : fair
-//
-//    recommendations:
-//       - make more documentation
-//       - make some more tests
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 

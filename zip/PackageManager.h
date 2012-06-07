@@ -29,6 +29,8 @@
 
 #include <asl/base/Block.h>
 #include <asl/base/Singleton.h>
+#include <asl/base/ThreadLock.h>
+
 #include <map>
 #include <list>
 #include <string>
@@ -144,6 +146,8 @@ class ASL_ZIP_DECL PackageManager {
                                             const std::string & theRelativePath,
                                             bool doRecursiveSearch);
         IPackagePtr findPackage(const std::string & theRelativePath, const std::string & thePackage);
+        asl::ThreadLock _myReadLock;
+            
 };
 
 typedef Ptr<PackageManager> PackageManagerPtr;

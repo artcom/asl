@@ -1184,6 +1184,9 @@ namespace dom {
         virtual void fillRectAlpha(asl::AC_SIZE_TYPE xmin, asl::AC_SIZE_TYPE ymin,
                               asl::AC_SIZE_TYPE xmax, asl::AC_SIZE_TYPE ymax,
                               const float theAlpha) = 0;
+        virtual void fillRectAlpha(asl::AC_SIZE_TYPE xmin, asl::AC_SIZE_TYPE ymin,
+                              asl::AC_SIZE_TYPE xmax, asl::AC_SIZE_TYPE ymax,
+                              std::vector<float> & theAlpha) = 0;
 
         virtual void randomize(const asl::Vector4f & theMinColor, const asl::Vector4f & theMaxColor) = 0;
         virtual bool hasAlpha() const = 0;
@@ -1328,6 +1331,26 @@ namespace dom {
             for (unsigned x=xmin; x<xmax; ++x) {
                 for (unsigned y=ymin; y<ymax; ++y) {
                     asl::setAlphaValue(myNativeRaster(x,y), asl::pchar(theAlpha * 255));
+                }
+            }
+
+            _myRasterValue.closeWriteableValue();
+        }
+        virtual void fillRectAlpha(asl::AC_SIZE_TYPE xmin, asl::AC_SIZE_TYPE ymin,
+                                   asl::AC_SIZE_TYPE xmax, asl::AC_SIZE_TYPE ymax,
+                                   std::vector<float> & theAlphas)
+        {
+            if (theAlphas.size() != ((xmax-xmin) * (ymax - ymin))) {
+                throw SizeMismatch(std::string("sizeof theAlphas is ")+asl::as_string(theAlphas.size())+
+                                   " and does not match the rect size to fill the alphas: "+
+                                   asl::as_string((xmax-xmin) * (ymax - ymin)), PLUS_FILE_LINE);
+            }
+            T & myNativeRaster = _myRasterValue.openWriteableValue();
+            std::vector<float>::size_type i = 0;
+            for (unsigned x=xmin; x<xmax; ++x) {
+                for (unsigned y=ymin; y<ymax; ++y) {
+                    asl::setAlphaValue(myNativeRaster(x,y), asl::pchar(theAlphas[i] * 255));
+                    ++i;
                 }
             }
 

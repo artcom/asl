@@ -12,32 +12,6 @@
 //
 // Description:  misc operating system & environment helper functions
 //
-// Last Review: pavel 30.11.2005
-//
-//  review status report: (perfect, ok, fair, poor, disaster)
-//    usefullness            : ok
-//    formatting             : ok
-//    documentation          : poor (not yet doxygenized)
-//    test coverage          : poor
-//    names                  : poor
-//    style guide conformance: poor
-//    technical soundness    : ok
-//    dead code              : ok
-//    readability            : ok
-//    understandabilty       : ok
-//    interfaces             : ok
-//    confidence             : ok
-//    integration            : ok
-//    dependencies           : ok
-//    cheesyness             : ok
-//
-//    overall review status  : poor
-//
-//    recommendations:
-//       - rename to "shell_functions.h/cpp"
-//       - doxygenize documentation
-//       - add missing tests
-//       - unify names with styleguide in mind
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 

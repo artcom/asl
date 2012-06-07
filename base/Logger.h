@@ -13,30 +13,6 @@
 // Description:  Simple time source interface. getCurrentTime() should return
 //               the time in seconds since the TimeSource was constructed.
 //
-// Last Review: pavel 30.11.2005
-//
-//  review status report: (perfect, ok, fair, poor, disaster)
-//    usefullness            : perfect
-//    formatting             : ok
-//    documentation          : ok
-//    test coverage          : fair
-//    names                  : ok
-//    style guide conformance: ok
-//    technical soundness    : ok
-//    dead code              : ok
-//    readability            : ok
-//    understandabilty       : ok
-//    interfaces             : ok
-//    confidence             : ok
-//    integration            : ok
-//    dependencies           : ok
-//    cheesyness             : ok
-//
-//    overall review status  : ok
-//
-//    recommendations:
-//       - make a documentation
-//       - make general use of this throughout the whole framework, at least throughout asl
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 

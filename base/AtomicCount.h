@@ -11,30 +11,6 @@
 //
 // Description: atomic counter for different processing models
 //
-// Last Review: pavel 30.11.2005
-//
-//  review status report: (perfect, ok, fair, poor, disaster)
-//    usefullness            : perfect
-//    formatting             : ok
-//    documentation          : poor
-//    test coverage          : good
-//    names                  : fair
-//    style guide conformance: poor
-//    technical soundness    : ok
-//    dead code              : ok
-//    readability            : fair
-//    understandabilty       : fair
-//    interfaces             : ok
-//    confidence             : ok
-//    integration            : ok
-//    dependencies           : ok
-//    cheesyness             : ok
-//
-//    overall review status  : fair
-//
-//    recommendation:
-//       - improve documentation
-//       - reduce number of #ifdefs
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 

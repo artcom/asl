@@ -12,28 +12,6 @@
 //
 // Description:  A hybrid (reference counting & mark-sweep garbage collector
 //
-// Last Review: pavel 30.11.2005
-//
-//  review status report: (perfect, ok, fair, poor, disaster)
-//    usefullness            :
-//    formatting             :
-//    documentation          :
-//    test coverage          :
-//    names                  :
-//    style guide conformance:
-//    technical soundness    :
-//    dead code              :
-//    readability            :
-//    understandabilty       :
-//    interfaces             :
-//    confidence             :
-//    integration            :
-//    dependencies           :
-//    cheesyness             :
-//
-//    overall review status  :
-//
-//    recommendations:
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 

@@ -12,30 +12,6 @@
 //
 // Description:  Collect and Display Profiling Information
 //
-// Last Review: pavel 30.11.2005
-//
-//  review status report: (perfect, ok, fair, poor, disaster)
-//    usefullness            : ok
-//    formatting             : ok
-//    documentation          : poor (no docs for bitset)
-//    test coverage          : ok
-//    names                  : ok
-//    style guide conformance: ok
-//    technical soundness    : fair
-//    dead code              : ok
-//    readability            : ok
-//    understandabilty       : ok
-//    interfaces             : ok
-//    confidence             : ok
-//    integration            : poor
-//    dependencies           : ok
-//    cheesyness             : fair
-//
-//    overall review status  : ok
-//
-//    recommendations:
-//       - replace existing enums in Y60 with this thing
-//       - try to find a compile-time check instead of run-time verify()
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 
