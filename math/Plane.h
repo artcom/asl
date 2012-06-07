@@ -8,11 +8,6 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
-//
-//
-// Description: TODO
-//
-// __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 //
 //    $RCSfile: Plane.h,v $
@@ -127,11 +122,6 @@ namespace asl {
 // It is distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
-// __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
-//
-//
-// Description: TODO
-//
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
     template <class Number>
