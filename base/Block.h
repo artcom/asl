@@ -17,31 +17,6 @@
 //               - convenient windows api interfaces and
 //               - also a copy-on-write (COW) implementation
 //
-// Last Review: pavel 30.11.2005
-//
-//  review status report: (perfect, ok, fair, poor, disaster)
-//    usefullness            : perfect
-//    formatting             : ok
-//    documentation          : fair
-//    test coverage          : ok
-//    names                  : ok
-//    style guide conformance: ok
-//    technical soundness    : ok
-//    dead code              : fair
-//    readability            : ok
-//    understandabilty       : fair
-//    interfaces             : ok
-//    confidence             : ok
-//    integration            : ok
-//    dependencies           : ok
-//    cheesyness             : fair
-//
-//    overall review status  : fair
-//
-//    recommendation:
-//       - review & complete &documentation
-//       - remove dead code
-//       - explain usage
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 

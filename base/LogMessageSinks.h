@@ -12,30 +12,6 @@
 //
 // Description:  A small collection of log message sinks
 //
-// Last Review: pavel 30.11.2005
-//
-//  review status report: (perfect, ok, fair, poor, disaster)
-//    usefullness            : ok
-//    formatting             : ok
-//    documentation          : poor
-//    test coverage          : poor
-//    names                  : ok
-//    style guide conformance: ok
-//    technical soundness    : ok
-//    dead code              : ok
-//    readability            : ok
-//    understandabilty       : ok
-//    interfaces             : ok
-//    confidence             : ok
-//    integration            : ok
-//    dependencies           : ok
-//    cheesyness             : ok
-//
-//    overall review status  : fair
-//
-//    recommendations:
-//       - make more documentation
-//       - make some more tests
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 #ifndef _ac_asl_LogMessageSinks_h_

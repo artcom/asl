@@ -12,30 +12,6 @@
 //
 // Description:  plugin manager
 //
-// Last Review: pavel 8.12.2005
-//
-//  review status report: (perfect, ok, fair, poor, disaster)
-//    usefullness            : ok
-//    formatting             : ok
-//    documentation          : poor
-//    test coverage          : poor
-//    names                  : ok
-//    style guide conformance: ok
-//    technical soundness    : ok
-//    dead code              : poor
-//    readability            : ok
-//    understandabilty       : ok
-//    interfaces             : ok
-//    confidence             : ok
-//    integration            : ok
-//    dependencies           : ok
-//    cheesyness             : ok
-//
-//    overall review status  : fair
-//
-//    recommendations:
-//       - write documentation
-//       - add some tests
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 #ifndef _PLUGIN_MANAGER_INCLUDED_

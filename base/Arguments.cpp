@@ -12,26 +12,6 @@
 //
 // Description: command line argument parser
 //
-// Last Review: pavel 30.11.2005
-//
-//  review status report: (perfect, ok, fair, poor, disaster)
-//    formatting             : perfect
-//    documentation          : ok
-//    test coverage          : ok
-//    names                  : ok
-//    style guide conformance: ok
-//    technical soundness    : ok
-//    dead code              : ok
-//    readability            : ok
-//    understandabilty       : ok
-//    interfaces             : ok
-//    confidence             : ok
-//    cheesyness             : ok
-//
-//    overall review status  : ok
-//
-//    recommendations: none
-//
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 

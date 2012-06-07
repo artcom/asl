@@ -12,30 +12,6 @@
 //
 // Description:  Automatic Resource Management Functions
 //
-// Last Review: pavel 30.11.2005
-//
-//  review status report: (perfect, ok, fair, poor, disaster)
-//    usefullness            : ok
-//    formatting             : ok
-//    documentation          : poor
-//    test coverage          : poor
-//    names                  : fair
-//    style guide conformance: ok
-//    technical soundness    : ok
-//    dead code              : ok
-//    readability            : ok
-//    understandabilty       : fair
-//    interfaces             : ok
-//    confidence             : ok
-//    integration            : ok
-//    dependencies           : ok
-//    cheesyness             : ok
-//
-//    overall review status  : fair
-//
-//    recommendation:
-//       - improve documentation
-//       - improve test coverage
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 
