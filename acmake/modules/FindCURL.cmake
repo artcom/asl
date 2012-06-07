@@ -5,9 +5,11 @@
 #  CURL_LIBRARIES    - List of libraries when using curl.
 #  CURL_FOUND        - True if curl found.
 
-find_package(PkgConfig)
-pkg_check_modules(PC_LIBCURL libcurl)
-set(CURL_DEFINITIONS ${PC_LIBCURL_CFLAGS_OTHER})
+if (NOT WIN32)
+    find_package(PkgConfig)
+    pkg_check_modules(PC_LIBCURL libcurl)
+    set(CURL_DEFINITIONS ${PC_LIBCURL_CFLAGS_OTHER})
+endif(NOT WIN32)
 
 # Look for the header file.
 FIND_PATH(CURL_INCLUDE_DIR NAMES curl/curl.h
