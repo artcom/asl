@@ -71,7 +71,7 @@ class string_functions_UnitTest : public UnitTest {
                 ENSURE(asl::toUpperCase("helloworld") == "HELLOWORLD");
             }
 
-#ifdef LINUX
+#if 0 //disabled LINUX only test
             rusage myResourceUsage;
             ENSURE(getrusage(RUSAGE_SELF,&myResourceUsage) == 0);
             cerr << getTracePrefix() << "ru_maxrss = " <<myResourceUsage.ru_maxrss << endl;
