@@ -44,7 +44,7 @@ include_directories(../ ${CMAKE_CURRENT_BINARY_DIR}/../)
 ac_project_add_build_include_dir(${CMAKE_CURRENT_BINARY_DIR}/../)
 ac_project_add_build_include_dir(${CMAKE_CURRENT_SOURCE_DIR}/../)
 
-option(ASL_WITH_UNUSED "If the aslunused library should be compiled, containing various experimental and obsolete components." YES)
+option(ASL_WITH_UNUSED "If the aslunused library should be compiled, containing various experimental and obsolete components." NO)
 
 # Traverse our subdirectories
 add_subdirectory(base)
