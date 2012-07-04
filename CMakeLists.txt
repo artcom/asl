@@ -44,14 +44,11 @@ include_directories(../ ${CMAKE_CURRENT_BINARY_DIR}/../)
 ac_project_add_build_include_dir(${CMAKE_CURRENT_BINARY_DIR}/../)
 ac_project_add_build_include_dir(${CMAKE_CURRENT_SOURCE_DIR}/../)
 
-option(ASL_WITH_THREAD "If the new thread library should be compiled." NO)
 option(ASL_WITH_UNUSED "If the aslunused library should be compiled, containing various experimental and obsolete components." YES)
 
 # Traverse our subdirectories
 add_subdirectory(base)
-if(ASL_WITH_THREAD)
-    add_subdirectory(thread)
-endif(ASL_WITH_THREAD)
+add_subdirectory(thread)
 add_subdirectory(math)
 add_subdirectory(audio)
 add_subdirectory(raster)
