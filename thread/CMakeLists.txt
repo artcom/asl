@@ -28,6 +28,6 @@ ac_add_library(
 
 install(
     DIRECTORY threadpool
-    DESTINATION include/asl/thread/threadpool
+    DESTINATION include/asl/thread/
     FILES_MATCHING PATTERN "*.hpp"
 )
