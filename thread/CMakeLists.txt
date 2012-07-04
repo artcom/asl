@@ -6,6 +6,7 @@ set(HEADERS
 asl_thread_settings.h
 concurrent_queue.h
 completion.h
+threadpool.hpp
 )
 
 set(TESTS
@@ -25,3 +26,8 @@ ac_add_library(
     TESTS   ${TESTS}
 )
 
+install(
+    DIRECTORY threadpool
+    DESTINATION include/asl/thread/threadpool
+    FILES_MATCHING PATTERN "*.hpp"
+)
