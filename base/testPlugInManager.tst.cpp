@@ -102,9 +102,9 @@ public:
 
         // XXX: this does not consider RelWithDebInfo, Profiling and Coverage
 #if defined(_DEBUG)
-        PlugInManager::get().setSearchPath(".;../../lib;../../lib/Debug");
+        PlugInManager::get().setSearchPath(".;../../lib;../../lib/Debug;../lib;../lib/Debug");
 #else //defined(DEBUG_VARIANT)
-        PlugInManager::get().setSearchPath(".;../../lib;../../lib/Release");
+        PlugInManager::get().setSearchPath(".;../../lib;../../lib/Release;../lib;../lib/Release");
 #endif //defined(DEBUG_VARIANT)
 
         addTest(new PlugInManagerTest());
