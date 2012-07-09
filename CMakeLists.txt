@@ -67,8 +67,6 @@ include_directories(../ ${CMAKE_CURRENT_BINARY_DIR}/../)
 ac_project_add_build_include_dir(${CMAKE_CURRENT_BINARY_DIR}/../)
 ac_project_add_build_include_dir(${CMAKE_CURRENT_SOURCE_DIR}/../)
 
-option(ASL_WITH_UNUSED "If the aslunused library should be compiled, containing various experimental and obsolete components." NO)
-
 # Traverse our subdirectories
 add_subdirectory(base)
 add_subdirectory(thread)
@@ -88,9 +86,6 @@ if(Boost_VERSION GREATER 104099)
 endif(Boost_VERSION GREATER 104099)
 
 add_subdirectory(utilities)
-if(ASL_WITH_UNUSED)
-    add_subdirectory(unused)
-endif(ASL_WITH_UNUSED)
 
 ac_add_doxygen(ASL ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/doc/doxygen Doxyfile.in)
 
