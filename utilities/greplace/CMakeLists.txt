@@ -8,4 +8,8 @@ ac_add_executable(
        greplace.cpp
     DEPENDS aslbase       
     EXTERNS ${EXTERNALS}
+    INSTALL_COMPONENT greplace
 )
+cpack_add_component( greplace
+            DESCRIPTION "greplace"
+            GROUP Utilities)

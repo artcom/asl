@@ -87,6 +87,11 @@ endif(Boost_VERSION GREATER 104099)
 
 add_subdirectory(utilities)
 
+cpack_add_component( Runtime
+            DESCRIPTION "runtime libraries" REQUIRED)
+cpack_add_component( Development
+            DESCRIPTION "header files and import libraries")
+
 ac_add_doxygen(ASL ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/doc/doxygen Doxyfile.in)
 
 ac_end_project(ASL)

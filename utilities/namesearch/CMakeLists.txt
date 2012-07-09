@@ -8,4 +8,9 @@ ac_add_executable(
        namesearch.cpp
     DEPENDS aslbase
     EXTERNS ${EXTERNALS}
+    INSTALL_COMPONENT namesearch
 )
+
+cpack_add_component( namesearch
+            DESCRIPTION "namesearch"
+            GROUP Utilities)

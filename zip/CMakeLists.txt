@@ -42,4 +42,6 @@ ac_add_library(
     TESTS   ${TESTS}
     DEPENDS aslbase
     EXTERNS ${EXTERNALS}
+    RUNTIME_INSTALL_COMPONENT Runtime
+    DEVELOPMENT_INSTALL_COMPONENT Development
 )

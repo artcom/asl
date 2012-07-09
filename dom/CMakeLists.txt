@@ -44,4 +44,6 @@ ac_add_library(
     HEADERS ${HEADERS}
     TESTS   ${TESTS}
     DEPENDS aslbase aslraster aslmath
+    RUNTIME_INSTALL_COMPONENT Runtime
+    DEVELOPMENT_INSTALL_COMPONENT Development
 )

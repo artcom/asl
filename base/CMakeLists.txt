@@ -157,6 +157,8 @@ ac_add_library(
     HEADERS ${HEADERS}
     EXTERNS ${EXTERNS}
     TESTS   ${TESTS}
+    RUNTIME_INSTALL_COMPONENT Runtime
+    DEVELOPMENT_INSTALL_COMPONENT Development
 )
 
 ac_add_plugin(

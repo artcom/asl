@@ -24,10 +24,13 @@ ac_add_library(
     HEADERS ${HEADERS}
     EXTERNS ${EXTERNS}
     TESTS   ${TESTS}
+    RUNTIME_INSTALL_COMPONENT Runtime
+    DEVELOPMENT_INSTALL_COMPONENT Development
 )
 
 install(
     DIRECTORY threadpool
     DESTINATION include/asl/thread/
+    COMPONENT Development
     FILES_MATCHING PATTERN "*.hpp"
 )

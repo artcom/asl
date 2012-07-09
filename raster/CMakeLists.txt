@@ -22,4 +22,6 @@ ac_add_library(
     HEADERS ${HEADERS}
     DEPENDS aslbase
     TESTS   ${TESTS}
+    RUNTIME_INSTALL_COMPONENT Runtime
+    DEVELOPMENT_INSTALL_COMPONENT Development
 )
