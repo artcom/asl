@@ -15,7 +15,6 @@ set(ACMAKE_BUILDINFO_TEMPLATE
 add_subdirectory(acmake)
 
 find_package(AcMake)
-set(Boost_ADDITIONAL_VERSIONS 1.37 1.38 1.39 1.40 1.41)
 
 set(REQ_PACKAGES ZLIB GLIB2 CURL Boost)
 if(WIN32)
