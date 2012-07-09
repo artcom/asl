@@ -28,12 +28,14 @@ configure_file(AcMakeConfig.cmake.in ${CMAKE_BINARY_DIR}/${ACMAKE_MODULES_SUB}/A
 install(
     FILES ${CMAKE_BINARY_DIR}/${ACMAKE_MODULES_SUB}/AcMakeConfig.cmake
     DESTINATION ${ACMAKE_MODULES_SUB}
+    COMPONENT Development
 )
 
 # install modules
 install(
     DIRECTORY modules/
     DESTINATION ${ACMAKE_MODULES_SUB}
+    COMPONENT Development
     FILES_MATCHING
         PATTERN "*.cmake"
         PATTERN ".svn" EXCLUDE
@@ -43,6 +45,7 @@ install(
 install(
     DIRECTORY templates/
     DESTINATION ${ACMAKE_TEMPLATES_SUB}
+    COMPONENT Development
     FILES_MATCHING
         PATTERN "*.in"
         PATTERN ".svn" EXCLUDE
@@ -58,6 +61,7 @@ endif(WIN32)
 install(
     DIRECTORY tools/
     DESTINATION ${ACMAKE_TOOLS_SUB}
+    COMPONENT Development
     FILES_MATCHING
         PATTERN "*.jar"
         ${EXTRA_TOOLS}
@@ -68,6 +72,7 @@ install(
 #install(
 #    DIRECTORY include/
 #    DESTINATION ${ACMAKE_INCLUDE_SUB}
+#    COMPONENT Development
 #    FILES_MATCHING
 #        PATTERN "*.h"
 #	PATTERN ".svn" EXCLUDE

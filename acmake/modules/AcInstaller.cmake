@@ -77,6 +77,7 @@ macro(_ac_init_installer_shortcuts)
         install(
             FILES ${ACMAKE_SHORTCUT_FILE}
             DESTINATION lib/acmake/tools
+            COMPONENT Development
         )
         # if we are building a package without acmake integrated,
         # install the shortcut creation and removal scripts into
@@ -88,6 +89,7 @@ macro(_ac_init_installer_shortcuts)
                     ${ACMAKE_TOOLS_DIR}/CreateShortcuts.wsf
                     ${ACMAKE_TOOLS_DIR}/RemoveShortcuts.wsf
                 DESTINATION lib/acmake/tools
+                COMPONENT Development
             )
         endif(NOT ACMAKE_IS_INTEGRATED)
     endif(WIN32)
