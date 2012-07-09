@@ -3,12 +3,17 @@ cmake_minimum_required(VERSION 2.6.2)
 
 project(ASL)
 
-# Include cmake libraries
-include(AcMake)
+list(INSERT CMAKE_PREFIX_PATH 0 ${CMAKE_BINARY_DIR})
 
+# tell acmake that it is being used in integrated mode
+set(ACMAKE_INTEGRATED_BUILD YES)
 set(ACMAKE_BUILDINFO_TEMPLATE
     ${CMAKE_CURRENT_SOURCE_DIR}/base/buildinfo.cpp.in)
 
+# add acmake to build
+add_subdirectory(acmake)
+
+find_package(AcMake)
 set(Boost_ADDITIONAL_VERSIONS 1.37 1.38 1.39 1.40 1.41)
 
 set(REQ_PACKAGES ZLIB GLIB2 CURL Boost)
