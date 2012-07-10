@@ -13,9 +13,17 @@ macro(asl_add_schema XSD)
         find_program(TEXT2SRC NAMES text2src text2src.exe)
         if (NOT TEXT2SRC)
             get_target_property(
-                TEXT2SRC text2src LOCATION
+                TEXT2SRC text2src IMPORTED_LOCATION
             )
+            foreach(TYPE ${ASL_CONFIGURATION_TYPES})
+                if (NOT TEXT2SRC)
+                    get_target_property(
+                        TEXT2SRC text2src IMPORTED_LOCATION_${TYPE}
+                    )
+                endif(NOT TEXT2SRC)
+            endforeach(TYPE ${ASL_CONFIGURATION_TYPES})
         endif(NOT TEXT2SRC)
+        set(TEXT2SRC ${TEXT2SRC} CACHE STRING STRING FORCE)
         if(WIN32)
             add_custom_command(
                 OUTPUT  ${THIS_XSD_CXX_FILE}
