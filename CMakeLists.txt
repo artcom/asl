@@ -54,6 +54,18 @@ ac_add_project(
         ASLUtilities.cmake
 )
 
+# declare cpack components
+set(RUNTIME_COMPONENT ASL_runtime)
+set(DEVELOPMENT_COMPONENT ASL_development)
+
+cpack_add_component( ${RUNTIME_COMPONENT}
+            DISPLAY_NAME "Runtime"
+            DESCRIPTION "runtime libraries" REQUIRED)
+cpack_add_component( ${DEVELOPMENT_COMPONENT}
+            DISPLAY_NAME "Development"
+            DESCRIPTION "header files and import libraries")
+
+
 # Make sure we can access our includes without staging
 include_directories(../ ${CMAKE_CURRENT_BINARY_DIR}/../)
 ac_project_add_build_include_dir(${CMAKE_CURRENT_BINARY_DIR}/../)
@@ -78,11 +90,6 @@ if(Boost_VERSION GREATER 104099)
 endif(Boost_VERSION GREATER 104099)
 
 add_subdirectory(utilities)
-
-cpack_add_component( Runtime
-            DESCRIPTION "runtime libraries" REQUIRED)
-cpack_add_component( Development
-            DESCRIPTION "header files and import libraries")
 
 ac_add_doxygen(ASL ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/doc/doxygen Doxyfile.in)
 
