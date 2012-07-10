@@ -6,14 +6,6 @@ project(ASL)
 
 list(INSERT CMAKE_PREFIX_PATH 0 ${CMAKE_BINARY_DIR})
 
-# tell acmake that it is being used in integrated mode
-set(ACMAKE_INTEGRATED_BUILD YES)
-set(ACMAKE_BUILDINFO_TEMPLATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/base/buildinfo.cpp.in)
-
-# add acmake to build
-add_subdirectory(acmake)
-
 find_package(AcMake)
 
 set(REQ_PACKAGES ZLIB GLIB2 CURL Boost)
