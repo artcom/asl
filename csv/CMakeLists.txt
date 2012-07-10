@@ -1,22 +1,10 @@
-set(SOURCES
-CSVParser.cpp
-)
-set(HEADERS
-CSVParser.h
-)
-set(TESTS
-CSVParser
-)
-
-set(EXTERNS Boost)
-
 ac_add_library(
-    aslcsv asl/csv
-    SOURCES ${SOURCES}
-    HEADERS ${HEADERS}
-    EXTERNS ${EXTERNS}
+    aslcsv  asl/csv
+    SOURCES CSVParser.cpp
+    HEADERS CSVParser.h CSVParser.h
+    EXTERNS Boost
     DEPENDS aslbase aslzip
-    TESTS   ${TESTS}
+    TESTS   CSVParser
     RUNTIME_INSTALL_COMPONENT ${RUNTIME_COMPONENT}
     DEVELOPMENT_INSTALL_COMPONENT ${DEVELOPMENT_COMPONENT}
 )
