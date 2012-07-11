@@ -4,6 +4,11 @@ cmake_minimum_required(VERSION 2.6.2)
 
 project(ASL)
 
+set(VERSION_MAJOR 1)
+set(VERSION_MINOR 0)
+set(VERSION_PATCH 7)
+set(VERSION_STRING ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+
 list(INSERT CMAKE_PREFIX_PATH 0 ${CMAKE_BINARY_DIR})
 
 find_package(AcMake)
@@ -29,7 +34,7 @@ endif(OSX)
 # declare our packaging solution
 ac_begin_solution(
     ASL
-    VERSION_MAJOR 1 VERSION_MINOR 0 VERSION_PATCH 7
+    VERSION_MAJOR ${VERSION_MAJOR} VERSION_MINOR ${VERSION_MINOR} VERSION_PATCH ${VERSION_PATCH}
     DESCRIPTION  "ASL ART+COM Standard Library"
     VENDOR       "ART+COM AG"
     CONTACT      "info@artcom.de"
