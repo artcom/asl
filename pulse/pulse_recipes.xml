@@ -50,12 +50,24 @@
             </make>
     </macro>
 
+    <macro name="run_gmake_install">
+        <make args="install VERBOSE=1" working-dir="${build.dir}" name="install">
+                <process processor="${gcc.pp}"/>
+            </make>
+    </macro>
+
     <macro name="run_gmake_docs">
         <make args="ASL-doxygen" working-dir="${build.dir}" name="documentation"/>
     </macro>
 
     <macro name="run_nmake_build">
         <executable exe="${vs.nmake.bin}" working-dir="${build.dir}" name="build">
+                <process processor="${msbuild.pp}"/>
+            </executable>
+    </macro>
+
+    <macro name="run_nmake_install">
+        <executable exe="${vs.nmake.bin}" args="install" working-dir="${build.dir}" name="install">
                 <process processor="${msbuild.pp}"/>
             </executable>
     </macro>
@@ -92,17 +104,21 @@
 
         <recipe name="GMake Linux Continuous">
             <property name="cmake.generator" value="Unix Makefiles"/>
+            <property name="cmake.recipe.args" value="${cmake.recipe.args} -D CMAKE_INSTALL_PREFIX=${build.installprefix}"/>
 
             <macro-ref macro="${run_cmake}"/>
             <macro-ref macro="${run_gmake_build}"/>
+            <macro-ref macro="${run_gmake_install}"/>
             <macro-ref macro="${run_ctest}"/>
         </recipe>
 
         <recipe name="GMake Linux Nightly">
             <property name="cmake.generator" value="Unix Makefiles"/>
+            <property name="cmake.recipe.args" value="${cmake.recipe.args} -D CMAKE_INSTALL_PREFIX=${build.installprefix}"/>
 
             <macro-ref macro="${run_cmake}"/>
             <macro-ref macro="${run_gmake_build}"/>
+            <macro-ref macro="${run_gmake_install}"/>
             <macro-ref macro="${run_gmake_docs}"/>
             <macro-ref macro="${run_ctest}"/>
             <macro-ref macro="${run_cpack_linux}"/>
@@ -110,17 +126,21 @@
 
         <recipe name="GMake OSX Continuous">
             <property name="cmake.generator" value="Unix Makefiles"/>
+            <property name="cmake.recipe.args" value="${cmake.recipe.args} -D CMAKE_INSTALL_PREFIX=${build.installprefix}"/>
 
             <macro-ref macro="${run_cmake}"/>
             <macro-ref macro="${run_gmake_build}"/>
+            <macro-ref macro="${run_gmake_install}"/>
             <macro-ref macro="${run_ctest}"/>
         </recipe>
 
         <recipe name="GMake OSX Nightly">
             <property name="cmake.generator" value="Unix Makefiles"/>
+            <property name="cmake.recipe.args" value="${cmake.recipe.args} -D CMAKE_INSTALL_PREFIX=${build.installprefix}"/>
 
             <macro-ref macro="${run_cmake}"/>
             <macro-ref macro="${run_gmake_build}"/>
+            <macro-ref macro="${run_gmake_install}"/>
             <macro-ref macro="${run_gmake_docs}"/>
             <macro-ref macro="${run_ctest}"/>
         </recipe>
@@ -133,6 +153,7 @@
 
             <macro-ref macro="${run_cmake}"/>
             <macro-ref macro="${run_nmake_build}"/>
+            <macro-ref macro="${run_nmake_install}"/>
             <macro-ref macro="${run_ctest}"/>
         </recipe>
 
@@ -144,6 +165,7 @@
 
             <macro-ref macro="${run_cmake}"/>
             <macro-ref macro="${run_nmake_build}"/>
+            <macro-ref macro="${run_nmake_install}"/>
             <macro-ref macro="${run_nmake_docs}"/>
             <macro-ref macro="${run_ctest}"/>
             <macro-ref macro="${run_cpack_windows}"/>
