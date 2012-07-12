@@ -42,6 +42,7 @@ Assure.h
 AtomicCount.h
 Auto.h
 begin_end.h
+buildinfo.h
 Block.h
 checked_delete.h
 checksum.h
