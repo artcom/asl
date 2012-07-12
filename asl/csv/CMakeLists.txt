@@ -1,7 +1,7 @@
 ac_add_library(
     aslcsv  asl/csv
     SOURCES CSVParser.cpp
-    HEADERS CSVParser.h CSVParser.h asl_csv_settings.h
+    HEADERS CSVParser.h asl_csv_settings.h
     EXTERNS Boost
     DEPENDS aslbase aslzip
     TESTS   CSVParser
