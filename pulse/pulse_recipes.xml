@@ -108,8 +108,8 @@
 
             <macro-ref macro="${run_cmake}"/>
             <macro-ref macro="${run_gmake_build}"/>
-            <macro-ref macro="${run_gmake_install}"/>
             <macro-ref macro="${run_ctest}"/>
+            <macro-ref macro="${run_gmake_install}"/>
         </recipe>
 
         <recipe name="GMake Linux Nightly">
@@ -118,9 +118,9 @@
 
             <macro-ref macro="${run_cmake}"/>
             <macro-ref macro="${run_gmake_build}"/>
-            <macro-ref macro="${run_gmake_install}"/>
             <macro-ref macro="${run_gmake_docs}"/>
             <macro-ref macro="${run_ctest}"/>
+            <macro-ref macro="${run_gmake_install}"/>
             <macro-ref macro="${run_cpack_linux}"/>
         </recipe>
 
@@ -130,8 +130,8 @@
 
             <macro-ref macro="${run_cmake}"/>
             <macro-ref macro="${run_gmake_build}"/>
-            <macro-ref macro="${run_gmake_install}"/>
             <macro-ref macro="${run_ctest}"/>
+            <macro-ref macro="${run_gmake_install}"/>
         </recipe>
 
         <recipe name="GMake OSX Nightly">
@@ -140,9 +140,9 @@
 
             <macro-ref macro="${run_cmake}"/>
             <macro-ref macro="${run_gmake_build}"/>
-            <macro-ref macro="${run_gmake_install}"/>
             <macro-ref macro="${run_gmake_docs}"/>
             <macro-ref macro="${run_ctest}"/>
+            <macro-ref macro="${run_gmake_install}"/>
         </recipe>
 
         <recipe name="NMake Continuous">
@@ -153,8 +153,8 @@
 
             <macro-ref macro="${run_cmake}"/>
             <macro-ref macro="${run_nmake_build}"/>
-            <macro-ref macro="${run_nmake_install}"/>
             <macro-ref macro="${run_ctest}"/>
+            <macro-ref macro="${run_nmake_install}"/>
         </recipe>
 
         <recipe name="NMake Nightly">
@@ -165,9 +165,9 @@
 
             <macro-ref macro="${run_cmake}"/>
             <macro-ref macro="${run_nmake_build}"/>
-            <macro-ref macro="${run_nmake_install}"/>
             <macro-ref macro="${run_nmake_docs}"/>
             <macro-ref macro="${run_ctest}"/>
+            <macro-ref macro="${run_nmake_install}"/>
             <macro-ref macro="${run_cpack_windows}"/>
         </recipe>
     </scope>
