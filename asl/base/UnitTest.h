@@ -42,7 +42,7 @@ public:
     unsigned int getFailedCount() const;
     unsigned int getExpectedFailedCount() const;
     const char * getMyName() const;
-    std::string getTempDirectory() const; 
+    std::string getTempDirectory(const std::string & theCMakeBinaryDir) const; 
     virtual ~UnitTest();
     virtual void incrementPassedCount();
     virtual void incrementFailedCount();

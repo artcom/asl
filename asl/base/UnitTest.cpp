@@ -25,8 +25,6 @@
 #include "console_functions.h"
 #include "file_functions.h"
 
-#include <asl/base/aslbase_paths.h>
-
 #ifdef _WIN32
 #   include <windows.h>
 #   include <io.h>
@@ -280,8 +278,8 @@ UnitTest::setMyName(const char * theName) {
 }
 
 std::string
-UnitTest::getTempDirectory() const {
-    std::string tempDirectory(CMAKE_BINARY_DIR);
+UnitTest::getTempDirectory(const std::string & theCMakeBinaryDir) const {
+    std::string tempDirectory(theCMakeBinaryDir);
     tempDirectory += "/Testing/";
     tempDirectory += _myName;
     if (!isDirectory(tempDirectory)) {
