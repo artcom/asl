@@ -439,22 +439,22 @@ Time::parse(const std::string & theString) {
 }
 
 unsigned long long getLocalMillisecsSince1970() {
-	unsigned long long myMillisecs = 0;
+    unsigned long long myMillisecs = 0;
 #ifdef _WIN32
-	// http://en.allexperts.com/q/C-1040/time-milliseconds-Windows.htm
-	SYSTEMTIME mySystime;
-	GetLocalTime(&mySystime);
+    // http://en.allexperts.com/q/C-1040/time-milliseconds-Windows.htm
+    SYSTEMTIME mySystime;
+    GetLocalTime(&mySystime);
 
-	FILETIME myFileTime;
+    FILETIME myFileTime;
     SystemTimeToFileTime( &mySystime, &myFileTime );
 
-	ULARGE_INTEGER uli;
-	uli.LowPart = myFileTime.dwLowDateTime;
-	uli.HighPart = myFileTime.dwHighDateTime;
+    ULARGE_INTEGER uli;
+    uli.LowPart = myFileTime.dwLowDateTime;
+    uli.HighPart = myFileTime.dwHighDateTime;
 
-	myMillisecs = (uli.QuadPart)/10000 ;
+    myMillisecs = (uli.QuadPart)/10000 ;
 #endif
-	return myMillisecs;
+    return myMillisecs;
 }
 
 }

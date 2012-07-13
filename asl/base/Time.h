@@ -447,12 +447,12 @@ namespace asl {
         return t.print(s);
     }
 
-	/**
+    /**
      * @ingroup aslbase
      * Get millisec in lcoal time incl timezone and summer/wintertime
      *
      */
-	unsigned long long getLocalMillisecsSince1970();
+    ASL_BASE_DECL unsigned long long getLocalMillisecsSince1970();
 } // end of namespace asl
 
 
