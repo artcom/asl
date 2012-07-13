@@ -446,6 +446,13 @@ namespace asl {
     inline std::ostream & operator<<(std::ostream& s, const asl::Time & t) {
         return t.print(s);
     }
+
+	/**
+     * @ingroup aslbase
+     * Get millisec in lcoal time incl timezone and summer/wintertime
+     *
+     */
+	unsigned long long getLocalMillisecsSince1970();
 } // end of namespace asl
 
 
