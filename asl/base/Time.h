@@ -117,8 +117,7 @@ namespace asl {
 
         public:
                 /**
-                 * Default Constructor. Creates an instance that holds the current
-         * time (GMT).
+                 * Default Constructor. Creates an instance that holds the current local time.
                  */
                 Time() {
                         setNow();
@@ -144,29 +143,45 @@ namespace asl {
                         when.tv_sec=secs+static_cast<long>(usecs/1000000LL);
                         when.tv_usec=static_cast<long>(usecs % 1000000LL);
                 }
+                
                 /**
-                 * Sets the instance to the current time (GMT).
+                 * Sets the instance to the current local time.
                  * @return *this
                  */
-                Time& setNow() {
+                Time& Time::setNow() {
 #ifdef _WIN32
+                    SYSTEMTIME sTime;
+                    GetLocalTime(&sTime);
+                    FILETIME fTime;
+                    SystemTimeToFileTime(&sTime, &fTime);
 
-            long long myBigValue = 0;
-            GetSystemTimeAsFileTime((LPFILETIME) &myBigValue);
-            myBigValue -= (SECS_BETWEEN_EPOCHS * SECS_TO_100NS);
-            long long myBigTempValue = myBigValue / SECS_TO_100NS; /*10e7*/;
-            when.tv_sec = (long) myBigTempValue;
-            myBigTempValue = (myBigValue % SECS_TO_100NS) / 10;
-            when.tv_usec = (unsigned long) myBigTempValue;
-                        //unsigned long myTime = timeGetTime();
+                    //large int from fTime
+                    ULARGE_INTEGER inftime;
+                    inftime.LowPart = fTime.dwLowDateTime;
+                    inftime.HighPart = fTime.dwHighDateTime;
 
-                        //when.tv_sec  = myTime / 1000;
-                        //when.tv_usec = (myTime % 1000) * 1000;
+                    //Large int init to the first second of jan 1 1970
+                    SYSTEMTIME jan1970 = { 1970, 1, 4,1,0,0,0,0};
+                    SYSTEMTIME stjan1970;
+                    FILETIME ftjan1970;
+                    SystemTimeToTzSpecificLocalTime(NULL, &jan1970, &stjan1970);
+                    SystemTimeToFileTime(&stjan1970, &ftjan1970);
+                    ULARGE_INTEGER largejan1970;
+                    largejan1970.LowPart = ftjan1970.dwLowDateTime;
+                    largejan1970.HighPart = ftjan1970.dwHighDateTime;
+
+                    //shift from 1601 to 1970
+                    __time64_t now = inftime.QuadPart - largejan1970.QuadPart;
+
+                    //convert from 100 nanosecond intervals to seconds
+                    when.tv_sec = static_cast<long>(now / SECS_TO_100NS);
+                    when.tv_usec = static_cast<long>((now % SECS_TO_100NS) / 10);
 #else
-                        gettimeofday(&when, 0);
+                    gettimeofday(&when, 0);
 #endif
-                        return *this;
+                    return *this;
                 }
+
                 int secs() {
                         return when.tv_sec;
                 }
@@ -219,7 +234,7 @@ namespace asl {
         inline std::ostream& Time::print(std::ostream& s) const
         {
             const time_t myTvSec = static_cast<time_t>(when.tv_sec);
-            tm *tp=gmtime(&myTvSec);
+            tm *tp=localtime(&myTvSec);
             if ( s.iword(TimeStreamFormater::ourIsFormatedFlagIndex) ) {
                 std::string myFormatString( static_cast<const char * >(
                     s.pword(TimeStreamFormater::ourFormatStringIndex)));
@@ -446,13 +461,6 @@ namespace asl {
     inline std::ostream & operator<<(std::ostream& s, const asl::Time & t) {
         return t.print(s);
     }
-
-    /**
-     * @ingroup aslbase
-     * Get millisec in lcoal time incl timezone and summer/wintertime
-     *
-     */
-    ASL_BASE_DECL unsigned long long getLocalMillisecsSince1970();
 } // end of namespace asl
 
 

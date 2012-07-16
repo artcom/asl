@@ -438,37 +438,5 @@ Time::parse(const std::string & theString) {
     return false;
 }
 
-unsigned long long getLocalMillisecsSince1970() {
-    unsigned long long myMillisecs = 0;
-#ifdef _WIN32
-    SYSTEMTIME sTime;
-    GetLocalTime(&sTime);
-    FILETIME fTime;
-    SystemTimeToFileTime(&sTime, &fTime);
-
-    //large int from fTime
-    ULARGE_INTEGER inftime;
-    inftime.LowPart = fTime.dwLowDateTime;
-    inftime.HighPart = fTime.dwHighDateTime;
-
-    //Large int init to the first second of jan 1 1970
-    SYSTEMTIME jan1970 = { 1970, 1, 4,1,0,0,0,0};
-    SYSTEMTIME stjan1970;
-    FILETIME ftjan1970;
-    SystemTimeToTzSpecificLocalTime(NULL, &jan1970, &stjan1970);
-    SystemTimeToFileTime(&stjan1970, &ftjan1970);
-    ULARGE_INTEGER largejan1970;
-    largejan1970.LowPart = ftjan1970.dwLowDateTime;
-    largejan1970.HighPart = ftjan1970.dwHighDateTime;
-
-    //shift from 1601 to 1970
-    __time64_t value100NS = inftime.QuadPart - largejan1970.QuadPart;
-
-    //convert from 100 nanosecond intervals to seconds
-    myMillisecs = value100NS / 10000;
-#endif
-    return myMillisecs;
-}
-
 }
 
