@@ -214,8 +214,6 @@ namespace asl {
                 }
                 operator const timespec() const {
                     timespec myTimeSpec = {when.tv_sec, when.tv_usec * 1000};
-                    //myTimeSpec.tv_sec = when.tv_sec;
-                    //myTimeSpec.tv_nsec = when.tv_usec * 1000;
                     return myTimeSpec;
                 }
 
@@ -454,9 +452,9 @@ namespace asl {
             std::cerr << ":: NoisyScopeTimer ready: " << _myTitle << std::endl;
                 }
         private:
-			int _myCount;
-			std::string _myTitle;
-			NanoTime _myStartTime;
+            int _myCount;
+            std::string _myTitle;
+            NanoTime _myStartTime;
         };
     inline std::ostream & operator<<(std::ostream& s, const asl::Time & t) {
         return t.print(s);

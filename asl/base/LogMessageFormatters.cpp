@@ -38,7 +38,7 @@ FullLogMessageFormatter::format(
     std::ostringstream myMessage;
     std::string myPID = asl::as_string(getThreadId());
 
-	static const char * myFormatString("%Y-%M-%D %h:%m:%s.%l");
+    static const char * myFormatString("%Y-%M-%D %h:%m:%s.%l");
     bool hasNewLineEnd = (theText.size() && theText[theText.size()-1] == '\n');
 
     myMessage << "[" << myPID << ", " << asl::formatTime(myFormatString) << theTime << "] [" << SeverityName[theSeverity] << "] [" << file_string(theModule.c_str()) << ":" << theId << "] ";
