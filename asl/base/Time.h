@@ -220,11 +220,11 @@ namespace asl {
                 }
 
                 unsigned long long micros() const {
-                        return when.tv_sec * 1000000L + when.tv_usec;
+                        return when.tv_sec * 1000000LL + when.tv_usec;
                 }
 
                 unsigned long long millis() const {
-                        return when.tv_sec * 1000L + when.tv_usec/1000L;
+                        return when.tv_sec * 1000LL + when.tv_usec/1000LL;
                 }
                 inline std::ostream& print(std::ostream& s) const;
                 bool parse(const std::string & theString);
