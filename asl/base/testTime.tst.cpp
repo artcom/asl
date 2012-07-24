@@ -121,7 +121,7 @@ public:
         asl::msleep(1);
         later = asl::Time();
         cerr << "now:   "<<"usecs="<<now.usecs()<<", micros="<<now.micros()<<", millis="<<now.millis()<<", secs="<<now.secs() << endl;
-        cerr << "later: "<<"usecs="<<later.usecs()<<", micros="<<now.micros()<<", millis="<<later.millis()<<", secs="<<later.secs() << endl;
+        cerr << "later: "<<"usecs="<<later.usecs()<<", micros="<<later.micros()<<", millis="<<later.millis()<<", secs="<<later.secs() << endl;
         ENSURE(later.micros() > now.micros());
 
         cerr << "difference in seconds: " << (later.secs() - now.secs()) << endl;
