@@ -118,7 +118,7 @@ public:
         ENSURE(static_cast<int>(now.micros()/1000000) == now.secs());
 
         now = asl::Time();
-        asl::msleep(1);
+        asl::msleep(100);
         later = asl::Time();
         cerr << "now:   "<<"usecs="<<now.usecs()<<", micros="<<now.micros()<<", millis="<<now.millis()<<", secs="<<now.secs() << endl;
         cerr << "later: "<<"usecs="<<later.usecs()<<", micros="<<later.micros()<<", millis="<<later.millis()<<", secs="<<later.secs() << endl;
@@ -130,10 +130,10 @@ public:
         cerr << "difference in usecs:   " << (later.usecs() - now.usecs()) << endl;
         
         // I assume that now and later may not be more than 1100 micro sec appart
-        ENSURE((later.secs() - now.secs()) < 0.0011);
-        ENSURE((later.millis() - now.millis()) < 1.1);
-        ENSURE((later.micros() - now.micros()) < 1100);
-        ENSURE((later.usecs() - now.usecs()) < 1100);
+        ENSURE((later.secs() - now.secs()) < 0.11);
+        ENSURE((later.millis() - now.millis()) < 110);
+        ENSURE((later.micros() - now.micros()) < 110000);
+        ENSURE((later.usecs() - now.usecs()) < 110000);
         
         const char * myFormatString("%Y-%M-%D-%h:%m:%s.%u");
         cerr << "formatted '" << myFormatString << "': "
