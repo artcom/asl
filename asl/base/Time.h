@@ -154,7 +154,7 @@ namespace asl {
                  * Sets the instance to the current system time.
                  * @return *this
                  */
-                Time& Time::setNow() {
+                Time& setNow() {
 #ifdef _WIN32
                     _isLocalTime = false;
                     FILETIME fTime;
