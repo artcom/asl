@@ -112,9 +112,9 @@ namespace asl {
                         long tv_sec;
                         long tv_usec;
                 };
-                bool _isLocalTime;
 #endif
                 struct timeval when;
+                bool _isLocalTime;
         public:
                 /**
                  * Default Constructor. Creates an instance that holds the current time.
@@ -127,10 +127,9 @@ namespace asl {
                  * @param secs Number of seconds. If this has to be a absolute time,
                  *    the number of seconds since 1.1.1970 0:00.
                  */
-                Time(const double secs) {
-#ifdef _WIN32
-                    _isLocalTime = false;
-#endif
+                Time(const double secs) :
+                    _isLocalTime(false)
+                {
                     when.tv_sec=static_cast<long>(floor(secs));
                     when.tv_usec=static_cast<long>(fmod(secs, 1.0)*1.0e6);
                 }
@@ -142,10 +141,9 @@ namespace asl {
                  * Note: If this has to be a absolute time,
                  *    the number of seconds since 1.1.1970 0:00.
                  */
-                Time(long secs, long long usecs) {
-#ifdef _WIN32
-                    _isLocalTime = false;
-#endif
+                Time(long secs, long long usecs) :
+                    _isLocalTime(false)
+                {
                     when.tv_sec=secs+static_cast<long>(usecs/1000000LL);
                     when.tv_usec=static_cast<long>(usecs % 1000000LL);
                 }
@@ -155,8 +153,8 @@ namespace asl {
                  * @return *this
                  */
                 Time& setNow() {
-#ifdef _WIN32
                     _isLocalTime = false;
+#ifdef _WIN32
                     FILETIME fTime;
                     GetSystemTimeAsFileTime(&fTime);
                     ULARGE_INTEGER inftime;
@@ -179,8 +177,8 @@ namespace asl {
                  * @return *this
                  */
                 Time& toLocalTime(){
-#ifdef _WIN32
                     _isLocalTime = true;
+#ifdef _WIN32
                     SYSTEMTIME sTime;
                     GetLocalTime(&sTime);
                     FILETIME fTime;
@@ -262,11 +260,7 @@ namespace asl {
         inline std::ostream& Time::print(std::ostream& s) const
         {
             const time_t myTvSec = static_cast<time_t>(when.tv_sec);
-#ifdef _WIN32
             tm *tp = (_isLocalTime) ? localtime(&myTvSec) : gmtime(&myTvSec);
-#else
-            tm *tp = gmtime(&myTvSec);
-#endif
             if ( s.iword(TimeStreamFormater::ourIsFormatedFlagIndex) ) {
                 std::string myFormatString( static_cast<const char * >(
                     s.pword(TimeStreamFormater::ourFormatStringIndex)));
