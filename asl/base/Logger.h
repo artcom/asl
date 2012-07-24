@@ -177,7 +177,9 @@ namespace asl {
     public:
         MessagePort(Severity theSeverity, const char * theModule, int theId)
             : mySeverity(theSeverity), myModule(theModule), myId(theId)
-        {}
+        {
+            myTime.toLocalTime();
+        }
         ~MessagePort() {
             Logger::get().log(myTime, mySeverity, myModule, myId, stream.str());
         }
@@ -189,7 +191,7 @@ namespace asl {
             return stream;
         }
         std::ostringstream stream;
-        const Time myTime;
+        Time myTime;
         const Severity mySeverity;
         const char * myModule;
         const int myId;

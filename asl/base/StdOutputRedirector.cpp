@@ -52,6 +52,7 @@ namespace asl {
 
         // date
         asl::Time now;
+        now.toLocalTime();
         const char * myFormatString = "%Y-%M-%D-%h-%m";
         std::ostringstream myTimeString;
         myTimeString << asl::formatTime(myFormatString) << now;
@@ -69,6 +70,7 @@ namespace asl {
     string
     getCurrentTimeString() {
         asl::Time now;
+        now.toLocalTime();
         const char * myFormatString = "%Y-%M-%D-%h-%m";
         std::ostringstream myTimeString;
         myTimeString << asl::formatTime(myFormatString) << now;
