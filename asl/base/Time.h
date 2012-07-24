@@ -112,15 +112,15 @@ namespace asl {
                         long tv_sec;
                         long tv_usec;
                 };
+                bool _isLocalTime;
 #endif
                 struct timeval when;
-
         public:
                 /**
-                 * Default Constructor. Creates an instance that holds the current local time.
+                 * Default Constructor. Creates an instance that holds the current time.
                  */
                 Time() {
-                        setNow();
+                    setNow();
                 }
                 /**
                  * Constructor.
@@ -128,8 +128,11 @@ namespace asl {
                  *    the number of seconds since 1.1.1970 0:00.
                  */
                 Time(const double secs) {
-                        when.tv_sec=static_cast<long>(floor(secs));
-                        when.tv_usec=static_cast<long>(fmod(secs, 1.0)*1.0e6);
+#ifdef _WIN32
+                    _isLocalTime = false;
+#endif
+                    when.tv_sec=static_cast<long>(floor(secs));
+                    when.tv_usec=static_cast<long>(fmod(secs, 1.0)*1.0e6);
                 }
                 /**
                  * Constructor.
@@ -140,16 +143,44 @@ namespace asl {
                  *    the number of seconds since 1.1.1970 0:00.
                  */
                 Time(long secs, long long usecs) {
-                        when.tv_sec=secs+static_cast<long>(usecs/1000000LL);
-                        when.tv_usec=static_cast<long>(usecs % 1000000LL);
+#ifdef _WIN32
+                    _isLocalTime = false;
+#endif
+                    when.tv_sec=secs+static_cast<long>(usecs/1000000LL);
+                    when.tv_usec=static_cast<long>(usecs % 1000000LL);
                 }
-                
+
                 /**
-                 * Sets the instance to the current local time.
+                 * Sets the instance to the current system time.
                  * @return *this
                  */
                 Time& Time::setNow() {
 #ifdef _WIN32
+                    _isLocalTime = false;
+                    FILETIME fTime;
+                    GetSystemTimeAsFileTime(&fTime);
+                    ULARGE_INTEGER inftime;
+                    inftime.LowPart = fTime.dwLowDateTime;
+                    inftime.HighPart = fTime.dwHighDateTime;
+                    __time64_t now = inftime.QuadPart;
+                    //shift from 1601 to 1970
+                    now -= (SECS_BETWEEN_EPOCHS * SECS_TO_100NS);
+                    //convert from 100 nanosecond intervals to seconds
+                    when.tv_sec = static_cast<long>(now / SECS_TO_100NS);
+                    when.tv_usec = static_cast<long>((now % SECS_TO_100NS) / 10);
+#else
+                    gettimeofday(&when, 0);
+#endif
+                    return *this;
+                }
+
+               /**
+                 * Sets the instance to the current local time.
+                 * @return *this
+                 */
+                Time& toLocalTime(){
+#ifdef _WIN32
+                    _isLocalTime = true;
                     SYSTEMTIME sTime;
                     GetLocalTime(&sTime);
                     FILETIME fTime;
@@ -176,12 +207,11 @@ namespace asl {
                     //convert from 100 nanosecond intervals to seconds
                     when.tv_sec = static_cast<long>(now / SECS_TO_100NS);
                     when.tv_usec = static_cast<long>((now % SECS_TO_100NS) / 10);
-#else
-                    gettimeofday(&when, 0);
 #endif
                     return *this;
                 }
 
+                
                 int secs() {
                         return when.tv_sec;
                 }
@@ -232,7 +262,11 @@ namespace asl {
         inline std::ostream& Time::print(std::ostream& s) const
         {
             const time_t myTvSec = static_cast<time_t>(when.tv_sec);
-            tm *tp=localtime(&myTvSec);
+#ifdef _WIN32
+            tm *tp = (_isLocalTime) ? localtime(&myTvSec) : gmtime(&myTvSec);
+#else
+            tm *tp = gmtime(&myTvSec);
+#endif
             if ( s.iword(TimeStreamFormater::ourIsFormatedFlagIndex) ) {
                 std::string myFormatString( static_cast<const char * >(
                     s.pword(TimeStreamFormater::ourFormatStringIndex)));
