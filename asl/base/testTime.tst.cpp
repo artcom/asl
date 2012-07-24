@@ -114,8 +114,8 @@ public:
         cerr << "stop-start: " << stop-start << endl;
 
         now = asl::Time();
-        ENSURE(now.millis()/1000 == now.secs());
-        ENSURE(now.micros()/1000000 == now.secs());
+        ENSURE(static_cast<int>(now.millis()/1000) == now.secs());
+        ENSURE(static_cast<int>(now.micros()/1000000) == now.secs());
 
         now = asl::Time();
         asl::msleep(1);
