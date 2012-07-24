@@ -84,8 +84,6 @@ public:
         ENSURE(fabs(now - nowd) < 1e-3);
         ENSURE(fabs(now - nowdd) < 1e-3);
         ENSURE(asl::Time(1) == asl::Time(1));
-        DPRINT(now);
-        DPRINT(later);
         asl::Time now2 = now;
         ENSURE(now2==now);
         ENSURE(now2>=now);
@@ -97,6 +95,16 @@ public:
         ENSURE(now2>=now);
         ENSURE(now<=now2);
 
+        now = asl::Time(1.0401);
+        ENSURE(now.secs() == 1);
+        ENSURE(now.millis() == 1040);
+        ENSURE(now.micros() == 1040100);
+        ENSURE(now.usecs() == 40100);
+        DPRINT(now.usecs());
+        now2 = asl::Time(1, 40100);
+        DPRINT(now2);
+        ENSURE(now==now2);
+
         double start = asl::Time();
         asl::msleep(100);
         double stop = asl::Time();
@@ -105,6 +113,28 @@ public:
         cerr << "start: " << start << ", stop: " << stop << endl;
         cerr << "stop-start: " << stop-start << endl;
 
+        now = asl::Time();
+        ENSURE(now.millis()/1000 == now.secs());
+        ENSURE(now.micros()/1000000 == now.secs());
+
+        now = asl::Time();
+        asl::msleep(1);
+        later = asl::Time();
+        cerr << "now:   "<<"usecs="<<now.usecs()<<", micros="<<now.micros()<<", millis="<<now.millis()<<", secs="<<now.secs() << endl;
+        cerr << "later: "<<"usecs="<<later.usecs()<<", micros="<<now.micros()<<", millis="<<later.millis()<<", secs="<<later.secs() << endl;
+        ENSURE(later.micros() > now.micros());
+
+        cerr << "difference in seconds: " << (later.secs() - now.secs()) << endl;
+        cerr << "difference in millis:  " << (later.millis() - now.millis()) << endl;
+        cerr << "difference in micros:  " << (later.micros() - now.micros()) << endl;
+        cerr << "difference in usecs:   " << (later.usecs() - now.usecs()) << endl;
+        
+        // I assume that now and later may not be more than 1100 micro sec appart
+        ENSURE((later.secs() - now.secs()) < 0.0011);
+        ENSURE((later.millis() - now.millis()) < 1.1);
+        ENSURE((later.micros() - now.micros()) < 1100);
+        ENSURE((later.usecs() - now.usecs()) < 1100);
+        
         const char * myFormatString("%Y-%M-%D-%h:%m:%s.%u");
         cerr << "formatted '" << myFormatString << "': "
              << asl::formatTime(myFormatString) << now << endl;
@@ -118,26 +148,26 @@ public:
         cout << "nano!" << endl;
         asl::NanoTime now;
         asl::NanoTime later;
-		cout << "per second: " << asl::NanoTime::perSecond() << endl;
+        cout << "per second: " << asl::NanoTime::perSecond() << endl;
         cout << "now:   ticks=" << now.ticks()<<", nsecs="<<now.nanos()<<", usecs="<<now.micros()<<", msecs="<<now.millis()<<",secs="<<now.seconds() << endl;
         cout << "later: ticks=" << later.ticks()<<", nsecs="<<later.nanos()<<", usecs="<<later.micros()<<", msecs="<<later.millis()<<",secs="<<later.seconds() << endl;
         cout << "later: " << later.ticks() << endl;
-		ENSURE(later.ticks() > now.ticks());
+        ENSURE(later.ticks() > now.ticks());
 
-		cerr << "difference in seconds: " << (later.secs() - now.secs()) << endl;
-		cerr << "difference in millis:  " << (later.millis() - now.millis()) << endl;
-		cerr << "difference in micros:  " << (later.micros() - now.micros()) << endl;
-		cerr << "difference in nanos:   " << (later.nanos() - now.nanos()) << endl;
-		cerr << "difference in ticks:   " << (later.ticks() - now.ticks()) << endl;
+        cerr << "difference in seconds: " << (later.secs() - now.secs()) << endl;
+        cerr << "difference in millis:  " << (later.millis() - now.millis()) << endl;
+        cerr << "difference in micros:  " << (later.micros() - now.micros()) << endl;
+        cerr << "difference in nanos:   " << (later.nanos() - now.nanos()) << endl;
+        cerr << "difference in ticks:   " << (later.ticks() - now.ticks()) << endl;
 
-		// I assume that now and later may not be more than 100 micro sec appart
-		ENSURE((later.secs() - now.secs()) < 0.0001);
-		ENSURE((later.millis() - now.millis()) < 0.1);
-		ENSURE((later.micros() - now.micros()) < 100);
-		ENSURE((later.nanos() - now.nanos()) < 100000);
-		ENSURE((later.ticks() - now.ticks()) < asl::NanoTime::perSecond() * 0.0001);
+        // I assume that now and later may not be more than 100 micro sec appart
+        ENSURE((later.secs() - now.secs()) < 0.0001);
+        ENSURE((later.millis() - now.millis()) < 0.1);
+        ENSURE((later.micros() - now.micros()) < 100);
+        ENSURE((later.nanos() - now.nanos()) < 100000);
+        ENSURE((later.ticks() - now.ticks()) < asl::NanoTime::perSecond() * 0.0001);
 
-	}
+    }
 };
 
 class MyTestSuite : public UnitTestSuite {
