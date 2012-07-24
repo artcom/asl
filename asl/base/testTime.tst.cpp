@@ -129,11 +129,11 @@ public:
         cerr << "difference in micros:  " << (later.micros() - now.micros()) << endl;
         cerr << "difference in usecs:   " << (later.usecs() - now.usecs()) << endl;
         
-        // I assume that now and later may not be more than 1100 micro sec appart
-        ENSURE((later.secs() - now.secs()) < 0.11);
-        ENSURE((later.millis() - now.millis()) < 110);
-        ENSURE((later.micros() - now.micros()) < 110000);
-        ENSURE((later.usecs() - now.usecs()) < 110000);
+        // I assume that now and later may not be more than 111 milli sec appart
+        ENSURE((later.secs() - now.secs()) < 0.111);
+        ENSURE((later.millis() - now.millis()) < 111);
+        ENSURE((later.micros() - now.micros()) < 111000);
+        ENSURE((later.usecs() - now.usecs()) < 111000);
         
         const char * myFormatString("%Y-%M-%D-%h:%m:%s.%u");
         cerr << "formatted '" << myFormatString << "': "
