@@ -122,18 +122,12 @@ public:
         later = asl::Time();
         cerr << "now:   "<<"usecs="<<now.usecs()<<", micros="<<now.micros()<<", millis="<<now.millis()<<", secs="<<now.secs() << endl;
         cerr << "later: "<<"usecs="<<later.usecs()<<", micros="<<later.micros()<<", millis="<<later.millis()<<", secs="<<later.secs() << endl;
+        ENSURE(later > now);
         ENSURE(later.micros() > now.micros());
+        ENSURE(later.millis() > now.millis());
 
-        cerr << "difference in seconds: " << (later.secs() - now.secs()) << endl;
         cerr << "difference in millis:  " << (later.millis() - now.millis()) << endl;
         cerr << "difference in micros:  " << (later.micros() - now.micros()) << endl;
-        cerr << "difference in usecs:   " << (later.usecs() - now.usecs()) << endl;
-        
-        // I assume that now and later may not be more than 111 milli sec appart
-        ENSURE((later.secs() - now.secs()) < 0.111);
-        ENSURE((later.millis() - now.millis()) < 111);
-        ENSURE((later.micros() - now.micros()) < 111000);
-        ENSURE((later.usecs() - now.usecs()) < 111000);
         
         const char * myFormatString("%Y-%M-%D-%h:%m:%s.%u");
         cerr << "formatted '" << myFormatString << "': "
