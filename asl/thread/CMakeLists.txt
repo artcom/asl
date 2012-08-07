@@ -14,7 +14,7 @@ _concurrent_queue
 _completion
 )
 
-find_package(Boost COMPONENTS thread)
+find_package(Boost COMPONENTS thread system)
 
 set(EXTERNS Boost)
 
