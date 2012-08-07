@@ -25,6 +25,7 @@
 #include "settings.h"
 
 #include <stdio.h>
+#include <unistd.h>
 
 #ifdef _WIN32
 #include <windows.h>
