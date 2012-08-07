@@ -25,7 +25,9 @@
 #include "settings.h"
 
 #include <stdio.h>
-#include <unistd.h>
+#ifdef LINUX
+    #include <unistd.h>
+#endif
 
 #ifdef _WIN32
 #include <windows.h>

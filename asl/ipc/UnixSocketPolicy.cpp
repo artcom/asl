@@ -43,7 +43,9 @@
 #include <asl/net/net.h>
 #include <asl/base/string_functions.h>
 
-#include <unistd.h>
+#ifdef LINUX
+    #include <unistd.h>
+#endif
 #include <errno.h>
 
 using namespace std;
