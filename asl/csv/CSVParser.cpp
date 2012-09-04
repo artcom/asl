@@ -24,7 +24,7 @@
 #endif //defined(_MSC_VER)
 
 #include <boost/config/warning_disable.hpp>
-#include <boost/spirit/version.hpp>
+#include <boost/spirit/include/version.hpp>
 #if SPIRIT_VERSION < 0x2000           
     #error boost::spirit 2.0 or later required (boost 1.37+)
 #endif
