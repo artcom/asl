@@ -64,7 +64,7 @@ namespace asl {
         char myBuf[1024];
         char myKey[256];
         unsigned myValue;
-        char myUnit[16];
+        char myUnit[256];
 
         while (fgets(myBuf, sizeof(myBuf), fp)) {
 
