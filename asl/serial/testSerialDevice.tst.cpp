@@ -56,7 +56,7 @@ public:
         }
 
         // WARNING this test may fail if you have more than 5000 serial ports ;-)
-        ENSURE(getSerialDevice(5000) == 0);
+        ENSURE_EXCEPTION(getSerialDevice(5000), SerialPortException);
 
         // test error handling
         if (unOpenablePort >= 0) {

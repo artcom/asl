@@ -100,27 +100,25 @@ getSerialDevice(unsigned int theIndex) {
     if (!getSerialDeviceNames(myDevicesNames)) {;
         AC_WARNING << "No serial devices found.";
     }
-    if (theIndex < myDevicesNames.size()) {
-#ifdef WIN32
-        return new ComPort(myDevicesNames[theIndex]);
-#else
-        return new TTYPort(myDevicesNames[theIndex]);
-#endif
-    } else {
-        AC_ERROR << "getSerialDevice: index out of range, index = "<<theIndex<<", max ="<<myDevicesNames.size()-1;
-        return 0;
+    if (theIndex >= myDevicesNames.size()) {
+        throw SerialPortException(std::string("getSerialDevice: index out of range, index=") + asl::as_string(theIndex) + ", max=" + asl::as_string(myDevicesNames.size()-1), PLUS_FILE_LINE);
     }
-
 #ifdef WIN32
-    // return new ComPort(std::string("\\\\.\\COM") + as_string(theIndex + 1));
-#endif
-#ifdef LINUX
-    // XXX: need this ATM so the first is actually ttyS0, which is tested.
-    // return new TTYPort(std::string("/dev/ttyS") + as_string(theIndex));
+    return new ComPort(myDevicesNames[theIndex]);
+#else
+    return new TTYPort(myDevicesNames[theIndex]);
 #endif
 }
 
 SerialDevice * getSerialDeviceByName(const std::string & theDevice) {
+    std::vector<std::string> myDevicesNames;
+    if (!getSerialDeviceNames(myDevicesNames)) {;
+        AC_WARNING << "No serial devices found.";
+    }
+    std::vector<std::string>::iterator it = find (myDevicesNames.begin(), myDevicesNames.end(), theDevice);
+    if (it == myDevicesNames.end()) {
+        throw SerialPortException(std::string("getSerialDeviceNames: serial device: '") + theDevice + "' not found", PLUS_FILE_LINE);
+    }
 #ifdef _WIN32
     return new ComPort( theDevice );
 #else
