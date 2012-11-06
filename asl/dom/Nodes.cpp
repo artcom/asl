@@ -47,9 +47,8 @@
 
 #define DB(x)  // x
 #define DBV(x) // x
-#define DB2(x) //  x
-#define DBS(x)  // x
-#define DB_Y(x) // x
+#define DB2(x) // x
+#define DBS(x) // x
 
 namespace {
 
@@ -615,7 +614,7 @@ dom::Node::ensureValue() const {
         }
         if (_mySchemaInfo) {
             if (_mySchemaInfo->_myValueFactory) {
-                DBS(AC_TRACE << "ensureValue(): creating value for type " <<_mySchemaInfo->getTypeName()<<"'"<< endl);
+                DB2(AC_TRACE << "ensureValue(): creating value for type " <<_mySchemaInfo->getTypeName()<<"'"<< endl);
                 const_cast<ValuePtr&>(_myValue)
                     = _mySchemaInfo->_myValueFactory->createValue(_mySchemaInfo->getTypeName(), const_cast<Node*>(this));
                 if (_myValue) {
@@ -628,7 +627,7 @@ dom::Node::ensureValue() const {
             }
         }
         // TODO: consult schema and valuefactory to select apropriate type
-        DBS(AC_TRACE << "ensureValue(): creating string value for unknown type "<< endl);
+        DB2(AC_TRACE << "ensureValue(): creating string value for unknown type "<< endl);
         const_cast<ValuePtr&>(_myValue) = ValuePtr(new StringValue(const_cast<Node*>(this)));
         const_cast<ValuePtr&>(_myValue)->setSelf(const_cast<ValuePtr&>(_myValue));
     }
@@ -1091,26 +1090,26 @@ Node::loadPathById(const DOMString & theId, const DOMString & theIdAttribute) {
                 // collect upstream path
                 std::deque<asl::AC_SIZE_TYPE> myPath;
                 while (myIndex) {
-AC_TRACE << "pushing " << myIndex;
+                    DB(AC_TRACE << "pushing " << myIndex;)
                     myPath.push_front(myIndex);
                     myIndex = myCatalog.getParentIndex(myIndex);
                 }
-AC_TRACE << "done " << myPath.size();
+                DB(AC_TRACE << "done " << myPath.size();)
                 // traverse downstream from root loading children on path
                 Node * myNode = getRealRootNode();
                 for (std::deque<asl::AC_SIZE_TYPE>::size_type i = 0; i < myPath.size(); ++i) {
-AC_TRACE << "myPath["<<i<<"]= " << myPath[i];
-AC_TRACE << "myNode->nodeName = '"<<myNode->nodeName()<<"'";
+                    DB(AC_TRACE << "myPath["<<i<<"]= " << myPath[i];)
+                    DB(AC_TRACE << "myNode->nodeName = '"<<myNode->nodeName()<<"'";)
                     asl::AC_SIZE_TYPE myChildIndex;
                     asl::Unsigned64 myOffset = myCatalog.getNodeOffset(myPath[i]);
-AC_TRACE << "myOffset="<<myOffset;
+                    DB(AC_TRACE << "myOffset="<<myOffset;)
                     NodeList & myChildren = myNode->getChildren();
-AC_TRACE << "myChildren.size()="<<myChildren.size();
+                    DB(AC_TRACE << "myChildren.size()="<<myChildren.size();)
                     if (myChildren.findByOffset(myOffset, myChildIndex)) {
-AC_TRACE << "myChildIndex= " << myChildIndex;
+                        DB(AC_TRACE << "myChildIndex= " << myChildIndex;)
                         myNode = &myNode->getChildren()[myChildIndex];
                     } else {
-AC_TRACE << "throwing OffsetNotFound";
+                        DB(AC_TRACE << "throwing OffsetNotFound";)
                         throw OffsetNotFound(asl::as_string(myOffset), PLUS_FILE_LINE);
                     }
                 }
