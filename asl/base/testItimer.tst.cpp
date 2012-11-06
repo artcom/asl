@@ -220,7 +220,7 @@ LockUnitTest::lowPrioThread() {
             cerr << "LOW_SLEEP_END " << get_cycles()-cycles<< endl;cycles=get_cycles();
             #endif
             _myLock.readlock();
-        } while (!_ready);;
+        } while (!_ready);
         _myLock.readunlock();
     }
     catch (asl::Exception & ex) {

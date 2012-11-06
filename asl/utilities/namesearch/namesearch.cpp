@@ -156,7 +156,7 @@ int main(int argc, char *argv[]) {
             std::vector<string> myKeyWordList = splitString(keywords, " \n\r\t,:");
             std::vector<string> myBeginKeyWordList = splitString(begin_keywords, " \n\r\t,:");
             std::vector<string> myEndKeyWordList = splitString(end_keywords, " \n\r\t,:");
-            std::vector<string> myDictWordList;;
+            std::vector<string> myDictWordList;
             for (int i = 0; i < myArguments.getCount();++i) {
                 cerr << "reading dictionary file '" << myArguments.getArgument(i) << "'" << endl;
                 if (readFile(myArguments.getArgument(i), dictionary)) {

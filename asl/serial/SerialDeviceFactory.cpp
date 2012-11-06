@@ -31,7 +31,7 @@ namespace asl {
 
 #ifdef _WIN32
 bool getSerialDeviceNames(std::vector<std::string> & theSerialDevicesNames) {
-    theSerialDevicesNames.resize(0);;
+    theSerialDevicesNames.resize(0);
 
     //Iterate through all possible 255 COM ports and see if we can open them or fail in a way that indicates they exist
     for (unsigned i=1; i<256; i++) {
@@ -76,7 +76,7 @@ void getSerialDeviceNames(const std::string theDevicePrefix, std::vector<std::st
 
 #ifdef OSX
 bool getSerialDeviceNames(std::vector<std::string> & theSerialDevicesNames) {
-    theSerialDevicesNames.resize(0);;
+    theSerialDevicesNames.resize(0);
     getSerialDeviceNames("cu.",theSerialDevicesNames);
     return theSerialDevicesNames.size() != 0;
 }

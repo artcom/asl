@@ -376,7 +376,7 @@ new file:
                     std::ofstream temp_out("tmpout.xml", std::ios::binary);
                     if (temp_out) {
                         if (temp_out << dom)
-                            std::cerr << "Rewritten file to 'tmpout.xml'" << std::endl;;
+                            std::cerr << "Rewritten file to 'tmpout.xml'" << std::endl;
                     }
                     asl::Time writeEnd;
                     double myDuration = writeEnd-writeStart;

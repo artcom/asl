@@ -160,7 +160,7 @@ namespace xpath {
 
             void commit()                               {committed_=true; pi_.resetErrorIndex();}
 
-            void rollback()                             {doRollback(); committed_=true;;}
+            void rollback()                             {doRollback(); committed_=true;}
 
             bool hasRead() const                        {return idxOld_ < pi_.getCurrentIndex();}
 

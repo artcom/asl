@@ -1340,7 +1340,7 @@ public:
 
                 // check the total patch from the first document
                 dom::Document myOriginalDocument;
-                setupDocument(myOriginalDocument);;
+                setupDocument(myOriginalDocument);
                 SUCCESS("setup myOriginalDocument");
                 myOriginalDocument.debinarize(theOriginalDocumentBlock);
 #ifdef DUMP_NODES
@@ -1402,7 +1402,7 @@ public:
             myIdDocument.binarize(myBinarizedOriginalDocument);
 
             dom::Document myIdDocument2;
-            setupDocument(myIdDocument2);;
+            setupDocument(myIdDocument2);
             SUCCESS("added Schema 2");
 
             myIdDocument2.debinarize(myBinarizedOriginalDocument);

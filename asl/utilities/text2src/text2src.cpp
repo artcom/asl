@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
     // generate prolog
     ostringstream myPrologStream;
     myPrologStream << "#include <string>" << endl;
-    myPrologStream << "namespace |||| {"<< endl;;
+    myPrologStream << "namespace |||| {"<< endl;
     myPrologStream << "const std::string @@@@ = std::string("<< endl;
     std::string myProlog = myPrologStream.str();
 

@@ -561,7 +561,7 @@ ReadableArrangedStream<EXTERNAL_BYTE_ORDER, SIZE_TYPE, OFFSET_TYPE>::readBlock(W
             : _myBlock(theBlock), _myName(theName) {}
 
         ReadableBlock & getBlock() {
-            return *_myBlock;;
+            return *_myBlock;
         }
         const std::string & getName() const {
             return _myName;

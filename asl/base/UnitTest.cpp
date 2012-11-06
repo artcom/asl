@@ -165,7 +165,7 @@ UnitTest::incrementExpectedFailedCount() {
 int
 UnitTest::returnStatus() const {
     std::cout << "Passed count: " << getPassedCount() << "\n";
-    std::cout << "Failed count: " << getFailedCount() << std::endl;;
+    std::cout << "Failed count: " << getFailedCount() << std::endl;
     if (getPassedCount() != 0 && getFailedCount() == 0) {
         return 0;
     } else {
