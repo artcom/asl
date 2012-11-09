@@ -163,7 +163,7 @@ namespace dom {
         }
 
         void setReconnectFunction(CallBackPtr theCallBack);
-        CallBackPtr geReconnectFunction() const {
+        CallBackPtr getReconnectFunction() const {
             return _myConnector;
         }
 
