@@ -134,9 +134,9 @@ namespace asl {
             throw asl::IO_Failure("getProcMemInfo", std::string("Unable to open ") + myPidStatusFile);
         }
 
+        unsigned myMemPhysical = 0;
         // currently unused
-        //unsigned myMemVirtual = 0, myMemPhysical = 0;
-        unsigned myMemData = 0, myMemStack = 0, myMemExe = 0;
+        //unsigned myMemVirtual = 0, myMemData = 0, myMemStack = 0, myMemExe = 0;
 
         char myBuf[1024];
         char myKey[256];
@@ -160,23 +160,25 @@ namespace asl {
                 myValue *= myMemUnit;
             }
 
+            // currently unused
+            /*
             if (strcmp(myKey, "VmData:") == 0) {
                 myMemData = myValue;
             } else if (strcmp(myKey, "VmStk:") == 0) {
                 myMemStack = myValue;
             } else if (strcmp(myKey, "VmExe:") == 0) {
                 myMemExe = myValue;
-            }
-            // currently unused
-            /*else if (strcmp(myKey, "VmSize:") == 0) {
+            } else if (strcmp(myKey, "VmSize:") == 0) {
                 myMemVirtual = myValue;
-            } else if (strcmp(myKey, "VmRSS:") == 0) {
-                myMemPhysical = myValue;*/
+            }*/
+            if (strcmp(myKey, "VmRSS:") == 0) {
+                myMemPhysical = myValue;
+            }
         }
         fclose(fp);
 
-        unsigned myMemInfo = 0;
-        myMemInfo = myMemData + myMemStack + myMemExe;
+        unsigned myMemInfo = myMemPhysical;
+        //unsigned myMemInfo = myMemData + myMemStack + myMemExe;
         return myMemInfo;
     }
 #endif
