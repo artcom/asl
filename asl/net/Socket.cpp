@@ -66,10 +66,34 @@
 #undef min
 #endif
 
+#define DB(x) //x
+
 using namespace std;
 using namespace asl;
 
 namespace inet {
+
+    void PrintStatus(int fd) {
+#ifndef _WIN32
+        int status;
+        status=fcntl(fd, F_GETFL, 0);
+        AC_INFO << "STATUS of fd:" << fd << " ";
+        switch(status & O_ACCMODE)
+        {
+            case O_RDONLY:{AC_INFO << "O_RDONLY, ";break;}
+            case O_WRONLY:{AC_INFO << "O_WRONLY, ";break;}
+            case O_RDWR:{AC_INFO << "O_RDWR, ";break;}
+            default:{AC_INFO << "O_?ILLEGAL?, ";break;}
+       }
+        if (status & FNDELAY) {AC_INFO <<   "FNDELAY, ";}
+        if (status & FAPPEND) {AC_INFO <<   "FAPPEND, ";}
+        if (status & FFSYNC) {AC_INFO <<    "FSYNC, ";}
+        //   if (status & FRCACH) AC_INFO <<  "FRCACH, ";}
+        if (status & FASYNC) {AC_INFO <<    "FASYNC, ";}
+        if (status & FNONBLOCK) {AC_INFO << "FNONBLK";}
+        AC_INFO << endl;
+#endif
+    }
 
     Socket::Socket(asl::Unsigned32 thehost, Unsigned16 theport)
         : _myLocalEndpoint(thehost, theport),
@@ -80,14 +104,12 @@ namespace inet {
         initSockets();
     }
 
-    Socket::~Socket()
-    {
+    Socket::~Socket() {
         close();
         terminateSockets();
     }
 
-    void Socket::setRemoteAddr(asl::Unsigned32 myhost, Unsigned16 myport)
-    {
+    void Socket::setRemoteAddr(asl::Unsigned32 myhost, Unsigned16 myport) {
         _myRemoteEndpoint = asl::INetEndpoint(myhost, myport);
     }
 
@@ -108,55 +130,53 @@ namespace inet {
         }
     }
 
-    unsigned Socket::receive(void *data, const unsigned maxlen)
-    {
-    	if(_myTimeOut) {
-			struct timeval tv;
+    unsigned Socket::receive(void *data, const unsigned maxlen) {
+        if(_myTimeOut) {
+            struct timeval tv;
 
-			fd_set readset;
-			FD_ZERO(&readset);
+            fd_set readset;
+            FD_ZERO(&readset);
 #if defined(_MSC_VER)
 #pragma warning(push,1)
 #endif //defined(_MSC_VER)
-			FD_SET(fd, &readset);
+            FD_SET(fd, &readset);
 #if defined(_MSC_VER)
 #pragma warning(pop)
 #endif //defined(_MSC_VER)
 
-			// Initialize time out struct
-			tv.tv_sec = getConnectionTimeout();
-			tv.tv_usec = 0;
+            // Initialize time out struct
+            tv.tv_sec = getConnectionTimeout();
+            tv.tv_usec = 0;
 
-			int result = select(fd + 1, &readset, NULL, NULL, &tv);
-			if (result <= 0){
-				int err = getLastSocketError();
-				throw SocketError(err, std::string(
-									  "disconnect or timeout while receiveing from socket " +
-									  hostname(getRemoteAddress()) + ":" + as_string(getRemotePort())));
-			}
-    	}
+            int result = select(fd + 1, &readset, NULL, NULL, &tv);
+            if (result <= 0){
+                int err = getLastSocketError();
+                throw SocketError(err, std::string(
+                                      "disconnect or timeout while receiveing from socket " +
+                                      hostname(getRemoteAddress()) + ":" + as_string(getRemotePort())));
+            }
+        }
 
         int bytesread = recv(fd, (char*)data, maxlen, 0);
 
         if (bytesread>0){
             return bytesread;
         } else if (bytesread == 0) {
-        	_myIsConnected = false; // XXX: hack for tcp disconnect
-        	//throw SocketDisconnected(PLUS_FILE_LINE);
+            _myIsConnected = false; // XXX: hack for tcp disconnect
+            //throw SocketDisconnected(PLUS_FILE_LINE);
         } else {
             int err = getLastSocketError();
             if(err == OS_SOCKET_ERROR(EWOULDBLOCK)) {
-            	return 0;
+                return 0;
             } else {
-            	throw SocketError(err, "receive() failed");
+                throw SocketError(err, "receive() failed");
             }
         }
 
         return 0;
     }
 
-    unsigned Socket::send(const void *data, unsigned len)
-    {
+    unsigned Socket::send(const void *data, unsigned len) {
         int byteswritten;
         if ((byteswritten=::send(fd, (char*)data, len, getSendFlags())) != static_cast<int>(len))
         {
@@ -166,8 +186,7 @@ namespace inet {
         return byteswritten;
     }
 
-    int Socket::peek(int n)
-    {
+    int Socket::peek(int n) {
         int rc;
 #ifndef _WIN32
         // XXX: This is inefficient. Use blocking calls instead.
@@ -205,29 +224,6 @@ namespace inet {
             throw SocketError(err, "Socket::peek() failed.");
         }
         return min(theBytesInBuffer, static_cast<u_long>(n));  // For compatibility with the linux version.
-#endif
-    }
-
-    void PrintStatus(int fd)
-    {
-#ifndef _WIN32
-        int status;
-        status=fcntl(fd, F_GETFL, 0);
-        AC_INFO << "STATUS of fd:";
-        switch(status & O_ACCMODE)
-        {
-            case O_RDONLY:{AC_INFO << "O_RDONLY, ";break;}
-            case O_WRONLY:{AC_INFO << "O_WRONLY, ";break;}
-            case O_RDWR:{AC_INFO << "O_RDWR, ";break;}
-            default:{AC_INFO << "O_?ILLEGAL?, ";break;}
-       }
-        if (status & FNDELAY) {AC_INFO <<   "FNDELAY, ";}
-        if (status & FAPPEND) {AC_INFO <<   "FAPPEND, ";}
-        if (status & FFSYNC) {AC_INFO <<    "FSYNC, ";}
-        //   if (status & FRCACH) AC_INFO <<  "FRCACH, ";}
-        if (status & FASYNC) {AC_INFO <<    "FASYNC, ";}
-        if (status & FNONBLOCK) {AC_INFO << "FNONBLK";}
-        AC_INFO << endl;
 #endif
     }
 
