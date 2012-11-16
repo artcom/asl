@@ -229,13 +229,17 @@ namespace inet {
 
     void Socket::setBlockingMode(bool isBlocking) {
 #ifndef _WIN32
-        //    PrintStatus(fd);
-        long theFlag = O_NONBLOCK;
-        if (isBlocking) {
-            theFlag = 0;
+        DB(PrintStatus(fd));
+        if (!_myIsConnected) {
+            AC_WARNING << "Socket::setBlockingMode setting blocking mode of a not connected socket, the mode will be lost after you connect";
         }
-        if (fcntl(fd, F_SETFL, theFlag)== -1)
-        {
+        int status = fcntl(fd, F_GETFL, 0);
+        if (!isBlocking) {
+            status |= O_NONBLOCK;
+        } else {
+            status &= ~O_NONBLOCK;
+        }
+        if (fcntl(fd, F_SETFL, status)== -1) {
             throw SocketError(getLastSocketError(), "Socket::setBlockingMode failed");
         }
 #else
