@@ -194,14 +194,13 @@ namespace inet {
         char* buf;
 
         buf=new char[n];
-        status=fcntl(fd, F_GETFL, 0);
+        status = fcntl(fd, F_GETFL, 0);
         if (!(status & FNONBLOCK)) {
-            fcntl(fd,F_SETFL,status & FNONBLOCK);
+            fcntl(fd,F_SETFL,status | FNONBLOCK);
         }
-        //     rc=(n==recvfrom(fd,buf,n,MSG_PEEK,NULL,NULL));
         rc = recvfrom(fd,buf,n,MSG_PEEK,NULL,NULL);
         if (rc == -1) {
-            if (errno == EAGAIN && (status & FNONBLOCK)) {
+            if (errno == EAGAIN) {
                 // this is OK
                 rc = 0;
             } else {
