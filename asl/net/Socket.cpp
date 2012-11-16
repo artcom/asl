@@ -98,7 +98,7 @@ namespace inet {
     Socket::Socket(asl::Unsigned32 thehost, Unsigned16 theport)
         : _myLocalEndpoint(thehost, theport),
           fd(-1),
-          _myIsConnected(true),
+          _myIsConnected(false),
           _myTimeOut(0)
     {
         initSockets();
