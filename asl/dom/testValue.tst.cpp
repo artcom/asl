@@ -133,14 +133,14 @@ namespace std {
     std::ostream &
     operator << (std::ostream & theStream, const std::vector<std::string> & theStringVector) {
         theStream << "[";
-	for (unsigned i = 0; i < theStringVector.size(); ++i) {
-		theStream << theStringVector[i];
-		if (i < theStringVector.size() - 1) {
-			theStream << ",";
-		}
-	}
-	theStream << "]";
-	return theStream;
+    for (unsigned i = 0; i < theStringVector.size(); ++i) {
+        theStream << theStringVector[i];
+        if (i < theStringVector.size() - 1) {
+            theStream << ",";
+        }
+    }
+    theStream << "]";
+    return theStream;
     }
 
 inline
@@ -187,39 +187,39 @@ public:
           _someVariable(testValue), _myTypeName(theTemplateArgument) {}
     void run() {
 
-		dom::SimpleValue<T> myDefaultConstructedValue(0);
-		SUCCESS("myDefaultConstructedValue");
+        dom::SimpleValue<T> myDefaultConstructedValue(0);
+        SUCCESS("myDefaultConstructedValue");
 
-		dom::SimpleValue<T> myInitializedValue(_someVariable, 0);
-		ENSURE(myInitializedValue.getValue() == _someVariable);
+        dom::SimpleValue<T> myInitializedValue(_someVariable, 0);
+        ENSURE(myInitializedValue.getValue() == _someVariable);
 
-		dom::SimpleValue<T> myStringInitializedValue(asl::as_string(_someVariable), 0);
-		ENSURE(myStringInitializedValue.getValue() == _someVariable);
+        dom::SimpleValue<T> myStringInitializedValue(asl::as_string(_someVariable), 0);
+        ENSURE(myStringInitializedValue.getValue() == _someVariable);
 
         asl::Block myBinaryRep(myInitializedValue.accessReadableBlock());
         asl::Block myCopiedRep(myBinaryRep);
         dom::SimpleValue<T> myBinaryInitializedValue(myCopiedRep, 0);
         ENSURE(myBinaryInitializedValue.getValue() == _someVariable);
 
-		dom::ValueFactory myValueFactory;
-		dom::registerStandardTypes(myValueFactory);
+        dom::ValueFactory myValueFactory;
+        dom::registerStandardTypes(myValueFactory);
         myValueFactory.registerPrototype(_myTypeName,dom::ValuePtr(new dom::SimpleValue<T>(0)));
-		SUCCESS("Initialized myValueFactory");
+        SUCCESS("Initialized myValueFactory");
 
-		dom::ValuePtr myValue(myValueFactory.createValue(_myTypeName,asl::as_string(_someVariable),0));
-		ENSURE(myValue);
-		ENSURE(dom::dynamic_cast_Value<T>(myValue.get()));
-		ENSURE(*dom::dynamic_cast_Value<T>(myValue.get()) == _someVariable);
+        dom::ValuePtr myValue(myValueFactory.createValue(_myTypeName,asl::as_string(_someVariable),0));
+        ENSURE(myValue);
+        ENSURE(dom::dynamic_cast_Value<T>(myValue.get()));
+        ENSURE(*dom::dynamic_cast_Value<T>(myValue.get()) == _someVariable);
 
-		dom::ValuePtr myBinValue(myValueFactory.createValue(_myTypeName,asl::FixedBlock<T>(_someVariable),0));
-		ENSURE(myBinValue);
-		ENSURE(dom::dynamic_cast_Value<T>(myBinValue.get()));
-		ENSURE(*dom::dynamic_cast_Value<T>(myBinValue.get()) == _someVariable);
+        dom::ValuePtr myBinValue(myValueFactory.createValue(_myTypeName,asl::FixedBlock<T>(_someVariable),0));
+        ENSURE(myBinValue);
+        ENSURE(dom::dynamic_cast_Value<T>(myBinValue.get()));
+        ENSURE(*dom::dynamic_cast_Value<T>(myBinValue.get()) == _someVariable);
 
-		{
-        	dom::SimpleValue<T> myConfusedValue(_someVariable, 0);
-        	//ENSURE(asl::as<T>(myConfusedValue.getStringReference()) == _someVariable); // getStringReference removed from value API
-        	const T * myCastedValue = dom::dynamic_cast_Value<T>(&myConfusedValue);
+        {
+            dom::SimpleValue<T> myConfusedValue(_someVariable, 0);
+            //ENSURE(asl::as<T>(myConfusedValue.getStringReference()) == _someVariable); // getStringReference removed from value API
+            const T * myCastedValue = dom::dynamic_cast_Value<T>(&myConfusedValue);
             ENSURE(*myCastedValue == _someVariable);
             std::string myTestString = "1";
             myConfusedValue.setString(myTestString);
@@ -231,7 +231,7 @@ public:
 
 private:
     T _someVariable;
-	std::string _myTypeName;
+    std::string _myTypeName;
 };
 
 template <template <class,
@@ -265,17 +265,17 @@ public:
 
         typedef typename ValueTraits<VALUE,T,ELEMENT_VALUE>::ValueType ValueType;
 
-		ValueType myDefaultConstructedValue(0);
-		SUCCESS("myDefaultConstructedValue");
+        ValueType myDefaultConstructedValue(0);
+        SUCCESS("myDefaultConstructedValue");
 
-		ValueType myInitializedValue(_someVariable, 0);
-		ENSURE(myInitializedValue.getValue() == _someVariable);
+        ValueType myInitializedValue(_someVariable, 0);
+        ENSURE(myInitializedValue.getValue() == _someVariable);
         ValueType myOriginalValue(_someVariable, 0);
         T myOriginalVector = _someVariable;
 
         std::string myValueString = asl::as_string(_someVariable);
-		ValueType myStringInitializedValue(myValueString, 0);
-		ENSURE(myStringInitializedValue.getValue() == _someVariable);
+        ValueType myStringInitializedValue(myValueString, 0);
+        ENSURE(myStringInitializedValue.getValue() == _someVariable);
 
         T mySavedValue = _someVariable;
         asl::Block myBinaryRep(myInitializedValue.accessReadableBlock());
@@ -303,17 +303,17 @@ public:
 
         dom::ValueFactory myValueFactory;
         myValueFactory.registerPrototype(_myTypeName,dom::ValuePtr(new ValueType(0)));
-		SUCCESS("Initialized myValueFactory");
+        SUCCESS("Initialized myValueFactory");
 
-		dom::ValuePtr myValue(myValueFactory.createValue(_myTypeName,asl::as_string(_someVariable), 0));
-		ENSURE(myValue);
-		ENSURE(dom::dynamic_cast_Value<T>(myValue.get()));
-		ENSURE(*dom::dynamic_cast_Value<T>(myValue.get()) == _someVariable);
+        dom::ValuePtr myValue(myValueFactory.createValue(_myTypeName,asl::as_string(_someVariable), 0));
+        ENSURE(myValue);
+        ENSURE(dom::dynamic_cast_Value<T>(myValue.get()));
+        ENSURE(*dom::dynamic_cast_Value<T>(myValue.get()) == _someVariable);
 
-		dom::ValuePtr myBinValue(myValueFactory.createValue(_myTypeName,ValueType(_someVariable, 0).accessReadableBlock(),0));
-		ENSURE(myBinValue);
-		ENSURE(dom::dynamic_cast_Value<T>(myBinValue.get()));
-		ENSURE(*dom::dynamic_cast_Value<T>(myBinValue.get()) == _someVariable);
+        dom::ValuePtr myBinValue(myValueFactory.createValue(_myTypeName,ValueType(_someVariable, 0).accessReadableBlock(),0));
+        ENSURE(myBinValue);
+        ENSURE(dom::dynamic_cast_Value<T>(myBinValue.get()));
+        ENSURE(*dom::dynamic_cast_Value<T>(myBinValue.get()) == _someVariable);
 
         // now test vector operations
         ValueType myTestValue(myOriginalVector, 0); // should contain three value
@@ -441,7 +441,7 @@ public:
     }
 private:
     T _someVariable;
-	std::string _myTypeName;
+    std::string _myTypeName;
 };
 
 /*
@@ -467,14 +467,14 @@ public:
         typedef VALUE<T, dom::MakeResizeableRaster, SimpleValue<typename T::value_type> >VALUE_T;
     void run() {
 
-		VALUE_T myDefaultConstructedValue(0);
-		SUCCESS("myDefaultConstructedValue");
+        VALUE_T myDefaultConstructedValue(0);
+        SUCCESS("myDefaultConstructedValue");
 
-		VALUE_T myInitializedValue(_someVariable, 0);
-		ENSURE(myInitializedValue.getValue() == _someVariable);
+        VALUE_T myInitializedValue(_someVariable, 0);
+        ENSURE(myInitializedValue.getValue() == _someVariable);
 
-		VALUE_T myStringInitializedValue(asl::as_string(_someVariable), 0);
-		ENSURE(myStringInitializedValue.getValue() == _someVariable);
+        VALUE_T myStringInitializedValue(asl::as_string(_someVariable), 0);
+        ENSURE(myStringInitializedValue.getValue() == _someVariable);
 
         T mySavedValue = _someVariable;
         asl::Block myBinaryRep(myInitializedValue.accessReadableBlock());
@@ -499,17 +499,17 @@ public:
 
         dom::ValueFactory myValueFactory;
         myValueFactory.registerPrototype(_myTypeName,dom::ValuePtr(new VALUE_T(0)));
-		SUCCESS("Initialized myValueFactory");
+        SUCCESS("Initialized myValueFactory");
 
-		dom::ValuePtr myValue(myValueFactory.createValue(_myTypeName,asl::as_string(_someVariable), 0));
-		ENSURE(myValue);
-		ENSURE(dom::dynamic_cast_Value<T>(myValue.get()));
-		ENSURE(*dom::dynamic_cast_Value<T>(myValue.get()) == _someVariable);
+        dom::ValuePtr myValue(myValueFactory.createValue(_myTypeName,asl::as_string(_someVariable), 0));
+        ENSURE(myValue);
+        ENSURE(dom::dynamic_cast_Value<T>(myValue.get()));
+        ENSURE(*dom::dynamic_cast_Value<T>(myValue.get()) == _someVariable);
 
-		dom::ValuePtr myBinValue(myValueFactory.createValue(_myTypeName,VALUE_T(_someVariable, 0).accessReadableBlock(),0));
-		ENSURE(myBinValue);
-		ENSURE(dom::dynamic_cast_Value<T>(myBinValue.get()));
-		ENSURE(*dom::dynamic_cast_Value<T>(myBinValue.get()) == _someVariable);
+        dom::ValuePtr myBinValue(myValueFactory.createValue(_myTypeName,VALUE_T(_someVariable, 0).accessReadableBlock(),0));
+        ENSURE(myBinValue);
+        ENSURE(dom::dynamic_cast_Value<T>(myBinValue.get()));
+        ENSURE(*dom::dynamic_cast_Value<T>(myBinValue.get()) == _someVariable);
 
         ResizeableRaster & myRaster = dynamic_cast<ResizeableRaster&>(*myValue);
         myRaster.resize(20, 10);
@@ -526,7 +526,7 @@ public:
     }
 private:
     T _someVariable;
-	std::string _myTypeName;
+    std::string _myTypeName;
 };
 
 template <class T>
@@ -694,7 +694,7 @@ public:
     }
 private:
     T _someVariable;
-	std::string _myTypeName;
+    std::string _myTypeName;
 };
 
 

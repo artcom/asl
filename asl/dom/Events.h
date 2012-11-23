@@ -275,16 +275,16 @@ namespace dom {
 
     class ASL_DOM_DECL EventFactory {
     public:
-		EventFactory();
-		EventPtr createEvent(const DOMString & theType) const;
- 		void registerPrototype(const DOMString & theType, EventPtr thePrototype);
-		const EventPtr findPrototype(const DOMString & theType) const;
-	private:
-		typedef std::map<DOMString,EventPtr> ProtoMap;
-		ProtoMap _myPrototypes;
-	};
+        EventFactory();
+        EventPtr createEvent(const DOMString & theType) const;
+        void registerPrototype(const DOMString & theType, EventPtr thePrototype);
+        const EventPtr findPrototype(const DOMString & theType) const;
+    private:
+        typedef std::map<DOMString,EventPtr> ProtoMap;
+        ProtoMap _myPrototypes;
+    };
 
-	ASL_DOM_DECL extern void registerStandardTypes(EventFactory & theFactory);
+    ASL_DOM_DECL extern void registerStandardTypes(EventFactory & theFactory);
 
     inline
     EventFactory &

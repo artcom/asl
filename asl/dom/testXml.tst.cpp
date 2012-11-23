@@ -127,7 +127,7 @@ int dom_test2() {
         root("#comment") = "This is the end of a artcom model file";
 
 
-	    std::cout << "DEBUG: dom_test2() done with adding content"
+        std::cout << "DEBUG: dom_test2() done with adding content"
              << std::endl;
 
         try {
@@ -157,7 +157,7 @@ int dom_test2() {
     {
         dom::Node root2;
         std::ifstream f2("testdom3.xml", std::ios::binary);
-	    f2  >> root2;
+        f2  >> root2;
 
         std::ofstream o4("testdom4.xml", std::ios::binary);
         o4 << root2;
@@ -250,7 +250,7 @@ void testSerializer(const dom::Node & n, dom::Node & myRebinarizedDom) {
 int main(int argc, char* argv[])
 {
     try {
-	asl::initialize();
+    asl::initialize();
 #if 1
 //    bin_code_test(100);
 
@@ -332,7 +332,7 @@ new file:
         file_name.push_back("../../testdata/Nodes.h.xml");
 #endif
 #ifndef DEBUG_VARIANT
-		file_name.push_back("../../testdata/big.xml");
+        file_name.push_back("../../testdata/big.xml");
         file_name.push_back("../../testdata/all.xml");
 #endif
         /*

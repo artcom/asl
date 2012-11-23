@@ -3529,15 +3529,15 @@ const char * ourDatatypesPart2 = "\n"
 "</xs:schema>";
 */
 const dom::Schema & dom::Schema::getBuiltinSchema() {
-	static Schema myBuiltinSchema;
-	if (!myBuiltinSchema.childNodes().length()) {
-		dom::Document mySchema(std::string(ourSchemaPart1)+ourSchemaPart2+ourSchemaPart3+ourSchemaPart4+ourSchemaPart5);
-		myBuiltinSchema.addDocument(mySchema,"xs");
-		/*
-		dom::Document myDatatypes(std::string(ourDatatypesPart1)+ourDatatypesPart2);
-		myBuiltinSchema.addDocument(myDatatypes,"xs");
-		*/
-		myBuiltinSchema.check();
-	}
-	return myBuiltinSchema;
+    static Schema myBuiltinSchema;
+    if (!myBuiltinSchema.childNodes().length()) {
+        dom::Document mySchema(std::string(ourSchemaPart1)+ourSchemaPart2+ourSchemaPart3+ourSchemaPart4+ourSchemaPart5);
+        myBuiltinSchema.addDocument(mySchema,"xs");
+        /*
+        dom::Document myDatatypes(std::string(ourDatatypesPart1)+ourDatatypesPart2);
+        myBuiltinSchema.addDocument(myDatatypes,"xs");
+        */
+        myBuiltinSchema.check();
+    }
+    return myBuiltinSchema;
 }

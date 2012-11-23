@@ -59,7 +59,7 @@ Schema::collectDeclarations(const NodePtr theNode,
                                                     theAttributeName+"='"+myAttrValue+"'>",
                                                     "schema::collectDeclarations");
                                             }
-                                            //				AC_TRACE << "inserting name='" << myAttrValue <<"', value=" << *theNode << endl;
+                                            //              AC_TRACE << "inserting name='" << myAttrValue <<"', value=" << *theNode << endl;
                                             theResults.insert(std::pair<DOMString,const NodePtr>(myAttrValue,theNode));
                                         }
                                     }

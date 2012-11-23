@@ -51,9 +51,9 @@ namespace dom {
         void setParsedUntil(int thePos) {
             _myParseCompletionPos = thePos;
         }
-	protected:
-		ParseException(const std::string & what, const std::string & where,
-				  const char * name,int parsed_until )
+    protected:
+        ParseException(const std::string & what, const std::string & where,
+                  const char * name,int parsed_until )
             : asl::Exception(what,where, name), _myParseCompletionPos(parsed_until) {}
 
     private:

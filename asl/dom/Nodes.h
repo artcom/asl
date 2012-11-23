@@ -1059,7 +1059,7 @@ namespace dom {
         const ValuePtr getDefaultValue() const;
 
         void setPlug(const PlugBase* thePlug) {
-        	_myPlug = thePlug;
+            _myPlug = thePlug;
         };
 
     protected:

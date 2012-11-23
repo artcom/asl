@@ -34,44 +34,44 @@ namespace dom {
 #define DEFINE_CHILDNODE_TAG(theTagName, theFacade, theChildFacade, theName) \
     class theFacade; \
     struct theTagName { \
-		typedef theFacade FACADE; \
-		typedef theChildFacade CHILDFACADE; \
-		typedef dom::Node TYPE; \
+        typedef theFacade FACADE; \
+        typedef theChildFacade CHILDFACADE; \
+        typedef dom::Node TYPE; \
         typedef dom::ChildNodePlug<theTagName, theFacade> Plug; \
         static const char * getName() { return theName; } \
     };
 
-	template<class TAG, class FACADE>
+    template<class TAG, class FACADE>
     class ChildNodePlug {
         public:
-			typedef typename TAG::TYPE VALUE;
+            typedef typename TAG::TYPE VALUE;
 
             ChildNodePlug(FACADE * theFacade)
-			{
+            {
                 AC_TRACE << "ChildNodePlug::ChildNodePlug()" ;
                 theFacade->registerChildName(TAG::getName());
-			}
+            }
 
-			const VALUE & getValue(const Node & theNode) const {
+            const VALUE & getValue(const Node & theNode) const {
                 if (!theNode) {
                     throw Facade::NoParentNode(std::string(TAG::getName()),PLUS_FILE_LINE);
                 }
                 return *Facade::ensureChild(theNode, TAG::getName());
-			}
-			void ensureDependencies() const {}
+            }
+            void ensureDependencies() const {}
 
-			const NodePtr getChildNode(const Node & theNode) const {
+            const NodePtr getChildNode(const Node & theNode) const {
                 return Facade::ensureChild(theNode, TAG::getName());
-			}
-			NodePtr getChildNode(const Node & theNode) {
+            }
+            NodePtr getChildNode(const Node & theNode) {
                 return Facade::ensureChild(theNode, TAG::getName());
-			}
+            }
 
-		private:
+        private:
             ChildNodePlug() {};
 
             NodePtr ensureChild(const Node & theNode) const {
- 				NodePtr myChild = theNode.childNode(TAG::getName());
+                NodePtr myChild = theNode.childNode(TAG::getName());
                 if (!myChild) {
                     myChild = createChild(theNode);
                 }

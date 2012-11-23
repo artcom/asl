@@ -111,10 +111,10 @@ namespace dom {
         virtual ~AttributePlug() {}
 
         const ValuePtr getDefaultValue(const Node & theNode) const {
-        	if(!_myAttribute) {
-        		_myAttribute = ensureAttribute(theNode);
-        	}
-        	return TAG::getDefaultValue();
+            if(!_myAttribute) {
+                _myAttribute = ensureAttribute(theNode);
+            }
+            return TAG::getDefaultValue();
         }
 
         ValuePtr getValuePtr() {

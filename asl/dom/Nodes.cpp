@@ -473,34 +473,34 @@ namespace dom {
         return result;
     }
 
-	// this comes from spdiermonkey jsstr.c (vs)
-	/*
-	 * Convert one UCS-4 char and write it into a UTF-8 buffer, which must be at
-	 * least 6 bytes long.  Return the number of UTF-8 bytes of data written.
-	 */
-	static int
-	OneUcs4ToUtf8Char(char *utf8Buffer, unsigned ucs4Char)
-	{
-		int utf8Length = 1;
-		if (ucs4Char < 0x80) {
-			*utf8Buffer = (char)ucs4Char;
-		} else {
-			int i;
-			unsigned a = ucs4Char >> 11;
-			utf8Length = 2;
-			while (a) {
-				a >>= 5;
-				utf8Length++;
-			}
-			i = utf8Length;
-			while (--i) {
-				utf8Buffer[i] = (char)((ucs4Char & 0x3F) | 0x80);
-				ucs4Char >>= 6;
-			}
-			*utf8Buffer = (char)(0x100 - (1 << (8-utf8Length)) + ucs4Char);
-		}
-		return utf8Length;
-	}
+    // this comes from spdiermonkey jsstr.c (vs)
+    /*
+     * Convert one UCS-4 char and write it into a UTF-8 buffer, which must be at
+     * least 6 bytes long.  Return the number of UTF-8 bytes of data written.
+     */
+    static int
+    OneUcs4ToUtf8Char(char *utf8Buffer, unsigned ucs4Char)
+    {
+        int utf8Length = 1;
+        if (ucs4Char < 0x80) {
+            *utf8Buffer = (char)ucs4Char;
+        } else {
+            int i;
+            unsigned a = ucs4Char >> 11;
+            utf8Length = 2;
+            while (a) {
+                a >>= 5;
+                utf8Length++;
+            }
+            i = utf8Length;
+            while (--i) {
+                utf8Buffer[i] = (char)((ucs4Char & 0x3F) | 0x80);
+                ucs4Char >>= 6;
+            }
+            *utf8Buffer = (char)(0x100 - (1 << (8-utf8Length)) + ucs4Char);
+        }
+        return utf8Length;
+    }
 
     String entity_decode_data(const String & s, int global_pos, const Node * doctype) {
         String result;
@@ -532,21 +532,21 @@ namespace dom {
                         asl::copy_between(s,i,ENT_DEC,ENT_SEMI,next_pos,entity_name);
                         unsigned int value;
                         if (asl::is_decimal_number(entity_name,value)) {
-							char myUTF8Buffer[6];
-							int myLen = OneUcs4ToUtf8Char(myUTF8Buffer, value);
-							for (int i = 0; i < myLen; i++) {
-								result += static_cast<char>(myUTF8Buffer[i]);
-							}
+                            char myUTF8Buffer[6];
+                            int myLen = OneUcs4ToUtf8Char(myUTF8Buffer, value);
+                            for (int i = 0; i < myLen; i++) {
+                                result += static_cast<char>(myUTF8Buffer[i]);
+                            }
                             //result += static_cast<char>(value);
                         } else
                             if (entity_name[0] == Cx) {
                                 String hex_string = entity_name.substr(1);
                                 if (asl::is_hex_number(hex_string,value)) {
-									char myUTF8Buffer[6];
-									int myLen = OneUcs4ToUtf8Char(myUTF8Buffer, value);
-									for (int i = 0; i < myLen; i++) {
-										result += static_cast<char>(myUTF8Buffer[i]);
-									}
+                                    char myUTF8Buffer[6];
+                                    int myLen = OneUcs4ToUtf8Char(myUTF8Buffer, value);
+                                    for (int i = 0; i < myLen; i++) {
+                                        result += static_cast<char>(myUTF8Buffer[i]);
+                                    }
                                     //result += static_cast<char>(value);
                                 } else {
                                     String error_msg;
@@ -584,7 +584,7 @@ namespace dom {
                 }
                 i = next_pos;
             } else if (s[i] == C13) {
-				// remove all CR in the input stream, leave only LF
+                // remove all CR in the input stream, leave only LF
                 ++i;
             } else {
                 result+=s[i];
@@ -1342,7 +1342,7 @@ dom::Node::shouldPrint() const {
             }
             break;
         default:
-        	break;
+            break;
     }
     return true;
 }
@@ -1365,16 +1365,16 @@ dom::Node::shouldPrint(bool theValue) {
 
 std::ostream &
 dom::Node::print(std::ostream & os, const String& indent, const bool greedy) const {
-	if(greedy && !shouldPrint()) {
-		return os;
-	}
+    if(greedy && !shouldPrint()) {
+        return os;
+    }
 
-	bool myPrintingAnyChildren;
-	if(greedy) {
-	    myPrintingAnyChildren = shouldPrintAnyChildren();
-	} else {
-	    myPrintingAnyChildren = (childNodesLength() > 0);
-	}
+    bool myPrintingAnyChildren;
+    if(greedy) {
+        myPrintingAnyChildren = shouldPrintAnyChildren();
+    } else {
+        myPrintingAnyChildren = (childNodesLength() > 0);
+    }
 
     switch (_myType) {
         case ELEMENT_NODE:
@@ -1383,7 +1383,7 @@ dom::Node::print(std::ostream & os, const String& indent, const bool greedy) con
                 for (TypedNamedNodeMap::size_type attr = 0; attr < _myAttributes.size();++attr) {
                     const NodePtr myAttribute = _myAttributes.item(attr);
                     if(greedy && !myAttribute->shouldPrint()) {
-                    	continue;
+                        continue;
                     }
 
                     os << " " << myAttribute->nodeName() << "=";

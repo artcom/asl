@@ -301,9 +301,9 @@ namespace dom {
         // [PM]: however, it is necessary in order to make the immediate-callback work properly, which is
         // used for render-event generation
         ensureDependencies();
-		if (_myImmediateCB) {
-	        const_cast<Field*>(this)->_myImmediateCB->callback();
-		}
+        if (_myImmediateCB) {
+            const_cast<Field*>(this)->_myImmediateCB->callback();
+        }
         if (_myCalculator && !_isRecalculating) {
             //AC_WARNING << "onSetValue: you should not set dependent values manually, only in recalculate callback";
         }
