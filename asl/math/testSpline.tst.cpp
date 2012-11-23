@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
 
     mySuite.run();
 
-	std::cerr << ">> Finished test suite '" << argv[0] << "'"
+    std::cerr << ">> Finished test suite '" << argv[0] << "'"
          << ", return status = " << mySuite.returnStatus() << endl;
 
     return mySuite.returnStatus();

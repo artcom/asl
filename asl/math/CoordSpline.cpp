@@ -195,7 +195,7 @@ namespace asl {
     asl::Vector3f
         CoordSpline::getHPR ( float s )
     {
-    	//TODO: this is broken due to quaternion interpolation
+        //TODO: this is broken due to quaternion interpolation
         asl::Vector3f right, front, up;
         asl::Vector3f hpr;
 
@@ -232,7 +232,7 @@ namespace asl {
     asl::Quaternionf
         CoordSpline::getQuaternion ( float s )
     {
-    	asl::Quaternionf myOrientation;
+        asl::Quaternionf myOrientation;
         myOrientation  = quaternionSpline->getOrientation(s);
         AC_TRACE << "returning quatertion: " << myOrientation;
         return quaternionSpline->getOrientation(s);

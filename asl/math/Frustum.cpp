@@ -22,9 +22,9 @@ using namespace std;
 #define DB(x) // x
 
 #ifdef verify
-	#ifndef _SETTING_NO_UNDEF_WARNING_
-		#warning Symbol 'verify' defined as macro, undefining. (Outrageous namespace pollution by Apples AssertMacros.h, revealing arrogance and incompetence)
-	#endif
+    #ifndef _SETTING_NO_UNDEF_WARNING_
+        #warning Symbol 'verify' defined as macro, undefining. (Outrageous namespace pollution by Apples AssertMacros.h, revealing arrogance and incompetence)
+    #endif
 #undef verify
 #endif
 

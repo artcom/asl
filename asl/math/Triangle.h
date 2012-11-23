@@ -36,10 +36,10 @@ namespace asl {
 
     template<class Number>
     class Triangle : public TripleOf<Point3<Number> > {
-	public:
+    public:
         typedef TripleOf<Point3<Number> > Base;
-		Triangle() {}
-		Triangle(const Point3<Number> & p1, const Point3<Number> & p2, const Point3<Number> & p3)
+        Triangle() {}
+        Triangle(const Point3<Number> & p1, const Point3<Number> & p2, const Point3<Number> & p3)
             : Base(p1,p2,p3)
         {}
         Vector3<Number> normal() const {

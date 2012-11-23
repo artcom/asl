@@ -47,36 +47,36 @@ class GeometryUtilsUnitTest : public UnitTest {
         GeometryUtilsUnitTest() : UnitTest("GeometryUtilsUnitTest") {  }
         void run() {
 
-			// test facenormal generation
-			Vector3f myResult = generateFaceNormal(Vector3f(1,0,-1), Vector3f(0,1,1), Vector3f(0,0,0));
+            // test facenormal generation
+            Vector3f myResult = generateFaceNormal(Vector3f(1,0,-1), Vector3f(0,1,1), Vector3f(0,0,0));
             ENSURE_MSG(almostEqual(myResult, Vector3f(-0.57735f,0.57735f,-0.57735f)), "generateFaceNormal.");
 
-			Vector3f myResult1 = generateFaceNormal(Vector3f(1,0,0), Vector3f(0,1,0), Vector3f(-1,0,0));
-			ENSURE_MSG(almostEqual(myResult1, Vector3f(0,0,-1)), "generateFaceNormal.");
+            Vector3f myResult1 = generateFaceNormal(Vector3f(1,0,0), Vector3f(0,1,0), Vector3f(-1,0,0));
+            ENSURE_MSG(almostEqual(myResult1, Vector3f(0,0,-1)), "generateFaceNormal.");
 
-			// test vertexnormal generation
-			VertexNormalBuilder<float> myBuilder;
-			Vector3f myOrigin(0,1,0);
-			long myOriginIndex = myBuilder.addVertex(myOrigin) - 1;
-			long myVertex1 = myBuilder.addVertex(Vector3f(1,0,-1)) - 1;
-			long myVertex2 = myBuilder.addVertex(Vector3f(0,0,-1)) - 1;
-			long myVertex3 = myBuilder.addVertex(Vector3f(1,0,0)) - 1;
-			long myVertex4 = myBuilder.addVertex(Vector3f(1,0,1)) - 1;
-			long myVertex5 = myBuilder.addVertex(Vector3f(0,0,1)) - 1;
-			long myVertex6 = myBuilder.addVertex(Vector3f(-1,0,1)) - 1;
-			long myVertex7 = myBuilder.addVertex(Vector3f(-1,0,0)) - 1;
-			long myVertex8 = myBuilder.addVertex(Vector3f(-1,0,-1)) - 1;
+            // test vertexnormal generation
+            VertexNormalBuilder<float> myBuilder;
+            Vector3f myOrigin(0,1,0);
+            long myOriginIndex = myBuilder.addVertex(myOrigin) - 1;
+            long myVertex1 = myBuilder.addVertex(Vector3f(1,0,-1)) - 1;
+            long myVertex2 = myBuilder.addVertex(Vector3f(0,0,-1)) - 1;
+            long myVertex3 = myBuilder.addVertex(Vector3f(1,0,0)) - 1;
+            long myVertex4 = myBuilder.addVertex(Vector3f(1,0,1)) - 1;
+            long myVertex5 = myBuilder.addVertex(Vector3f(0,0,1)) - 1;
+            long myVertex6 = myBuilder.addVertex(Vector3f(-1,0,1)) - 1;
+            long myVertex7 = myBuilder.addVertex(Vector3f(-1,0,0)) - 1;
+            long myVertex8 = myBuilder.addVertex(Vector3f(-1,0,-1)) - 1;
 
-			myBuilder.addFace(myOriginIndex, myVertex1, myVertex2); // poly 1
-			myBuilder.addFace(myOriginIndex, myVertex3, myVertex1); // poly 2
-			myBuilder.addFace(myOriginIndex, myVertex4, myVertex3); // poly 3
-			myBuilder.addFace(myOriginIndex, myVertex5, myVertex4); // poly 4
-			myBuilder.addFace(myOriginIndex, myVertex6, myVertex5); // poly 5
-			myBuilder.addFace(myOriginIndex, myVertex7, myVertex6); // poly 6
-			myBuilder.addFace(myOriginIndex, myVertex8, myVertex7); // poly 7
-			myBuilder.addFace(myOriginIndex, myVertex2, myVertex8); // poly 8
+            myBuilder.addFace(myOriginIndex, myVertex1, myVertex2); // poly 1
+            myBuilder.addFace(myOriginIndex, myVertex3, myVertex1); // poly 2
+            myBuilder.addFace(myOriginIndex, myVertex4, myVertex3); // poly 3
+            myBuilder.addFace(myOriginIndex, myVertex5, myVertex4); // poly 4
+            myBuilder.addFace(myOriginIndex, myVertex6, myVertex5); // poly 5
+            myBuilder.addFace(myOriginIndex, myVertex7, myVertex6); // poly 6
+            myBuilder.addFace(myOriginIndex, myVertex8, myVertex7); // poly 7
+            myBuilder.addFace(myOriginIndex, myVertex2, myVertex8); // poly 8
 
-			Vector3f myVertexNormal1 = myBuilder.getVertexNormal(Vector3f(0.,1.,0.), myOriginIndex, radFromDeg(89.0));
+            Vector3f myVertexNormal1 = myBuilder.getVertexNormal(Vector3f(0.,1.,0.), myOriginIndex, radFromDeg(89.0));
             ENSURE_MSG(almostEqual(myVertexNormal1, Vector3f(0,1,0 )), "generate Vertex Normals.");
 
 
@@ -161,7 +161,7 @@ int main(int argc, char *argv[]) {
 
     mySuite.run();
 
-	std::cerr << ">> Finished test suite '" << argv[0] << "'"
+    std::cerr << ">> Finished test suite '" << argv[0] << "'"
          << ", return status = " << mySuite.returnStatus() << endl;
 
     return mySuite.returnStatus();

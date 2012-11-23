@@ -34,15 +34,15 @@ namespace asl {
     /* @{ */
 
     // Note: use Triangle to construct a plane from three points
-	template<class Number>
-	class Plane {
-	public:
+    template<class Number>
+    class Plane {
+    public:
         // Note: offset is the negative distance of the plane from the origin; it is the number you
         // have to add to move the plane into the origin.
-		Plane(){};
+        Plane(){};
         Plane(const Plane<Number> & p)
             : normal(p.normal), offset(p.offset) {}
-		Plane(const Vector3<Number> & theNormal, Number theOffset)
+        Plane(const Vector3<Number> & theNormal, Number theOffset)
             : normal(theNormal), offset(theOffset) {}
         Plane(const Vector3<Number> & theNormal, const Point3<Number> & thePointOnPlane) :
             normal(theNormal)
@@ -76,39 +76,39 @@ namespace asl {
         }
 
     public:
-		Vector3<Number> normal; // a vector perpendicular to the plane
-		Number offset;  // distance from the origin
-	};
+        Vector3<Number> normal; // a vector perpendicular to the plane
+        Number offset;  // distance from the origin
+    };
 
     template<class Number>
-	Vector3<Number> projection(const Vector3<Number> & d, const Plane<Number> & j) {
-		return d - (dot(d,j.normal) * j.normal);
-	}
+    Vector3<Number> projection(const Vector3<Number> & d, const Plane<Number> & j) {
+        return d - (dot(d,j.normal) * j.normal);
+    }
 
-	//nearest point to p on a plane p
+    //nearest point to p on a plane p
     template<class Number>
-	Point3<Number> nearest(const Point3<Number> & p, const Plane<Number> & j) {
-		return  p - ((j.offset + dot(j.normal,asVector(p)))/dot(j.normal,j.normal)) * j.normal;
-	}
+    Point3<Number> nearest(const Point3<Number> & p, const Plane<Number> & j) {
+        return  p - ((j.offset + dot(j.normal,asVector(p)))/dot(j.normal,j.normal)) * j.normal;
+    }
     template<class Number>
-	Point3<Number> nearest(const Plane<Number> & j, const Point3<Number> & p) {
+    Point3<Number> nearest(const Plane<Number> & j, const Point3<Number> & p) {
         return nearest(p, j);
     }
 
     template<class Number>
-	Number distance(const Point3<Number> & p, const Plane<Number> & j) {
-		return distance(p, nearest(p,j));
-	}
+    Number distance(const Point3<Number> & p, const Plane<Number> & j) {
+        return distance(p, nearest(p,j));
+    }
 
     template<class Number>
-	Number signedDistance(const Point3<Number> & p, const Plane<Number> & j) {
-		return dot(asVector(p), j.normal) + j.offset;
-	}
+    Number signedDistance(const Point3<Number> & p, const Plane<Number> & j) {
+        return dot(asVector(p), j.normal) + j.offset;
+    }
 
     template<class Number>
-	Number distance(const Plane<Number> & j, const Point3<Number> & p) {
-		return distance(p, j);
-	}
+    Number distance(const Plane<Number> & j, const Point3<Number> & p) {
+        return distance(p, j);
+    }
 
     typedef Plane<float> Planef;
     typedef Plane<double> Planed;

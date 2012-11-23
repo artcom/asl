@@ -297,11 +297,11 @@ namespace asl {
             _myType = theType;
         }
 
-		Vector3<Number> getTranslation() const {
+        Vector3<Number> getTranslation() const {
             return Matrix4Base<Number>::getTranslation();
-		}
+        }
 
-		void setTranslation(const Vector3<Number> & theTranslation) {
+        void setTranslation(const Vector3<Number> & theTranslation) {
             Matrix4Base<Number>::setTranslation(theTranslation);
 
             if (_myType == IDENTITY) {
@@ -309,14 +309,14 @@ namespace asl {
             } else if (_myType < TRANSLATING) {
                 _myType = AFFINE;
             }
-		}
+        }
 
         // BEWARE: getScale only work for non-rotating matrices
         // any other matrix type use matrix::decompose instead!!
-		Vector3<Number> getScale() const {
+        Vector3<Number> getScale() const {
             return Matrix4Base<Number>::getScale();
-		}
-		void setScale(const Vector3<Number> & theScale) {
+        }
+        void setScale(const Vector3<Number> & theScale) {
             Matrix4Base<Number>::setScale(theScale);
 
             if (_myType == IDENTITY) {
@@ -326,7 +326,7 @@ namespace asl {
             } else if (_myType == TRANSLATING) {
                 _myType = AFFINE;
             }
-		}
+        }
 
         std::string getTypeString() const {
             return _myType.asString();
@@ -458,11 +458,11 @@ namespace asl {
                 }
             }
         }
-		void rotateX(Angle a){
+        void rotateX(Angle a){
             if (a != Angle(0)) {
                 rotateX(static_cast<Number>(cos(a)),static_cast<Number>(sin(a)));
             }
-		}
+        }
         void rotateY(Number cosAngle, Number sinAngle){
             if (_myType == IDENTITY) {
                 base::makeYRotating(cosAngle, sinAngle);

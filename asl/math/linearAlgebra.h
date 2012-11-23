@@ -253,8 +253,8 @@ namespace asl {
     asl::Vector4<NUMBER> product(const asl::Vector4<NUMBER> & theVector,
                                  const Quaternion<NUMBER> & theQuaternion)
     {
-    	asl::Matrix4<NUMBER> myMatrix(theQuaternion);
-    	return product(theVector, myMatrix );
+        asl::Matrix4<NUMBER> myMatrix(theQuaternion);
+        return product(theVector, myMatrix );
     }
 
     template <class NUMBER>
@@ -268,8 +268,8 @@ namespace asl {
     asl::Point3<NUMBER> product(const asl::Point3<NUMBER> & thePoint,
                                 const Quaternion<NUMBER> & theQuaternion)
     {
-    	asl::Matrix4<NUMBER> myMatrix(theQuaternion);
-    	return product(thePoint, myMatrix );
+        asl::Matrix4<NUMBER> myMatrix(theQuaternion);
+        return product(thePoint, myMatrix );
     }
 
     template <class NUMBER>

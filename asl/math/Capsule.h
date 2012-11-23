@@ -37,10 +37,10 @@ namespace asl {
 
     // a finite length line
     template<class Number>
-	class Capsule {
-	public:
-		Capsule() {};
-		Capsule(const Capsule<Number> & l) : segment(l.segment), radius(l.radius) {}
+    class Capsule {
+    public:
+        Capsule() {};
+        Capsule(const Capsule<Number> & l) : segment(l.segment), radius(l.radius) {}
         Capsule(const Point3<Number> & theOrigin, const Point3<Number> & theEnd, Number theRadius)
             : segment(theOrigin, theEnd), radius(theRadius) {}
         void setSegment(const Point3<Number> & theSegment) {
@@ -62,10 +62,10 @@ namespace asl {
             Vector3<Number> myCap = normalized(getDirection()) * radius;
             return LineSegment<Number>(segment.origin - myCap, segment.end + myCap);
         }
-	public:
-		LineSegment<Number> segment;
-		Number radius;
-	};
+    public:
+        LineSegment<Number> segment;
+        Number radius;
+    };
 
     /* __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 //

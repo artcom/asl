@@ -34,16 +34,16 @@ namespace asl {
     /* @{ */
 
    template<class Number>
-	class Point2 : public PairOf<Number> {
-	public:
+    class Point2 : public PairOf<Number> {
+    public:
         typedef PairOf<Number> Base;
         Point2() : Base() {};
-		Point2(const Point2<Number> & p) : Base(p) {};
-		Point2(const FixedVector<2, Number> & p) : PairOf<Number>(p) {};
-		Point2(Number a, Number b) : Base(a,b) { }
-		Point2(const Number * t) : Base(t) {};
+        Point2(const Point2<Number> & p) : Base(p) {};
+        Point2(const FixedVector<2, Number> & p) : PairOf<Number>(p) {};
+        Point2(Number a, Number b) : Base(a,b) { }
+        Point2(const Number * t) : Base(t) {};
         explicit Point2(const Number * theBegin, const Number * theEnd) : Base(theBegin, theEnd) {}
-		Point2 & operator=(const Point2 & t) {
+        Point2 & operator=(const Point2 & t) {
             this->assign(t);
             return *this;
         }
@@ -161,15 +161,15 @@ namespace asl {
 
     template<class Number>
     class Point3 : public TripleOf<Number> {
-	public:
+    public:
         typedef TripleOf<Number> Base;
         Point3() : Base() {};
-		Point3(const Point3<Number> & p) : Base(TripleOf<Number>(p)) {};
-		Point3(const FixedVector<3, Number> & p) : TripleOf<Number>(p) {};
-		Point3(Number a, Number b, Number c) : Base(TripleOf<Number>(a,b,c)) { }
-		Point3(const Number* t) : Base(TripleOf<Number>(t)) {};
+        Point3(const Point3<Number> & p) : Base(TripleOf<Number>(p)) {};
+        Point3(const FixedVector<3, Number> & p) : TripleOf<Number>(p) {};
+        Point3(Number a, Number b, Number c) : Base(TripleOf<Number>(a,b,c)) { }
+        Point3(const Number* t) : Base(TripleOf<Number>(t)) {};
         Point3(const Number * theBegin, const Number * theEnd) : Base(theBegin, theEnd) {}
-		Point3 & operator=(const Point3 & t) {
+        Point3 & operator=(const Point3 & t) {
             this->assign(t);
             return *this;
         }
@@ -286,16 +286,16 @@ namespace asl {
     }
 
     template<class Number>
-	class Point4 : public QuadrupleOf<Number> {
-	public:
+    class Point4 : public QuadrupleOf<Number> {
+    public:
         typedef QuadrupleOf<Number> Base;
         Point4() : Base() {};
-		Point4(const Point4<Number> & p) : Base(QuadrupleOf<Number>(p)) {};
-		Point4(const FixedVector<4, Number> & p) : QuadrupleOf<Number>(p) {};
-		Point4(Number a, Number b, Number c, Number d) : Base(QuadrupleOf<Number>(a,b,c,d)) { }
-		Point4(const Number* t) : Base(QuadrupleOf<Number>(t)) {};
+        Point4(const Point4<Number> & p) : Base(QuadrupleOf<Number>(p)) {};
+        Point4(const FixedVector<4, Number> & p) : QuadrupleOf<Number>(p) {};
+        Point4(Number a, Number b, Number c, Number d) : Base(QuadrupleOf<Number>(a,b,c,d)) { }
+        Point4(const Number* t) : Base(QuadrupleOf<Number>(t)) {};
         Point4(const Number * theBegin, const Number * theEnd) : Base(theBegin, theEnd) {}
-		Point4 & operator=(const Point4 & t) {
+        Point4 & operator=(const Point4 & t) {
             this->assign(t);
             return *this;
         }
@@ -424,108 +424,108 @@ namespace asl {
     typedef Point4<int>  Point4i;
 
     // sometimes we want to treat vectors as points and vice versa
-	// but we do it explicitly using the following functions:
+    // but we do it explicitly using the following functions:
     template<class Number>
-	const Point2<Number> & asPoint(const Vector2<Number> & v) {
-		 return reinterpret_cast<const Point2<Number> &>(v);
-	}
+    const Point2<Number> & asPoint(const Vector2<Number> & v) {
+         return reinterpret_cast<const Point2<Number> &>(v);
+    }
     template<class Number>
-	const Point3<Number> & asPoint(const Vector3<Number> & v) {
-		 return reinterpret_cast<const Point3<Number> &>(v);
-	}
+    const Point3<Number> & asPoint(const Vector3<Number> & v) {
+         return reinterpret_cast<const Point3<Number> &>(v);
+    }
     template<class Number>
-	const Point4<Number> & asPoint(const Vector4<Number> & v) {
-		 return reinterpret_cast<const Point4<Number> &>(v);
-	}
+    const Point4<Number> & asPoint(const Vector4<Number> & v) {
+         return reinterpret_cast<const Point4<Number> &>(v);
+    }
 
     template<class Number>
-	const Vector2<Number> & asVector(const Point2<Number> & p) {
-		 return reinterpret_cast<const Vector2<Number> &>(p);
-	}
+    const Vector2<Number> & asVector(const Point2<Number> & p) {
+         return reinterpret_cast<const Vector2<Number> &>(p);
+    }
     template<class Number>
-	const Vector3<Number> & asVector(const Point3<Number> & p) {
-		 return reinterpret_cast<const Vector3<Number> &>(p);
-	}
+    const Vector3<Number> & asVector(const Point3<Number> & p) {
+         return reinterpret_cast<const Vector3<Number> &>(p);
+    }
     template<class Number>
-	const Vector4<Number> & asVector(const Point4<Number> & p) {
-		 return reinterpret_cast<const Vector4<Number> &>(p);
-	}
+    const Vector4<Number> & asVector(const Point4<Number> & p) {
+         return reinterpret_cast<const Vector4<Number> &>(p);
+    }
 
     // Vector = Point - Point
-	template<class Number>
-	Vector2<Number> operator-(const Point2<Number> & a, const Point2<Number> & b) {
-		Vector2<Number> result = asVector(a);
-		result.sub(b);
-		return result;
-	}
-	template<class Number>
-	Vector3<Number> operator-(const Point3<Number> & a, const Point3<Number> & b) {
-		Vector3<Number> result = asVector(a);
-		result.sub(b);
-		return result;
-	}
-	template<class Number>
-	Vector4<Number> operator-(const Point4<Number> & a, const Point4<Number> & b) {
-		Vector4<Number> result = asVector(a);
-		result.sub(b);
-		return result;
-	}
+    template<class Number>
+    Vector2<Number> operator-(const Point2<Number> & a, const Point2<Number> & b) {
+        Vector2<Number> result = asVector(a);
+        result.sub(b);
+        return result;
+    }
+    template<class Number>
+    Vector3<Number> operator-(const Point3<Number> & a, const Point3<Number> & b) {
+        Vector3<Number> result = asVector(a);
+        result.sub(b);
+        return result;
+    }
+    template<class Number>
+    Vector4<Number> operator-(const Point4<Number> & a, const Point4<Number> & b) {
+        Vector4<Number> result = asVector(a);
+        result.sub(b);
+        return result;
+    }
 
     // Point = Point - Vector
     template<class Number>
-	Point2<Number> operator-(const Point2<Number> & a, const Vector2<Number> & b) {
-		Point2<Number> result = a;
-		result.sub(b);
-		return result;
-	}
+    Point2<Number> operator-(const Point2<Number> & a, const Vector2<Number> & b) {
+        Point2<Number> result = a;
+        result.sub(b);
+        return result;
+    }
     template<class Number>
-	Point3<Number> operator-(const Point3<Number> & a, const Vector3<Number> & b) {
-		Point3<Number> result = a;
-		result.sub(b);
-		return result;
-	}
+    Point3<Number> operator-(const Point3<Number> & a, const Vector3<Number> & b) {
+        Point3<Number> result = a;
+        result.sub(b);
+        return result;
+    }
     template<class Number>
-	Point4<Number> operator-(const Point4<Number> & a, const Vector4<Number> & b) {
-		Point4<Number> result = a;
-		result.sub(b);
-		return result;
-	}
+    Point4<Number> operator-(const Point4<Number> & a, const Vector4<Number> & b) {
+        Point4<Number> result = a;
+        result.sub(b);
+        return result;
+    }
 
     // Point = Point + Vector
     template<class Number>
-	Point2<Number> operator+(const Point2<Number> & a, const Vector2<Number> & b) {
-		Point2<Number> result = a;
-		result.add(b);
-		return result;
-	}
+    Point2<Number> operator+(const Point2<Number> & a, const Vector2<Number> & b) {
+        Point2<Number> result = a;
+        result.add(b);
+        return result;
+    }
     template<class Number>
-	Point3<Number> operator+(const Point3<Number> & a, const Vector3<Number> & b) {
-		Point3<Number> result = a;
-		result.add(b);
-		return result;
-	}
+    Point3<Number> operator+(const Point3<Number> & a, const Vector3<Number> & b) {
+        Point3<Number> result = a;
+        result.add(b);
+        return result;
+    }
     template<class Number>
-	Point4<Number> operator+(const Point4<Number> & a, const Vector4<Number> & b) {
-		Point4<Number> result = a;
-		result.add(b);
-		return result;
-	}
+    Point4<Number> operator+(const Point4<Number> & a, const Vector4<Number> & b) {
+        Point4<Number> result = a;
+        result.add(b);
+        return result;
+    }
 
     // distance vector-vector
     template<class Number>
-	Number distance(const Point2<Number> & p1, const Point2<Number> & p2) {
-		return length(p2-p1);
-	}
+    Number distance(const Point2<Number> & p1, const Point2<Number> & p2) {
+        return length(p2-p1);
+    }
 
     template<class Number>
-	Number distance(const Point3<Number> & p1, const Point3<Number> & p2) {
-		return length(p2-p1);
-	}
+    Number distance(const Point3<Number> & p1, const Point3<Number> & p2) {
+        return length(p2-p1);
+    }
 
     template<class Number>
-	Number distance(const Point4<Number> & p1, const Point4<Number> & p2) {
-		return length(p2-p1);
-	}
+    Number distance(const Point4<Number> & p1, const Point4<Number> & p2) {
+        return length(p2-p1);
+    }
 
     /* @} */
 } // namespace asl;

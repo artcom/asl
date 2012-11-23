@@ -82,8 +82,8 @@ namespace asl {
     bool
     Hermite::init ( const dvector& x, const dvector& y, HermiteInitMode initMode, bool ascend_only )
     {
-        _x	    = x;
-        _y	    = y;
+        _x      = x;
+        _y      = y;
 
         // CHECK INPUT
         if ( check_input( x, y ) == false ) {
@@ -110,8 +110,8 @@ namespace asl {
     bool
     Hermite::init ( const dvector& x, const dvector& y, const dvector& weight )
     {
-        _x	    = x;
-        _y	    = y;
+        _x      = x;
+        _y      = y;
 
         // CHECK INPUT
         if ( check_input( x, y ) == false ) {
@@ -137,9 +137,9 @@ namespace asl {
     bool
     Hermite::init ( const dvector& x, const dvector& y, const dvector& dy_dx_left, const dvector& dy_dx_right )
     {
-        _x		    = x;
-        _y		    = y;
-        _dy_dx_left	    = dy_dx_left;
+        _x          = x;
+        _y          = y;
+        _dy_dx_left     = dy_dx_left;
         _dy_dx_right    = dy_dx_right;
 
         // CHECK INPUT
@@ -223,14 +223,14 @@ namespace asl {
 
         // SET DERIVATIVES AT THE ENDPOINTS SUCH THAT THE CURVATURE THERE IS ZERO
         float h, yl, yr, dy_o;
-        h	= _x[1] -_x[0];
-        yl	= _y[0];
-        yr	= _y[1];
+        h   = _x[1] -_x[0];
+        yl  = _y[0];
+        yr  = _y[1];
         dy_o= _dy_dx_left [1];
         _dy_dx_left [     0] = ( dy_o * h - 3.0f * (yl-yr) ) / ( 2.0f * h );
-        h	= _x[_dim-1] -_x[_dim-2];
-        yl	= _y[_dim-2];
-        yr	= _y[_dim-1];
+        h   = _x[_dim-1] -_x[_dim-2];
+        yl  = _y[_dim-2];
+        yr  = _y[_dim-1];
         dy_o= _dy_dx_left [_dim-2];
         _dy_dx_left [_dim-1] = -( -dy_o * h + 3.0f * (yl-yr) ) / ( 2.0f * h );
 
@@ -253,7 +253,7 @@ namespace asl {
 
     ///////////////////////////////////////////////////////////////////////////////
     //
-    //	slowdown
+    //  slowdown
     //
     ////////////////////////////////////////////////////////////////////////////////
 
@@ -293,7 +293,7 @@ namespace asl {
 
     ////////////////////////////////////////////////////////////////////////////////
     //
-    //	operator ()
+    //  operator ()
     //
     ////////////////////////////////////////////////////////////////////////////////
 
@@ -372,7 +372,7 @@ namespace asl {
 
     ////////////////////////////////////////////////////////////////////////////////
     //
-    //	_set_derivatives
+    //  _set_derivatives
     //
     ////////////////////////////////////////////////////////////////////////////////
 
@@ -387,16 +387,16 @@ namespace asl {
             {
                 // WHEN THERE ARE ONLY TWO POINTS
                 if ( _dim == 2 ) {
-                    float dy	    = _y[1] -_y[0];
-                    float dx	    = _x[1] -_x[0];
-                    _dy_dx_left [0]	    = _dy_dx_left [1] =  dy / dx;
+                    float dy        = _y[1] -_y[0];
+                    float dx        = _x[1] -_x[0];
+                    _dy_dx_left [0]     = _dy_dx_left [1] =  dy / dx;
                     break;
                 }
 
                 // SET INNER DERIVATIVES
                 for ( i=1; i<_dim-1; i++ ) {
-                    float dy	    = _y[i+1] -_y[i-1];
-                    float dx	    = _x[i+1] -_x[i-1];
+                    float dy        = _y[i+1] -_y[i-1];
+                    float dx        = _x[i+1] -_x[i-1];
                     _dy_dx_left  [i]    = dy / dx;
                 }
 
@@ -420,10 +420,10 @@ namespace asl {
             {
                 _dy_dx_left[0] = (_y[1] -_y[0]) / (_x[1] -_x[0]);
                 for ( i=1; i<_dim-1; i++ ) {
-                    float dx_left	    = _x[i  ] -_x[i-1];
-                    float dy_left	    = _y[i  ] -_y[i-1];
-                    float dx_right	    = _x[i+1] -_x[i  ];
-                    float dy_right	    = _y[i+1] -_y[i  ];
+                    float dx_left       = _x[i  ] -_x[i-1];
+                    float dy_left       = _y[i  ] -_y[i-1];
+                    float dx_right      = _x[i+1] -_x[i  ];
+                    float dy_right      = _y[i+1] -_y[i  ];
                     float dist_left    = sqrt( dx_left*dx_left + dy_left*dy_left );
                     float dist_right   = sqrt( dx_right*dx_right + dy_right*dy_right );
                     float dy_dx_left   = dy_left  / dx_left;
@@ -453,7 +453,7 @@ namespace asl {
             // CASE MINIMIZE_FLUCTUATIONS
         case minimize_fluctuations:
             {
-                const float iteration_speed = 0.5;	// must be between 0..1,
+                const float iteration_speed = 0.5;  // must be between 0..1,
 
                 // INIT
                 _dy_dx_left [0] = (_y[1] -_y[0]) / (_x[1] -_x[0]);
@@ -537,13 +537,13 @@ namespace asl {
         //_dy_dx_left[0] = (_y[1] -_y[0]) / (_x[1] -_x[0]) / 10.0;
         _dy_dx_left[0] = (_y[1] -_y[0]) / (_x[1] -_x[0]);
         for ( int i=1; i<_dim-1; i++ ) {
-    	float dx_left	    = _x[i  ] -_x[i-1];
-    	float dy_left	    = _y[i  ] -_y[i-1];
-    	float dx_right	    = _x[i+1] -_x[i  ];
-    	float dy_right	    = _y[i+1] -_y[i  ];
-    	float dy_dx_left   = dy_left  / dx_left;
-    	float dy_dx_right  = dy_right / dx_right;
-    	_dy_dx_left [i] = float( weight[i] * dy_dx_right + (1.0-weight[i]) * dy_dx_left);
+        float dx_left       = _x[i  ] -_x[i-1];
+        float dy_left       = _y[i  ] -_y[i-1];
+        float dx_right      = _x[i+1] -_x[i  ];
+        float dy_right      = _y[i+1] -_y[i  ];
+        float dy_dx_left   = dy_left  / dx_left;
+        float dy_dx_right  = dy_right / dx_right;
+        _dy_dx_left [i] = float( weight[i] * dy_dx_right + (1.0-weight[i]) * dy_dx_left);
         }
         _dy_dx_left [_dim-1] = (_y[_dim-1] -_y[_dim-2]) / (_x[_dim-1] -_x[_dim-2]);
         //_dy_dx_left [_dim-1] = (_y[_dim-1] -_y[_dim-2]) / (_x[_dim-1] -_x[_dim-2]) / 10.0;
@@ -557,10 +557,10 @@ namespace asl {
 
     ////////////////////////////////////////////////////////////////////////////////
     //
-    //	_new_derivative
+    //  _new_derivative
     //
-    //	if neccessary, d_to_check is altered such that the slope of the spline
-    //	segment is everywhere non-negative
+    //  if neccessary, d_to_check is altered such that the slope of the spline
+    //  segment is everywhere non-negative
     //
     ////////////////////////////////////////////////////////////////////////////////
 
@@ -576,7 +576,7 @@ namespace asl {
         }
         float dy_dx    = (y2-y1) / (x2-x1);
         float sqrtarg  = 3.0f * d_other_side * ( 4.0f * dy_dx -d_other_side );
-        dmax_exists	    = (sqrtarg >= 0);
+        dmax_exists     = (sqrtarg >= 0);
         if ( dmax_exists ) {
             dmax = ( 6.0f * dy_dx -d_other_side + sqrt(sqrtarg) ) / 2.0f;
             if ( dmax < 0.0 ) {
@@ -594,7 +594,7 @@ namespace asl {
 
     ////////////////////////////////////////////////////////////////////////////////
     //
-    //	_spline_segment
+    //  _spline_segment
     //
     ////////////////////////////////////////////////////////////////////////////////
 
@@ -640,9 +640,9 @@ namespace asl {
         if ( x > b ) { AC_ERROR << "Hermite::_spline_segment: bad value x = "<< x;}
 
         float retval =
-            (y1- y2) * (a-x) * (b-x) * 6.0f		/ ((b-a)*(b-a)*(b-a))
-            + dy1 * (x-b) * (3.0f*x -b -2.0f*a)	/ ((b-a)*(b-a))
-            + dy2 * (x-a) * (3.0f*x -2.0f*b -a)	/ ((b-a)*(b-a));
+            (y1- y2) * (a-x) * (b-x) * 6.0f     / ((b-a)*(b-a)*(b-a))
+            + dy1 * (x-b) * (3.0f*x -b -2.0f*a) / ((b-a)*(b-a))
+            + dy2 * (x-a) * (3.0f*x -2.0f*b -a) / ((b-a)*(b-a));
 
         return retval;
     }
@@ -658,21 +658,21 @@ namespace asl {
     }
 
     bool
-    C2::init (	const dvector&	    x,
-    		const dvector&	    y,
-    		const C2_InitMode&  initMode,
-    		const float&	    left_gradient,
-    		const float&	    right_gradient
-    	 )
+    C2::init (  const dvector&      x,
+            const dvector&      y,
+            const C2_InitMode&  initMode,
+            const float&        left_gradient,
+            const float&        right_gradient
+         )
     {
         _x = x;
         _y = y;
 
         // CHECK INPUT
         if ( check_input( x, y ) == false ) {
-    	return false;
+        return false;
         } else {
-    	_dim = x.size();
+        _dim = x.size();
         }
 
 
@@ -682,24 +682,24 @@ namespace asl {
 
         // GET X-STEPS
         for ( int i=1; i<_dim; i++ ) {
-    	_h[i] = _x[i] -_x[i-1];
+        _h[i] = _x[i] -_x[i-1];
         }
 
 
         // GET SPLINE PARAMETERS S
         switch ( initMode ) {
 
-    	case setLeftRightDerivatives:
-    	    _get_parameters( left_gradient, right_gradient );
-    	    break;
+        case setLeftRightDerivatives:
+            _get_parameters( left_gradient, right_gradient );
+            break;
 
-    	case leftRightDerivativesAutomatic:
-    	    _get_parameters( initMode );
-    	    break;
+        case leftRightDerivativesAutomatic:
+            _get_parameters( initMode );
+            break;
 
-    	default:
-    	    AC_ERROR << "C2::init: bad value of initMode: "<<initMode;
-    	    return false;
+        default:
+            AC_ERROR << "C2::init: bad value of initMode: "<<initMode;
+            return false;
         }
         _setup_complete = true;
         return true;
@@ -725,7 +725,7 @@ namespace asl {
 
     ////////////////////////////////////////////////////////////////////////////////
     //
-    //	operator ()
+    //  operator ()
     //
     ////////////////////////////////////////////////////////////////////////////////
 
@@ -735,31 +735,31 @@ namespace asl {
         float retval = 0.0;
 
         if ( ! _setup_complete ) {
-    	return retval;
+        return retval;
         }
 
 
         // BEFORE OR AT THE FIRST POINT: RETURN FIRST VALUE
         if ( t <= _x[0] ) {
-    	retval = _y[0];
+        retval = _y[0];
         }
 
         // AFTER OR AT THE LAST POINT: RETURN LAST VALUE
         else if ( t >= _x[_dim-1] ) {
-    	retval = _y[_dim-1];
+        retval = _y[_dim-1];
         }
 
         // INBETWEEN THE FIRST AND THE LAST POINT: INTERPOLATE
         else {
-    	for ( int i=1; i<_dim; i++ ) {
-    	    if ( t >= _x[i-1] && t < _x[i] ) {
-    		retval =
-    		    -  _s[i-1] / (6.0f*_h[i])			* (t -_x[i  ]) * (t -_x[i  ]) * (t -_x[i  ])
-    		    +  _s[i  ] / (6.0f*_h[i])			* (t -_x[i-1]) * (t -_x[i-1]) * (t -_x[i-1])
-    		    + (_y[i  ] / _h[i] - _s[i  ] * _h[i] / 6.0f)	* (t -_x[i-1])
-    		    - (_y[i-1] / _h[i] - _s[i-1] * _h[i] / 6.0f)	* (t -_x[i  ]);
-    	    }
-    	}
+        for ( int i=1; i<_dim; i++ ) {
+            if ( t >= _x[i-1] && t < _x[i] ) {
+            retval =
+                -  _s[i-1] / (6.0f*_h[i])           * (t -_x[i  ]) * (t -_x[i  ]) * (t -_x[i  ])
+                +  _s[i  ] / (6.0f*_h[i])           * (t -_x[i-1]) * (t -_x[i-1]) * (t -_x[i-1])
+                + (_y[i  ] / _h[i] - _s[i  ] * _h[i] / 6.0f)    * (t -_x[i-1])
+                - (_y[i-1] / _h[i] - _s[i-1] * _h[i] / 6.0f)    * (t -_x[i  ]);
+            }
+        }
         }
 
         return retval;
@@ -804,8 +804,8 @@ namespace asl {
             for ( int i=1; i<_dim; i++ ) {
                 if ( t >= _x[i-1] && t <= _x[i] ) {
                     retval =
-                        -  _s[i-1] / (2.0f*_h[i])			* (t -_x[i  ]) * (t -_x[i  ])
-                        +  _s[i  ] / (2.0f*_h[i])			* (t -_x[i-1]) * (t -_x[i-1])
+                        -  _s[i-1] / (2.0f*_h[i])           * (t -_x[i  ]) * (t -_x[i  ])
+                        +  _s[i  ] / (2.0f*_h[i])           * (t -_x[i-1]) * (t -_x[i-1])
                         + (_y[i  ] / _h[i] - _s[i  ] * _h[i] / 6.0f)
                         - (_y[i-1] / _h[i] - _s[i-1] * _h[i] / 6.0f);
                 }
@@ -885,12 +885,12 @@ namespace asl {
         b[1] =  0.0;
         int last = _dim-1;
         for ( int i=2; i<last; i++ ) {
-    	float f1 = -2.0 * ( _h[i-1] + _h[i] ) / _h[i];
-    	float f2 = -_h[i-1] / _h[i];
-    	a[i] = f1 * a[i-1] + f2 * a[i-2];
-    	b[i] = f1 * b[i-1] + f2 * b[i-2]
-    	     + 6.0 * (_y[i  ] -_y[i-1]) / (_h[i  ]*_h[i  ])
-    	     - 6.0 * (_y[i-1] -_y[i-2]) / (_h[i-1]*_h[i  ]);
+        float f1 = -2.0 * ( _h[i-1] + _h[i] ) / _h[i];
+        float f2 = -_h[i-1] / _h[i];
+        a[i] = f1 * a[i-1] + f2 * a[i-2];
+        b[i] = f1 * b[i-1] + f2 * b[i-2]
+             + 6.0 * (_y[i  ] -_y[i-1]) / (_h[i  ]*_h[i  ])
+             - 6.0 * (_y[i-1] -_y[i-2]) / (_h[i-1]*_h[i  ]);
         }
 
 
@@ -899,19 +899,19 @@ namespace asl {
         _s[0] = 0.0;
         _s[1] =
         (
-    	 (_y[last  ] -_y[last-1])  / _h[last  ]
-    	-(_y[last-1] -_y[last-2])  / _h[last-1]
-    	-  b[last-2] *_h[last-1]   /  6.0
-    	+  b[last-1] * (_h[last-1] + _h[last]) / 3.0
+         (_y[last  ] -_y[last-1])  / _h[last  ]
+        -(_y[last-1] -_y[last-2])  / _h[last-1]
+        -  b[last-2] *_h[last-1]   /  6.0
+        +  b[last-1] * (_h[last-1] + _h[last]) / 3.0
         )
-    	/
+        /
         (
-    	  a[last-2] * _h[last-1] / 6.0
-    	+ a[last-1] * (_h[last-1] + _h[last]) / 3.0
+          a[last-2] * _h[last-1] / 6.0
+        + a[last-1] * (_h[last-1] + _h[last]) / 3.0
         );
 
         for ( i=2; i<last; i++ ) {
-    	_s[i] = a[i] * _s[1] + b[i];
+        _s[i] = a[i] * _s[1] + b[i];
         }
         _s[last] = 0.0;
 
@@ -934,9 +934,9 @@ namespace asl {
     {
         // CHECK INPUT
         if ( check_input( x, y ) == false ) {
-    	return false;
+        return false;
         } else {
-    	_dim = x.size();
+        _dim = x.size();
         }
 
         _x = x;
@@ -965,7 +965,7 @@ namespace asl {
 
     ////////////////////////////////////////////////////////////////////////////////
     //
-    //	operator ()
+    //  operator ()
     //
     ////////////////////////////////////////////////////////////////////////////////
 
@@ -975,29 +975,29 @@ namespace asl {
         float retval = 0.0;
 
         if ( ! _setup_complete ) {
-    	return retval;
+        return retval;
         }
 
 
         // BEFORE OR AT THE FIRST POINT: RETURN FIRST VALUE
         if ( t <= _x[0] ) {
-    	retval = _y[0];
+        retval = _y[0];
         }
 
         // AFTER OR AT THE LAST POINT: RETURN LAST VALUE
         else if ( t >= _x[_dim-1] ) {
-    	retval = _y[_dim-1];
+        retval = _y[_dim-1];
         }
 
         // INBETWEEN THE FIRST AND THE LAST POINT: INTERPOLATE
         else {
-    	for ( int i=1; i<_dim; i++ ) {
-    	    if ( t >= _x[i-1] && t < _x[i] ) {
-    		float dx = _x[i] -_x[i-1];
-    		float dy = _y[i] -_y[i-1];
-    		retval = _y[i-1] + (t-_x[i-1]) * dy / dx;
-    	    }
-    	}
+        for ( int i=1; i<_dim; i++ ) {
+            if ( t >= _x[i-1] && t < _x[i] ) {
+            float dx = _x[i] -_x[i-1];
+            float dy = _y[i] -_y[i-1];
+            retval = _y[i-1] + (t-_x[i-1]) * dy / dx;
+            }
+        }
         }
 
         return retval;

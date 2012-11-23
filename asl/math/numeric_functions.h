@@ -51,18 +51,18 @@ inline double degFromRad(double theRadiant) { return (theRadiant * 180.0) / PI; 
 inline
 bool isNaN(const double theNumber) {
 #if defined(_WIN32)
-	return 0 != _isnan(theNumber);
+    return 0 != _isnan(theNumber);
 #else //defined(_WIN32)
-	return std::isnan(theNumber);
+    return std::isnan(theNumber);
 #endif //defined(_WIN32)
 }
 
 inline
 bool isFinite(const double theNumber) {
 #if defined(_WIN32)
-	return 0 != _finite(theNumber);
+    return 0 != _finite(theNumber);
 #else //defined(_WIN32)
-	return std::isfinite(theNumber);
+    return std::isfinite(theNumber);
 #endif //defined(_WIN32)
 }
 

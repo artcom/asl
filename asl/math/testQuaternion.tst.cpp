@@ -39,8 +39,8 @@ class QuaternionTest : public TemplateUnitTest {
         {}
         void run() {
 
-			Ball<T> myBall;
-			Quaternion<T> myQuat1(1.0, 2.0, 3.0, 4.0);
+            Ball<T> myBall;
+            Quaternion<T> myQuat1(1.0, 2.0, 3.0, 4.0);
             Quaternion<T> myQuat2(5.0, 6.0, 7.0, 8.0);
 
             // Test getters
@@ -187,7 +187,7 @@ public:
     MyTestSuite(const char * myName, int argc, char *argv[]) : UnitTestSuite(myName, argc, argv) {}
     void setup() {
         UnitTestSuite::setup(); // called to print a launch message
-		addTest(new QuaternionTest<double>("<double>"));
+        addTest(new QuaternionTest<double>("<double>"));
         addTest(new QuaternionTest<float>("<float>"));
     }
 };
@@ -198,7 +198,7 @@ int main(int argc, char *argv[]) {
 
     mySuite.run();
 
-	std::cerr << ">> Finished test suite '" << argv[0] << "'"
+    std::cerr << ">> Finished test suite '" << argv[0] << "'"
          << ", return status = " << mySuite.returnStatus() << endl;
 
     return mySuite.returnStatus();

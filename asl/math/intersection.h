@@ -533,7 +533,7 @@ namespace asl {
             Number alpha, beta;
             if (inside(theTriangle, myPlane.normal, theResult, alpha, beta)) {
                 theResultNormal = myPlane.normal;
-				return true;
+                return true;
             }
         }
         return false;
@@ -594,7 +594,7 @@ namespace asl {
             Number alpha, beta;
             if (inside(theTriangle, myPlane.normal, theResult, alpha, beta)) {
                 theResultNormal = myPlane.normal;
-				return true;
+                return true;
             }
         }
         return false;
@@ -656,7 +656,7 @@ namespace asl {
             Number alpha, beta;
             if (inside(theTriangle, myPlane.normal, theResult, alpha, beta)) {
                 theResultNormal = myPlane.normal;
-				return true;
+                return true;
             }
         }
         return false;

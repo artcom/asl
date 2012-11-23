@@ -30,12 +30,12 @@ namespace asl {
     ////////////////////////////////////////////////////////////////////////////////
     //
     //
-    //	#    #    #   #####  ######   ####   #####     ##     #####  ######
-    //	#    ##   #     #    #       #    #  #    #   #  #      #    #
-    //	#    # #  #     #    #####   #       #    #  #    #     #    #####
-    //	#    #  # #     #    #       #  ###  #####   ######     #    #
-    //	#    #   ##     #    #       #    #  #   #   #    #     #    #
-    //	#    #    #     #    ######   ####   #    #  #    #     #    ######
+    //  #    #    #   #####  ######   ####   #####     ##     #####  ######
+    //  #    ##   #     #    #       #    #  #    #   #  #      #    #
+    //  #    # #  #     #    #####   #       #    #  #    #     #    #####
+    //  #    #  # #     #    #       #  ###  #####   ######     #    #
+    //  #    #   ##     #    #       #    #  #   #   #    #     #    #
+    //  #    #    #     #    ######   ####   #    #  #    #     #    ######
     //
     //
     //   estimate the integral of fun(x) from a to b
@@ -77,7 +77,7 @@ namespace asl {
 
 
         for ( i=0; i<exponent; i++ ) {
-    	retval *= base;
+        retval *= base;
         }
 
         return retval;
@@ -87,15 +87,15 @@ namespace asl {
     template<class ddfunction>
     int
     integrate (
-        ddfunction	    fun,
+        ddfunction      fun,
         const float&   a,
         const float&   b,
         const float&   abserr,
         const float&   relerr,
-        float&	    result,
-        float&	    errest,
-        int&	    nofun,
-        float&	    flag_   )
+        float&      result,
+        float&      errest,
+        int&        nofun,
+        float&      flag_   )
     {
 
 
@@ -105,11 +105,11 @@ namespace asl {
         // Local variables
         float area, cor11, temp, step, qnow, f[16];
         int i, j;
-        float x[16], qdiff, fsave[240];		    // was [8][30]
+        float x[16], qdiff, fsave[240];         // was [8][30]
         int nofin;
         float qleft;
         int nomax;
-        float f0, xsave[240];			    // was [8][30];
+        float f0, xsave[240];               // was [8][30];
         float stone, qprev, w0, w1, w2, w3, w4, x0;
         int levmin, levmax;
         float qright[31], esterr, tolerr;
@@ -147,7 +147,7 @@ namespace asl {
         area = 0.;
         nofun = 0;
         if (a == b) {
-    	return 0;
+        return 0;
         }
 
     //------------------------------------------------------------------------------
@@ -169,7 +169,7 @@ namespace asl {
         x[9] = (x[7] + x[11]) / 2.f;
         x[13] = (x[11] + x[15]) / 2.f;
         for (j = 2; j <= 16; j += 2) {
-    	f[j - 1] = fun (x[j - 1]);
+        f[j - 1] = fun (x[j - 1]);
         }
         nofun = 9;
 
@@ -184,15 +184,15 @@ namespace asl {
         x[0] = (x0 + x[1]) / 2.f;
         f[0] = fun (x[0]);
         for (j = 3; j <= 15; j += 2) {
-    	x[j - 1] = (x[j - 2] + x[j]) / 2.f;
-    	f[j - 1] = fun (x[j - 1]);
+        x[j - 1] = (x[j - 2] + x[j]) / 2.f;
+        f[j - 1] = fun (x[j - 1]);
         }
         nofun += 8;
         step = (x[15] - x0) / 16.f;
         qleft = (w0 * (f0 + f[7]) + w1 * (f[0] + f[6]) + w2 * (f[1] + f[5]) + w3 *
-    	     (f[2] + f[4]) + w4 * f[3]) * step;
+             (f[2] + f[4]) + w4 * f[3]) * step;
         qright[lev] = (w0 * (f[7] + f[15]) + w1 * (f[8] + f[14]) + w2 * (f[9] + f[
-    	    13]) + w3 * (f[10] + f[12]) + w4 * f[11]) * step;
+            13]) + w3 * (f[10] + f[12]) + w4 * f[11]) * step;
         qnow = qleft + qright[lev];
         qdiff = qnow - qprev;
         area += qdiff;
@@ -209,16 +209,16 @@ namespace asl {
         tolerr = ( d__1 > d__2 ) ? d__1 : d__2;
         tolerr *= step / stone;
         if (lev < levmin) {
-    	goto L50;
+        goto L50;
         }
         if (lev >= levmax) {
-    	goto L62;
+        goto L62;
         }
         if (nofun > nofin) {
-    	goto L60;
+        goto L60;
         }
         if (esterr <= tolerr) {
-    	goto L70;
+        goto L70;
         }
 
 
@@ -235,17 +235,17 @@ namespace asl {
     //   store right hand elements for future use.
 
         for (i = 1; i <= 8; ++i) {
-    	fsave[i + (lev << 3) - 9] = f[i + 7];
-    	xsave[i + (lev << 3) - 9] = x[i + 7];
+        fsave[i + (lev << 3) - 9] = f[i + 7];
+        xsave[i + (lev << 3) - 9] = x[i + 7];
         }
 
     //   assemble left hand elements for immediate use.
 
         qprev = qleft;
         for (i = 1; i <= 8; ++i) {
-    	j = -i;
-    	f[(j << 1) + 17] = f[j + 8];
-    	x[(j << 1) + 17] = x[j + 8];
+        j = -i;
+        f[(j << 1) + 17] = f[j + 8];
+        x[(j << 1) + 17] = x[j + 8];
     // L55:
         }
         goto L30;
@@ -282,7 +282,7 @@ namespace asl {
 
     L72:
         if (nim == nim / 2 << 1) {
-    	goto L75;
+        goto L75;
         }
         nim /= 2;
         --lev;
@@ -290,7 +290,7 @@ namespace asl {
     L75:
         ++nim;
         if (lev <= 0) {
-    	goto L80;
+        goto L80;
         }
 
     //   assemble elements required for the next interval.
@@ -299,8 +299,8 @@ namespace asl {
         x0 = x[15];
         f0 = f[15];
         for (i = 1; i <= 8; ++i) {
-    	f[(i << 1) - 1] = fsave[i + (lev << 3) - 9];
-    	x[(i << 1) - 1] = xsave[i + (lev << 3) - 9];
+        f[(i << 1) - 1] = fsave[i + (lev << 3) - 9];
+        x[(i << 1) - 1] = xsave[i + (lev << 3) - 9];
         }
         goto L30;
 
@@ -314,12 +314,12 @@ namespace asl {
     //   make sure errest not less than roundoff level.
 
         if (errest == 0.) {
-    	return 0;
+        return 0;
         }
     L82:
         temp = fabs(result) + errest;
         if (temp != fabs(result)) {
-    	return 0;
+        return 0;
         }
         errest *= 2.;
         goto L82;
@@ -339,7 +339,7 @@ namespace asl {
         float  abserr = 1.0e-11f;
         float  relerr = 1.0e-11f;
         float  errest;
-        int	    nofun;
+        int     nofun;
         float  flag;
         bool    retval;
 

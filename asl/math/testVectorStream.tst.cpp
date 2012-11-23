@@ -65,24 +65,24 @@ class FixedVectorStreamUnitTest : public UnitTest {
             }
 
 
-			{
-		        Matrix4<double> myMatrix;
+            {
+                Matrix4<double> myMatrix;
 
-		        myMatrix.assign(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+                myMatrix.assign(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
 
-		        // Test data access
-		        const double * myData = myMatrix.getData();
-		        for (unsigned i = 0; i < 16; i++) {
+                // Test data access
+                const double * myData = myMatrix.getData();
+                for (unsigned i = 0; i < 16; i++) {
                     // 2010 : gcc (Ubuntu 4.4.3-4ubuntu5) 4.4.3
                     // compiled with -O3 gcc produces false warning: 'array subscript is above array bounds'
                     // added stream output to circumvents the optimizer bug
 #ifdef __GNUC__
                     AC_PRINT << "Comparing " << i << " and " << myData[i];
 #endif
-			        ENSURE(myData[i] == double(i));
-		        }
+                    ENSURE(myData[i] == double(i));
+                }
 
-			}
+            }
             // Test matrix streaming
             {
                 Matrix4<float> myMatrix;

@@ -72,10 +72,10 @@ namespace asl {
 
             /** Construct from any FixedVector with the correct size
              */
-		    Quaternion(const FixedVector<4, Number> & t) : QuadrupleOf<Number>(t) {}
+            Quaternion(const FixedVector<4, Number> & t) : QuadrupleOf<Number>(t) {}
             /** Construct from C type array.
              */
-    		Quaternion(const Number* t) : QuadrupleOf<Number>(t) {}
+            Quaternion(const Number* t) : QuadrupleOf<Number>(t) {}
             /** Construct from two iterators/pointers.
              */
             Quaternion(const Number * theBegin, const Number * theEnd) : QuadrupleOf<Number>(theBegin, theEnd) {}
@@ -354,9 +354,9 @@ namespace asl {
      */
     template <class NUMBER>
     Quaternion<NUMBER> product(const Quaternion<NUMBER> & q, const NUMBER & s) {
-    	Quaternion<NUMBER> myResult(q);
+        Quaternion<NUMBER> myResult(q);
         myResult.mult(s);
-    	return myResult;
+        return myResult;
     }
 
     /** Multiplication operator for a float and a quaternion @f$\hat{q}@f$.
@@ -396,9 +396,9 @@ namespace asl {
     Quaternion<NUMBER> sum(const Quaternion<NUMBER> & q,
                            const Quaternion<NUMBER> & r)
     {
-    	Quaternion<NUMBER> myResult(q);
+        Quaternion<NUMBER> myResult(q);
         myResult.add(r);
-    	return myResult;
+        return myResult;
     }
 
     /** Subtracts two quaternions @f$\hat{q}@f$ and @f$\hat{r}@f$ and returns the result.
@@ -408,9 +408,9 @@ namespace asl {
     Quaternion<NUMBER> difference(const Quaternion<NUMBER> & q,
                                   const Quaternion<NUMBER> & r)
     {
-    	Quaternion<NUMBER> myResult(q);
+        Quaternion<NUMBER> myResult(q);
         myResult.sub(r);
-    	return myResult;
+        return myResult;
     }
     /** Subtraction operator for two quaternions @f$\hat{q}@f$ and @f$\hat{r}@f$.
      * @relates Quaternion
@@ -429,9 +429,9 @@ namespace asl {
     Quaternion<NUMBER> quotient(const Quaternion<NUMBER> & q,
                                 const NUMBER & theDividend)
     {
-    	Quaternion<NUMBER> myResult(q);
+        Quaternion<NUMBER> myResult(q);
         myResult.div(theDividend);
-    	return myResult;
+        return myResult;
     }
 
     /** Division operator for a quaternion @f$\hat{q}@f$ and a scalar.
@@ -477,9 +477,9 @@ namespace asl {
     lerp(const Quaternion<NUMBER> & q, const Quaternion<NUMBER> & r, const NUMBER & theT)
     {
         Quaternion<NUMBER> myResult;
-    	myResult = q + theT * ( r - q );
-    	myResult.normalize();
-    	return myResult;
+        myResult = q + theT * ( r - q );
+        myResult.normalize();
+        return myResult;
     }
 
     /** Spherical linear interpolation.

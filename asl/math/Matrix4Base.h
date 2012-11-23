@@ -572,14 +572,14 @@ namespace asl {
             this->val[3][1] = theTranslation[1];
             this->val[3][2] = theTranslation[2];
         }
-		Vector3<Number> getScale() const {
+        Vector3<Number> getScale() const {
             return Vector3<Number>(this->val[0][0],this->val[1][1],this->val[2][2]);
-		}
-		void setScale(const Vector3<Number> & theScale) {
-		    this->val[0][0] = theScale[0];
-		    this->val[1][1] = theScale[1];
-		    this->val[2][2] = theScale[2];
-		}
+        }
+        void setScale(const Vector3<Number> & theScale) {
+            this->val[0][0] = theScale[0];
+            this->val[1][1] = theScale[1];
+            this->val[2][2] = theScale[2];
+        }
         void rotateX(Number cosAngle, Number sinAngle) {
             Number t = this->val[0][1];
             this->val[0][1]= t * cosAngle - this->val[0][2] * sinAngle;

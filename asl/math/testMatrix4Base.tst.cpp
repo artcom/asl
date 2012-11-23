@@ -124,23 +124,23 @@ class Matrix4BaseUnitTest : public UnitTest {
             }
         }
 
-   		unsigned getNextPrime(unsigned myNumber) {
-			while(myNumber < std::numeric_limits<unsigned>::max()) {
-				myNumber++;
-				unsigned i = 2;
-				for (; i < myNumber; ++i) {
-					if (!(myNumber % i)) {
-						break;
-					}
-				}
+        unsigned getNextPrime(unsigned myNumber) {
+            while(myNumber < std::numeric_limits<unsigned>::max()) {
+                myNumber++;
+                unsigned i = 2;
+                for (; i < myNumber; ++i) {
+                    if (!(myNumber % i)) {
+                        break;
+                    }
+                }
 
-				if (myNumber == i) {
-					return myNumber;
-				}
-			}
+                if (myNumber == i) {
+                    return myNumber;
+                }
+            }
 
-			return 0;
-		}
+            return 0;
+        }
 
         void testCopyConstructor() {
             Matrix4Base<T> myMatrix1;
@@ -515,7 +515,7 @@ public:
 int main(int argc, char *argv[]) {
     MyTestSuite mySuite(argv[0], argc, argv);
     mySuite.run();
-	std::cerr << ">> Finished test suite '" << argv[0] << "'"
+    std::cerr << ">> Finished test suite '" << argv[0] << "'"
               << ", return status = " << mySuite.returnStatus() << endl;
     return mySuite.returnStatus();
 }

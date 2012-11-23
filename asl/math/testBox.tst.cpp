@@ -367,7 +367,7 @@ public:
 int main(int argc, char *argv[]) {
     MyTestSuite mySuite(argv[0], argc, argv);
     mySuite.run();
-	std::cerr << ">> Finished test suite '" << argv[0] << "'"
+    std::cerr << ">> Finished test suite '" << argv[0] << "'"
               << ", return status = " << mySuite.returnStatus() << endl;
     return mySuite.returnStatus();
 }

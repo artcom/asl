@@ -178,7 +178,7 @@ namespace asl {
     // vertex contact positions are always between primitive plane contact
     // positions
     template<class Number>
-	void sortContacts(int i, int theSolutions, ContactType newContact, Number newT0, Number newT1,
+    void sortContacts(int i, int theSolutions, ContactType newContact, Number newT0, Number newT1,
                       ContactType & theMin_contactType, ContactType & theMax_contactType,
                       Number & theMin_t,  Number & theMax_t,
                       int & theMinIndex, int & theMaxIndex)
@@ -224,8 +224,8 @@ namespace asl {
     // find the first and last contact with a triangle
     // see Kasper Fauerby, Improved Collision Detection and Response, http://www.peroxide.dk
     template<class Number>
-	int contacts(const Sphere<Number> & theSphere,
-	             const Vector3<Number> & theMotionVector,
+    int contacts(const Sphere<Number> & theSphere,
+                 const Vector3<Number> & theMotionVector,
                  const Triangle<Number> & theTriangle,
                  const Vector3<Vector3<Number> > * theNormals,
                  SweptSphereContact<Number> & theMin,
@@ -324,7 +324,7 @@ namespace asl {
             int mySolutions = contacts(theSphere, theMotionVector, theTriangle[i], newT0, newT1);
             if (mySolutions) {
                 mySolutions = clipContacts(newT0, newT1);
-    	        sortContacts(i, mySolutions, VERTEX_CONTACT, newT0, newT1, theMin.contactType, theMax.contactType, theMin.t, theMax.t, myMinIndex, myMaxIndex);
+                sortContacts(i, mySolutions, VERTEX_CONTACT, newT0, newT1, theMin.contactType, theMax.contactType, theMin.t, theMax.t, myMinIndex, myMaxIndex);
             }
         }
 
@@ -337,7 +337,7 @@ namespace asl {
             int myContacts = contacts(theSphere, theMotionVector, myEdge, x0, x1, f0[i], f1[i]);
             if (myContacts) {
                 myContacts = clipContacts(x0, x1);
-    	        sortContacts(0, myContacts, EDGE_CONTACT, x0, x1, theMin.contactType, theMax.contactType, theMin.t, theMax.t, myMinIndex, myMaxIndex);
+                sortContacts(0, myContacts, EDGE_CONTACT, x0, x1, theMin.contactType, theMax.contactType, theMin.t, theMax.t, myMinIndex, myMaxIndex);
             }
         }
 
@@ -400,8 +400,8 @@ namespace asl {
     // find the first contact point smaller than theCurrentContact.
     // see Kasper Fauerby, Improved Collision Detection and Response, http://www.peroxide.dk
     template<class Number>
-	int firstContact(const Sphere<Number> & theSphere,
-	             const Vector3<Number> & theMotionVector,
+    int firstContact(const Sphere<Number> & theSphere,
+                 const Vector3<Number> & theMotionVector,
                  const Triangle<Number> & theTriangle,
                  const Vector3<Vector3<Number> > * theNormals,
                  const SweptSphereContact<Number> & theCurrentContact,

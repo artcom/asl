@@ -38,14 +38,14 @@ namespace asl {
 
     // a line is of infinite length and has no start or end point
     template<class Number>
-	class Line {
-	public:
-		Line() {};
-		Line(const Line<Number> & l)
+    class Line {
+    public:
+        Line() {};
+        Line(const Line<Number> & l)
             : origin(l.origin), direction(l.direction) {}
         Line(const Point3<Number> & theOrigin, const Vector3<Number> & theDirection)
             : origin(theOrigin), direction(theDirection) {}
-		Line(const Point3<Number> & a, const Point3<Number> & b)
+        Line(const Point3<Number> & a, const Point3<Number> & b)
             : origin(a), direction(normalized(b-a)) {}
         void setOrigin(const Point3<Number> & theOrigin) {
             origin = theOrigin;
@@ -59,21 +59,21 @@ namespace asl {
         Point3<Number> getPoint(Number t) const {
             return origin + direction * t;
         }
-	public:
-		Point3<Number> origin; // a point on the line
-		Vector3<Number> direction; // the direction of the line
-	};
+    public:
+        Point3<Number> origin; // a point on the line
+        Vector3<Number> direction; // the direction of the line
+    };
 
     // a ray is a half line of infinite length and starts at <origin>
     template<class Number>
-	class Ray {
-	public:
-		Ray() {};
-		Ray(const Ray<Number> & l)
+    class Ray {
+    public:
+        Ray() {};
+        Ray(const Ray<Number> & l)
             : origin(l.origin), direction(l.direction) {}
         Ray(const Point3<Number> & theOrigin, const Vector3<Number> & theDirection)
             : origin(theOrigin), direction(theDirection) {}
-		Ray(const Point3<Number> & a, const Point3<Number> & b)
+        Ray(const Point3<Number> & a, const Point3<Number> & b)
             : origin(a), direction(normalized(b-a)) {}
         void setOrigin(const Point3<Number> & theOrigin) {
             origin = theOrigin;
@@ -87,10 +87,10 @@ namespace asl {
         Point3<Number> getPoint(Number t) const {
             return origin + direction * t;
         }
-	public:
-		Point3<Number> origin; // a point on the line
-		Vector3<Number> direction; // the direction of the line
-	};
+    public:
+        Point3<Number> origin; // a point on the line
+        Vector3<Number> direction; // the direction of the line
+    };
 
     // line and ray have the same implementation, but are something different
     // especially when making intersection test
@@ -101,10 +101,10 @@ namespace asl {
 
     // a finite length line
     template<class Number>
-	class LineSegment {
-	public:
-		LineSegment() {};
-		LineSegment(const LineSegment<Number> & l)
+    class LineSegment {
+    public:
+        LineSegment() {};
+        LineSegment(const LineSegment<Number> & l)
             : origin(l.origin), end(l.end) {}
         LineSegment(const Point3<Number> & theOrigin, const Point3<Number> & theEnd)
             : origin(theOrigin), end(theEnd) {}
@@ -120,10 +120,10 @@ namespace asl {
         Vector3<Number> getDirection() const {
             return end-origin;
         }
-	public:
-		Point3<Number> origin; // origin off the segment
-		Point3<Number> end; // the end of the segment
-	};
+    public:
+        Point3<Number> origin; // origin off the segment
+        Point3<Number> end; // the end of the segment
+    };
     template <class Number>
     LineSegment<Number> * asLineSegment(Point3<Number> * theTwoPoints) {
         return reinterpret_cast<LineSegment<Number>*>(theTwoPoints);
