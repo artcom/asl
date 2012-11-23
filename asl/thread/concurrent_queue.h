@@ -25,9 +25,9 @@ class concurrent_queue {
 
 public:
 
-	/**
-	 * Type of queue elements.
-	 */
+    /**
+     * Type of queue elements.
+     */
     typedef Value_Type_ value_type;
 
     /**
@@ -94,9 +94,9 @@ public:
      */
     size_type size() const
     {
-    	boost::mutex::scoped_lock lock(mutex_);
+        boost::mutex::scoped_lock lock(mutex_);
 
-    	return queue_.size();
+        return queue_.size();
     }
 
     /**
@@ -118,11 +118,11 @@ public:
      */
     void flush()
     {
-    	boost::mutex::scoped_lock lock(mutex_);
+        boost::mutex::scoped_lock lock(mutex_);
 
-    	while(!queue_.empty()) {
-    		queue_.pop();
-    	}
+        while(!queue_.empty()) {
+            queue_.pop();
+        }
     }
 
     /**
@@ -165,12 +165,12 @@ public:
      */
     template<typename Duration_Type_>
     bool timed_wait_and_pop(
-    		reference popped_value,
-    		Duration_Type_ wait_duration
-    		)
+            reference popped_value,
+            Duration_Type_ wait_duration
+            )
     {
         boost::system_time const timeout =
-        		boost::get_system_time() + wait_duration;
+                boost::get_system_time() + wait_duration;
 
         boost::mutex::scoped_lock lock(mutex_);
 
