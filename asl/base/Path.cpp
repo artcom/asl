@@ -71,7 +71,7 @@ Path::Path() {
 #ifdef OSX
     _myString = 0;
 #else
-	_myLocaleChars = 0;
+    _myLocaleChars = 0;
 #endif
 }
 
@@ -80,7 +80,7 @@ Path::Path(const char * theString, StringEncoding theEncoding)
 #ifdef OSX
     _myString = 0;
 #else
-	_myLocaleChars = 0;
+    _myLocaleChars = 0;
 #endif
     assign(theString, theEncoding);
 }
@@ -90,16 +90,16 @@ Path::Path(const std::string & theString, StringEncoding theEncoding)
 #ifdef OSX
     _myString = 0;
 #else
-	_myLocaleChars = 0;
+    _myLocaleChars = 0;
 #endif
     assign(theString.c_str(), theEncoding);
 }
 
 Path::Path(const Path & theOther) {
 #ifdef OSX
-	_myString = CFStringCreateCopy(0, theOther._myString);
+    _myString = CFStringCreateCopy(0, theOther._myString);
 #else
-	_myLocaleChars = 0;
+    _myLocaleChars = 0;
     assign(theOther._myLocaleChars, Locale);
 #endif
 }
@@ -136,7 +136,7 @@ Path::assign(const char * theString, StringEncoding theEncoding) {
     switch (theEncoding) {
         case UTF8:
 #ifdef OSX
-			_myString = CFStringCreateWithCString(NULL, theString, kCFStringEncodingUTF8);
+            _myString = CFStringCreateWithCString(NULL, theString, kCFStringEncodingUTF8);
 #elif _WIN32
             {
                 // convert from UTF8 to WideChars
@@ -163,7 +163,7 @@ Path::assign(const char * theString, StringEncoding theEncoding) {
             break;
         case Locale:
 #ifdef OSX
-			_myString = CFStringCreateWithCString(NULL, theString, CFStringGetSystemEncoding());
+            _myString = CFStringCreateWithCString(NULL, theString, CFStringGetSystemEncoding());
 #elif _WIN32
             _myLocaleChars = _strdup(theString);
 #else
@@ -176,17 +176,17 @@ Path::assign(const char * theString, StringEncoding theEncoding) {
 std::string
 Path::toLocale() const {
 #ifdef OSX
-	CFRange myRange = CFRangeMake(0, CFStringGetLength(_myString));
-	CFIndex myBufferSize = 0;
-	std::string myResult;
-	CFIndex myCharCount = CFStringGetBytes(_myString, myRange, CFStringGetSystemEncoding(), '?', FALSE, 0, 0, &myBufferSize);
-	if (myCharCount) {
-		myResult.resize(myBufferSize);
-		CFIndex myExCharCount = CFStringGetBytes(_myString, myRange, CFStringGetSystemEncoding(), '?',
-													FALSE, (UInt8*)&(*(myResult.begin())), myBufferSize, &myBufferSize);
-		ASSURE_WITH(AssurePolicy::Throw, myExCharCount == myCharCount);
-	}
-	return myResult;
+    CFRange myRange = CFRangeMake(0, CFStringGetLength(_myString));
+    CFIndex myBufferSize = 0;
+    std::string myResult;
+    CFIndex myCharCount = CFStringGetBytes(_myString, myRange, CFStringGetSystemEncoding(), '?', FALSE, 0, 0, &myBufferSize);
+    if (myCharCount) {
+        myResult.resize(myBufferSize);
+        CFIndex myExCharCount = CFStringGetBytes(_myString, myRange, CFStringGetSystemEncoding(), '?',
+                                                    FALSE, (UInt8*)&(*(myResult.begin())), myBufferSize, &myBufferSize);
+        ASSURE_WITH(AssurePolicy::Throw, myExCharCount == myCharCount);
+    }
+    return myResult;
 #else
     if (_myLocaleChars == 0) {
         return std::string();
@@ -198,17 +198,17 @@ Path::toLocale() const {
 std::string
 Path::toUTF8() const {
 #ifdef OSX
-	CFRange myRange = CFRangeMake(0, CFStringGetLength(_myString));
-	CFIndex myBufferSize = 0;
-	std::string myResult;
-	CFIndex myCharCount = CFStringGetBytes(_myString, myRange, kCFStringEncodingUTF8, '?', FALSE, 0, 0, &myBufferSize);
-	if (myCharCount) {
-		myResult.resize(myBufferSize);
-		CFIndex myExCharCount = CFStringGetBytes(_myString, myRange, kCFStringEncodingUTF8, '?',
-													FALSE, (UInt8*)&(*(myResult.begin())), myBufferSize, &myBufferSize);
-		ASSURE_WITH(AssurePolicy::Throw, myExCharCount == myCharCount);
-	}
-	return myResult;
+    CFRange myRange = CFRangeMake(0, CFStringGetLength(_myString));
+    CFIndex myBufferSize = 0;
+    std::string myResult;
+    CFIndex myCharCount = CFStringGetBytes(_myString, myRange, kCFStringEncodingUTF8, '?', FALSE, 0, 0, &myBufferSize);
+    if (myCharCount) {
+        myResult.resize(myBufferSize);
+        CFIndex myExCharCount = CFStringGetBytes(_myString, myRange, kCFStringEncodingUTF8, '?',
+                                                    FALSE, (UInt8*)&(*(myResult.begin())), myBufferSize, &myBufferSize);
+        ASSURE_WITH(AssurePolicy::Throw, myExCharCount == myCharCount);
+    }
+    return myResult;
 #elif _WIN32
     if (_myLocaleChars == 0) {
         return std::string();
@@ -251,15 +251,15 @@ Path::toUTF8() const {
 
 Path &
 Path::operator=(const Path& theOther) {
-	if (this == &theOther) {
-		return *this;
-	}
+    if (this == &theOther) {
+        return *this;
+    }
 #ifdef OSX
-	_myString = CFStringCreateCopy(0, theOther._myString);
+    _myString = CFStringCreateCopy(0, theOther._myString);
 #else
     assign(theOther._myLocaleChars, Locale);
 #endif
-	return *this;
+    return *this;
 }
 
 bool
@@ -274,11 +274,11 @@ Path::empty() const {
 bool
 Path::operator==(const Path& theOther) const {
 #ifdef OSX
-	return CFStringCompare(_myString, theOther._myString, 0) == kCFCompareEqualTo;
+    return CFStringCompare(_myString, theOther._myString, 0) == kCFCompareEqualTo;
 #else
-	if (this->_myLocaleChars == theOther._myLocaleChars) {
-		return true;
-	}
+    if (this->_myLocaleChars == theOther._myLocaleChars) {
+        return true;
+    }
     return strcmp(this->_myLocaleChars, theOther._myLocaleChars) == 0;
 #endif
 }

@@ -50,7 +50,7 @@ public:
     std::string toUTF8() const;
 private:
 #ifdef OSX
-	CFStringRef _myString;
+    CFStringRef _myString;
 #else
     char * _myLocaleChars;
 #endif

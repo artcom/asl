@@ -76,9 +76,9 @@ namespace asl {
         streamer << x << '\0';
 
         // XXX avoid Memory leak after .str()
-    	Char * result_str = streamer.str();
-	    std::string result = result_str;
-	    delete result_str;
+        Char * result_str = streamer.str();
+        std::string result = result_str;
+        delete result_str;
         return result;
     }
 

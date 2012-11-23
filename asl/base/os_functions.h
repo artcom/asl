@@ -31,7 +31,7 @@
     #include <unistd.h>
 #endif
 #ifdef _WIN32
-	#include <windows.h>
+    #include <windows.h>
 #endif
 
 namespace asl {
@@ -85,7 +85,7 @@ namespace asl {
     }
 
 #ifdef _WIN32
-		ASL_BASE_DECL bool hResultIsOk(HRESULT hr, std::string & theMessage);
+        ASL_BASE_DECL bool hResultIsOk(HRESULT hr, std::string & theMessage);
 #endif
     /* @} */
 

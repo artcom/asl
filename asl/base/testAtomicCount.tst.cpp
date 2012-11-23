@@ -45,7 +45,7 @@ public:
         ENSURE_EQUAL(myCount , 2);
         ENSURE(!myCount.decrement_and_test());
         ENSURE_EQUAL(myCount , 1);
-	    long myValue = myCount.post_increment();
+        long myValue = myCount.post_increment();
         ENSURE_EQUAL(myValue , 1);
         ENSURE_EQUAL(myCount , 2);
         ENSURE(!myCount.decrement_and_test());
@@ -65,7 +65,7 @@ public:
         myCount.set(1);
         ENSURE(myCount.conditional_increment());
         ENSURE_EQUAL(myCount , 2);
-	    myValue = myCount.post_increment();
+        myValue = myCount.post_increment();
         ENSURE_EQUAL(myValue , 2);
     }
 };
@@ -144,7 +144,7 @@ public:
     void setup() {
         UnitTestSuite::setup(); // called to print a launch message
         addTest(new AtomicCountTemplateUnitTest<asl::SingleThreaded>("<SingleThreaded>"),100);
-		// TODO: run this test only on machines with a single processor, or maybe we drop it at all
+        // TODO: run this test only on machines with a single processor, or maybe we drop it at all
         // addTest(new AtomicCountTemplateUnitTest<asl::SingleProcessor>("<SingleProcessor>"),100);
         addTest(new AtomicCountTemplateUnitTest<asl::MultiProcessor>("<MultiProcessor>"),100);
         addTest(new AtomicThreadSafetyTest());

@@ -74,10 +74,10 @@ std::string errorDescription(LAST_ERROR_TYPE err) {
                        (LPTSTR) &lpMsgBuf,
                        0,
                        NULL ))
-	{
+    {
         // Handle the error.
         return std::string("unknown error code=")+asl::as_string(err);
-	}
+    }
     std::string myResult = static_cast<const char*>(lpMsgBuf);
     LocalFree( lpMsgBuf );
     return myResult;

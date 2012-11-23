@@ -83,10 +83,10 @@ asl::CowBlock::CowBlock(const asl::ReadableBlock & theSource) {
 
 asl::WriteableStream &
 asl::CowBlock::append(const void * theMemory, AC_SIZE_TYPE theSize) {
-	if (_myRep == 0) {
+    if (_myRep == 0) {
         _myRep = new Representation(static_cast<const unsigned char *>(theMemory),
-									static_cast<const unsigned char *>(theMemory)+theSize);
-	} else {
+                                    static_cast<const unsigned char *>(theMemory)+theSize);
+    } else {
         makeWriteable();
         _myRep->theBlock.append(theMemory, theSize);
     }
@@ -95,7 +95,7 @@ asl::CowBlock::append(const void * theMemory, AC_SIZE_TYPE theSize) {
 
 asl::WriteableStream &
 asl::CowBlock::append(const asl::ReadableBlock & theSource) {
-	return append(theSource.begin(), theSource.size());
+    return append(theSource.begin(), theSource.size());
 }
 
 void
@@ -115,16 +115,16 @@ void
 asl::copy(const ReadableBlock & theSource, WriteableBlock & theDest) {
     if (theSource.size()!=theDest.size())
     throw BlockSizeMismatch( "theSource and theDest block size differ",
-							 "copy(const ReadableBlock &, WriteableBlock &");
+                             "copy(const ReadableBlock &, WriteableBlock &");
     std::copy(theSource.begin(),theSource.end(),theDest.begin());
 }
 
 /// copies theSource to theDest and resizes theDest if necessary
 void
 asl::copy(const ReadableBlock & theSource, ResizeableBlock& theDest) {
-	if (theSource.size()!=theDest.size()) {
+    if (theSource.size()!=theDest.size()) {
         theDest.resize(theSource.size());
-	}
+    }
     std::copy(theSource.begin(),theSource.end(),theDest.begin());
 }
 

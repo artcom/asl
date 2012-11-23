@@ -84,7 +84,7 @@ namespace asl {
         static bool _ourDumpStackTraceFlag;
     };
 
-	ASL_BASE_DECL std::string file_string(const char* file_name);
+    ASL_BASE_DECL std::string file_string(const char* file_name);
     ASL_BASE_DECL std::string line_string(unsigned line_number);
     ASL_BASE_DECL std::string location_string(const char* file_name, unsigned line_number);
 

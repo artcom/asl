@@ -38,13 +38,13 @@ using namespace asl;
 #else
 __declspec (dllexport)
 BOOL WINAPI DllMain (HANDLE hInst, ULONG ul_reason_for_call, LPVOID lpReserved) {
-	static PlugInBase* thePlugInInstance = 0;
-	if (ul_reason_for_call==DLL_PROCESS_ATTACH) {
-	} else if (ul_reason_for_call==DLL_PROCESS_DETACH) {
-		delete thePlugInInstance;
-		thePlugInInstance = 0;
-	}
-	return TRUE;
+    static PlugInBase* thePlugInInstance = 0;
+    if (ul_reason_for_call==DLL_PROCESS_ATTACH) {
+    } else if (ul_reason_for_call==DLL_PROCESS_DETACH) {
+        delete thePlugInInstance;
+        thePlugInInstance = 0;
+    }
+    return TRUE;
 }
 #endif
 */
@@ -54,14 +54,14 @@ PlugInBase :: PlugInBase(DLHandle theDLHandle) :
 {}
 
 void PlugInBase :: _initializeSingletonManager(SingletonManager* theSingletonManager) {
-	// make sure our local SingletonManager delegates its calls
-	// the the master SingletonManager of our process.
-	AC_DEBUG << "SingletonManager in _initializeSingletonManager" << &SingletonManager::get() << std::endl;
-	SingletonManager::get().setDelegate(theSingletonManager);
+    // make sure our local SingletonManager delegates its calls
+    // the the master SingletonManager of our process.
+    AC_DEBUG << "SingletonManager in _initializeSingletonManager" << &SingletonManager::get() << std::endl;
+    SingletonManager::get().setDelegate(theSingletonManager);
 }
 
 DLHandle PlugInBase :: getDLHandle() const {
-	return _myDLHandle;
+    return _myDLHandle;
 }
 
 

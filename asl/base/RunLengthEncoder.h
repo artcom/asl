@@ -65,7 +65,7 @@ class RLE {
         void writeNumber(asl::VariableCapacityBlock & theBuffer, unsigned long theNumber) {
             do {
                 unsigned char myByte = static_cast<unsigned char>(theNumber % 128);
-    		    theNumber /= 128;
+                theNumber /= 128;
                 if (theNumber > 0) {
                     myByte |= 128;
                 }
@@ -104,7 +104,7 @@ class RLE {
                     asl::as_string(theData.size()) + " theDatagramSize: " + asl::as_string(theDatagramSize) + ")", "RLE::compress()");
             }
 
-    	    theResult.reserve(theData.size());
+            theResult.reserve(theData.size());
 
             // Write header with original data size and datagram size
             writeNumber(theResult, theData.size());
@@ -113,57 +113,57 @@ class RLE {
             const unsigned char * myDataIt = theData.begin();
             const unsigned char * myEnd    = theData.end();
 
-    	    if (theData.size() <= theDatagramSize * 2) {
+            if (theData.size() <= theDatagramSize * 2) {
                 addCode(true, 2, theResult);
                 theResult.append(myDataIt, 2 * theDatagramSize);
                 return;
-    	    }
+            }
 
-    	    // Bootstrap
-    	    bool myDirtyFlag             = (memcmp(myDataIt, myDataIt + theDatagramSize, theDatagramSize) != 0);
-    	    unsigned mySequenceLength    = 2;
+            // Bootstrap
+            bool myDirtyFlag             = (memcmp(myDataIt, myDataIt + theDatagramSize, theDatagramSize) != 0);
+            unsigned mySequenceLength    = 2;
             myDataIt += theDatagramSize;
 
-    	    while (myDataIt + theDatagramSize != myEnd) {
-    		    if (myDirtyFlag) {
+            while (myDataIt + theDatagramSize != myEnd) {
+                if (myDirtyFlag) {
                     if (memcmp(myDataIt, myDataIt + theDatagramSize, theDatagramSize) != 0) {
-    				    ++mySequenceLength;
-    			    } else {
-    				    addCode(true, mySequenceLength - 1, theResult);
+                        ++mySequenceLength;
+                    } else {
+                        addCode(true, mySequenceLength - 1, theResult);
                         theResult.append(myDataIt - (mySequenceLength - 1) * theDatagramSize, (mySequenceLength - 1) * theDatagramSize);
-    				    mySequenceLength = 2;
-    				    myDirtyFlag = false;
-    			    }
-    		    } else {
-    			    if (memcmp(myDataIt, myDataIt + theDatagramSize, theDatagramSize) == 0) {
-    				    ++mySequenceLength;
-    			    } else {
-    				    addCode(false, mySequenceLength, theResult);
-    				    theResult.append(myDataIt, theDatagramSize);
+                        mySequenceLength = 2;
+                        myDirtyFlag = false;
+                    }
+                } else {
+                    if (memcmp(myDataIt, myDataIt + theDatagramSize, theDatagramSize) == 0) {
+                        ++mySequenceLength;
+                    } else {
+                        addCode(false, mySequenceLength, theResult);
+                        theResult.append(myDataIt, theDatagramSize);
                         myDataIt += theDatagramSize;
-    				    mySequenceLength = 1;
-    				    if (myDataIt + theDatagramSize != myEnd) {
+                        mySequenceLength = 1;
+                        if (myDataIt + theDatagramSize != myEnd) {
                             ++mySequenceLength;
                             if (memcmp(myDataIt, myDataIt + theDatagramSize, theDatagramSize) != 0) {
-    						    myDirtyFlag = true;
-    					    }
+                                myDirtyFlag = true;
+                            }
                         } else {
                             break;
                         }
-    			    }
-    		    }
+                    }
+                }
                 myDataIt += theDatagramSize;
-    	    }
+            }
 
-    	    if (mySequenceLength > 0) {
-    		    addCode(myDirtyFlag, mySequenceLength, theResult);
+            if (mySequenceLength > 0) {
+                addCode(myDirtyFlag, mySequenceLength, theResult);
 
-    		    if (myDirtyFlag) {
+                if (myDirtyFlag) {
                     theResult.append(myDataIt - (mySequenceLength - 1) * theDatagramSize, mySequenceLength * theDatagramSize);
-    		    } else {
-    			    theResult.append(myDataIt, theDatagramSize);
-    		    }
-    	    }
+                } else {
+                    theResult.append(myDataIt, theDatagramSize);
+                }
+            }
         }
 
         /*
@@ -182,7 +182,7 @@ class RLE {
                     asl::as_string(theData.size()) + " theDatagramSize: " + asl::as_string(myDatagramSize) + ")", "RLE::compress()");
             }
 
-    	    theResult.reserve(theData.size());
+            theResult.reserve(theData.size());
 
             // Write header with original data size and datagram size
             writeNumber(theResult, theData.size());
@@ -195,55 +195,55 @@ class RLE {
                 addCode(true, 2, theResult);
                 theResult.append(myDataIt, 2 * myDatagramSize);
                 return;
-    	    }
+            }
 
-    	    // Bootstrap
+            // Bootstrap
             T myPreviousByte           = *(myDataIt++);
             T myByte                   = *(myDataIt++);
-    	    bool myDirtyFlag           = (myPreviousByte != myByte);
-    	    unsigned mySequenceLength  = 2;
+            bool myDirtyFlag           = (myPreviousByte != myByte);
+            unsigned mySequenceLength  = 2;
             myPreviousByte             = myByte;
 
-    	    while (myDataIt != myEnd) {
+            while (myDataIt != myEnd) {
                 myByte = *(myDataIt++);
-    		    if (myDirtyFlag) {
-    			    if (myByte != myPreviousByte) {
-    				    ++mySequenceLength;
-    			    } else {
-    				    addCode(true, mySequenceLength - 1, theResult);
+                if (myDirtyFlag) {
+                    if (myByte != myPreviousByte) {
+                        ++mySequenceLength;
+                    } else {
+                        addCode(true, mySequenceLength - 1, theResult);
                         theResult.append(myDataIt - mySequenceLength - 1, (mySequenceLength - 1) * myDatagramSize);
-    				    mySequenceLength = 2;
-    				    myDirtyFlag = false;
-    			    }
-    		    } else {
-    			    if (myByte == myPreviousByte) {
-    				    ++mySequenceLength;
-    			    } else {
-    				    addCode(false, mySequenceLength, theResult);
-    				    theResult.appendData(myPreviousByte);
+                        mySequenceLength = 2;
+                        myDirtyFlag = false;
+                    }
+                } else {
+                    if (myByte == myPreviousByte) {
+                        ++mySequenceLength;
+                    } else {
+                        addCode(false, mySequenceLength, theResult);
+                        theResult.appendData(myPreviousByte);
 
-    				    mySequenceLength = 1;
-    				    if (myDataIt != myEnd) {
+                        mySequenceLength = 1;
+                        if (myDataIt != myEnd) {
                             ++mySequenceLength;
                             myPreviousByte = myByte;
                             myByte = *(myDataIt++);
                             if (myByte != myPreviousByte) {
-    						    myDirtyFlag = true;
-    					    }
-    				    }
-    			    }
-    		    }
-    		    myPreviousByte = myByte;
-    	    }
+                                myDirtyFlag = true;
+                            }
+                        }
+                    }
+                }
+                myPreviousByte = myByte;
+            }
 
-    	    if (mySequenceLength > 0) {
-    		    addCode(myDirtyFlag, mySequenceLength, theResult);
-    		    if (myDirtyFlag) {
+            if (mySequenceLength > 0) {
+                addCode(myDirtyFlag, mySequenceLength, theResult);
+                if (myDirtyFlag) {
                     theResult.append(myDataIt - mySequenceLength, mySequenceLength * myDatagramSize);
-    		    } else {
-    			    theResult.appendData(myByte);
-    		    }
-    	    }
+                } else {
+                    theResult.appendData(myByte);
+                }
+            }
         }
 
         /*
@@ -254,31 +254,31 @@ class RLE {
         static
         void uncompress(const asl::ReadableBlock & theData, asl::VariableCapacityBlock & theResult,
                 unsigned long theResultOffset = 0) {
-    	    const unsigned char * myDataIt = theData.begin();
+            const unsigned char * myDataIt = theData.begin();
 
             // Uncompressed data size is written to the start of the compressed data
             theResult.resize(theResultOffset+readNumber(myDataIt));
             unsigned myDatagramSize = readNumber(myDataIt);
 
-      	    unsigned char * myResultIt = theResult.begin() + theResultOffset;
+            unsigned char * myResultIt = theResult.begin() + theResultOffset;
             unsigned long myLength = 0;
             const unsigned char * myEnd = theData.end();
 
             while (myDataIt != myEnd) {
-    		    if (readCode(myDataIt, myLength)) {
+                if (readCode(myDataIt, myLength)) {
                     unsigned myByteLength = myLength * myDatagramSize;
                     std::copy(myDataIt, myDataIt + myByteLength, myResultIt);
                     myDataIt   += myByteLength;
                     myResultIt += myByteLength;
-    		    } else {
+                } else {
                     for (unsigned i = 0; i < myLength; ++i) {
                         for (unsigned j = 0; j < myDatagramSize; ++j) {
                             *(myResultIt++) = myDataIt[j];
                         }
                     }
                     myDataIt += myDatagramSize;
-    		    }
-    	    }
+                }
+            }
         }
 
     private:

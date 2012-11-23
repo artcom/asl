@@ -117,12 +117,12 @@ namespace asl {
 
     class ASL_BASE_DECL SystemInfo  
     {
-       WindowsVersion	   m_nWinVersion;
-       WindowsEdition	   m_nWinEdition;
-       TCHAR			      m_szServicePack[128];
+       WindowsVersion      m_nWinVersion;
+       WindowsEdition      m_nWinEdition;
+       TCHAR                  m_szServicePack[128];
        OSVERSIONINFOEX   m_osvi;
-       SYSTEM_INFO		   m_SysInfo;
-       BOOL			      m_bOsVersionInfoEx;
+       SYSTEM_INFO         m_SysInfo;
+       BOOL               m_bOsVersionInfoEx;
 
     private:
        void DetectWindowsVersion();
@@ -134,18 +134,18 @@ namespace asl {
        SystemInfo();
        virtual ~SystemInfo();
 
-       WindowsVersion GetWindowsVersion() const;		// returns the windows version
-       WindowsEdition GetWindowsEdition() const;		// returns the windows edition
-       bool IsNTPlatform() const;						   // true if NT platform
-       bool IsWindowsPlatform() const;					   // true is Windows platform
-       bool IsWin32sPlatform() const;					   // true is Win32s platform
-       DWORD GetMajorVersion() const;					   // returns major version
-       DWORD GetMinorVersion() const;				   	// returns minor version
-       DWORD GetBuildNumber() const;			   		// returns build number
-       DWORD GetPlatformID() const;				      	// returns platform ID
+       WindowsVersion GetWindowsVersion() const;        // returns the windows version
+       WindowsEdition GetWindowsEdition() const;        // returns the windows edition
+       bool IsNTPlatform() const;                          // true if NT platform
+       bool IsWindowsPlatform() const;                     // true is Windows platform
+       bool IsWin32sPlatform() const;                      // true is Win32s platform
+       DWORD GetMajorVersion() const;                      // returns major version
+       DWORD GetMinorVersion() const;                   // returns minor version
+       DWORD GetBuildNumber() const;                    // returns build number
+       DWORD GetPlatformID() const;                     // returns platform ID
        void GetServicePackInfo(TCHAR* szServicePack) const;// additional information about service pack
-       bool Is32bitPlatform() const;					   // true if platform is 32-bit
-       bool Is64bitPlatform() const;					   // true if platform is 64-bit
+       bool Is32bitPlatform() const;                       // true if platform is 32-bit
+       bool Is64bitPlatform() const;                       // true if platform is 64-bit
     };
 
 } //Namespace asl

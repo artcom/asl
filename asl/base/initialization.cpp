@@ -68,7 +68,7 @@ struct AslInitializer {
 
 
 namespace asl {
-	void initialize() {
-		(void)&ourAslInitializer;
-	}
+    void initialize() {
+        (void)&ourAslInitializer;
+    }
 } // namespace asl

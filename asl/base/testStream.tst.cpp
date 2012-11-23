@@ -34,10 +34,10 @@ using namespace std;
 using namespace asl;
 
 struct SomeStruct {
-	int a;
-	float f;
-	char c;
-	char x[99];
+    int a;
+    float f;
+    char c;
+    char x[99];
 };
 
 class StreamUnitTest : public UnitTest {
@@ -305,17 +305,17 @@ public:
 
     void run() {
 
-	ENSURE(sizeof(Signed8) == 1);
-	ENSURE(sizeof(Unsigned8) == 1);
-	ENSURE(sizeof(Signed16) == 2);
-	ENSURE(sizeof(Unsigned16) == 2);
-	ENSURE(sizeof(Signed32) == 4);
-	ENSURE(sizeof(Unsigned32) == 4);
-	ENSURE(sizeof(Signed64) == 8);
-	ENSURE(sizeof(Unsigned64) == 8);
-	ENSURE(sizeof(asl::Float32) == 4);
-	ENSURE(sizeof(asl::Float64) == 8);
-	//ENSURE(sizeof(Float128) == 16);
+    ENSURE(sizeof(Signed8) == 1);
+    ENSURE(sizeof(Unsigned8) == 1);
+    ENSURE(sizeof(Signed16) == 2);
+    ENSURE(sizeof(Unsigned16) == 2);
+    ENSURE(sizeof(Signed32) == 4);
+    ENSURE(sizeof(Unsigned32) == 4);
+    ENSURE(sizeof(Signed64) == 8);
+    ENSURE(sizeof(Unsigned64) == 8);
+    ENSURE(sizeof(asl::Float32) == 4);
+    ENSURE(sizeof(asl::Float64) == 8);
+    //ENSURE(sizeof(Float128) == 16);
 
         asl::Block myBlock;
         perform_put(myBlock);

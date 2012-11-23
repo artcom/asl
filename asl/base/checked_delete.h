@@ -13,7 +13,7 @@
 // Description:  Memory Block handling functions; should be used whenever
 //               using memcpy is considered; features
 //               - typesafe conversion,
-//		         - compile-time memory read-write control,
+//               - compile-time memory read-write control,
 //               - convenient windows api interfaces and
 //               - also a copy-on-write (COW) implementation
 //

@@ -50,6 +50,6 @@ public:
 extern "C"
 EXPORT asl::PlugInBase*
 asltestplugin_instantiatePlugIn(asl::DLHandle myDLHandle) {
-	return new asl::RealTestPlugIn(myDLHandle);
+    return new asl::RealTestPlugIn(myDLHandle);
 }
 

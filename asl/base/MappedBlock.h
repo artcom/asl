@@ -184,7 +184,7 @@ FD_t asl_open(const char * theFilename, int oflag, int pmode, bool share = true)
     }
 
     if (oflag & O_CREAT) {
-        //		dwCreationDisposition = CREATE_NEW;
+        //      dwCreationDisposition = CREATE_NEW;
         dwCreationDisposition = OPEN_ALWAYS;
     } else {
         dwCreationDisposition = OPEN_EXISTING;
@@ -544,11 +544,11 @@ namespace asl {
 
             if (theData == (void*)-1) {
                 theData = 0;
-				LAST_ERROR_TYPE err = lastError();
-				throw MappedIO::MMapFailed(std::string("fd=")+asl::as_string(fd)+",  size ="
-					+as_string(theSize)+",reason:"+asl::errorDescription(err),PLUS_FILE_LINE);
-			}
-		}
+                LAST_ERROR_TYPE err = lastError();
+                throw MappedIO::MMapFailed(std::string("fd=")+asl::as_string(fd)+",  size ="
+                    +as_string(theSize)+",reason:"+asl::errorDescription(err),PLUS_FILE_LINE);
+            }
+        }
         static void remapFile(void * & theData, OFF_T theSize, OFF_T theNewSize) {
 #ifdef OSX
             throw MappedIO::MRemapFailed(std::string("DS: The Linux mremap() call is *not* portable ") +
@@ -566,7 +566,7 @@ namespace asl {
             }
             DB(AC_TRACE << "remapFile: return theData = " << theData <<std::endl);
 #endif
-		}
+        }
         bool isGood() const {
             return _myfd !=FD_INVALID && !_myErrorFlag;
         }

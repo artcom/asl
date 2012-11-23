@@ -73,9 +73,9 @@ namespace asl {
 #else
         outValue = strtof(theString.c_str(), &end);
 #endif
-		// if errno = ERANGE, then we have an over- or underflow.
-		// if its an overflow, outValue will be very big (positive or negative infinity)
-		// if its an underflow, outValue will be almost zero
+        // if errno = ERANGE, then we have an over- or underflow.
+        // if its an overflow, outValue will be very big (positive or negative infinity)
+        // if its an underflow, outValue will be almost zero
         if (errno == ERANGE && fabsf(outValue) < 1.0f) { 
           return true; // underflow
         }

@@ -32,7 +32,7 @@
 #define WINVER       0x0500
 #endif // WINVER
 #ifndef _WIN32_IE
-#define _WIN32_IE	 0x0500
+#define _WIN32_IE    0x0500
 #endif // _WIN32_IE
 
 #ifndef _M_IX86
@@ -59,19 +59,19 @@
 #endif
 //
 #ifdef _DEBUG
-#pragma warning(disable:4127)		// conditional expression is constant
+#pragma warning(disable:4127)       // conditional expression is constant
 #endif
 
-#pragma warning(disable:4786)		// disable "identifier was truncated to 'number' characters in the debug information"
-#pragma warning(disable:4290)		// C++ Exception Specification ignored
-#pragma warning(disable:4097)		// typedef-name 'identifier1' used as synonym for class-name 'identifier2'
-#pragma warning(disable:4001)		// nonstandard extension 'single line comment' was used
-#pragma warning(disable:4100)		// unreferenced formal parameter
-#pragma warning(disable:4699)		// Note: Creating precompiled header
-#pragma warning(disable:4710)		// function not inlined
-#pragma warning(disable:4514)		// unreferenced inline function has been removed
-#pragma warning(disable:4512)		// assignment operator could not be generated
-#pragma warning(disable:4310)		// cast truncates constant value
+#pragma warning(disable:4786)       // disable "identifier was truncated to 'number' characters in the debug information"
+#pragma warning(disable:4290)       // C++ Exception Specification ignored
+#pragma warning(disable:4097)       // typedef-name 'identifier1' used as synonym for class-name 'identifier2'
+#pragma warning(disable:4001)       // nonstandard extension 'single line comment' was used
+#pragma warning(disable:4100)       // unreferenced formal parameter
+#pragma warning(disable:4699)       // Note: Creating precompiled header
+#pragma warning(disable:4710)       // function not inlined
+#pragma warning(disable:4514)       // unreferenced inline function has been removed
+#pragma warning(disable:4512)       // assignment operator could not be generated
+#pragma warning(disable:4310)       // cast truncates constant value
 
 
 
@@ -103,60 +103,60 @@ namespace asl {
  */
 class Win32Backtrace {
     public:
-		struct Win32StackFrame : public StackFrameBase {
-			std::string file;
-			unsigned    line;
-		};
-		typedef Win32StackFrame StackFrame;
+        struct Win32StackFrame : public StackFrameBase {
+            std::string file;
+            unsigned    line;
+        };
+        typedef Win32StackFrame StackFrame;
 
-		static void trace(std::vector<StackFrame> & theStack, int theMaxDepth);
+        static void trace(std::vector<StackFrame> & theStack, int theMaxDepth);
 
-	private:
+    private:
         Win32Backtrace();
 
-		Win32Backtrace (unsigned);
-		~Win32Backtrace();
+        Win32Backtrace (unsigned);
+        ~Win32Backtrace();
 
-		// stack walk
-		bool stack_first (CONTEXT* pctx);
-		bool stack_next  ();
+        // stack walk
+        bool stack_first (CONTEXT* pctx);
+        bool stack_next  ();
 
-		void address(unsigned a)		{ m_address = a; }
-		unsigned address(void) const	{ return m_address; }
+        void address(unsigned a)        { m_address = a; }
+        unsigned address(void) const    { return m_address; }
 
-		// symbol handler queries
-		unsigned symbol  (char *, unsigned, unsigned * = 0);
-		unsigned fileline(char *, unsigned, unsigned *, unsigned * = 0);
-		static bool get_line_from_addr (HANDLE, unsigned, unsigned *, IMAGEHLP_LINE *);
+        // symbol handler queries
+        unsigned symbol  (char *, unsigned, unsigned * = 0);
+        unsigned fileline(char *, unsigned, unsigned *, unsigned * = 0);
+        static bool get_line_from_addr (HANDLE, unsigned, unsigned *, IMAGEHLP_LINE *);
 
-		static bool stack_trace(std::vector<StackFrame> & theStack, unsigned skip = 1);
-		static bool stack_trace(Win32Backtrace&, std::vector<StackFrame> & theStack, CONTEXT *,
-								unsigned skip = 1);
-		bool check();
+        static bool stack_trace(std::vector<StackFrame> & theStack, unsigned skip = 1);
+        static bool stack_trace(Win32Backtrace&, std::vector<StackFrame> & theStack, CONTEXT *,
+                                unsigned skip = 1);
+        bool check();
 
-		unsigned		m_address;
-		bool			m_ok;
-		STACKFRAME *	m_pframe;
-		CONTEXT *		m_pctx;
+        unsigned        m_address;
+        bool            m_ok;
+        STACKFRAME *    m_pframe;
+        CONTEXT *       m_pctx;
 
-		class guard
-		{
-			private:
-				guard();
-			public:
-				~guard();
-				bool init();
-				bool fail() const { return m_ref == -1; }
+        class guard
+        {
+            private:
+                guard();
+            public:
+                ~guard();
+                bool init();
+                bool fail() const { return m_ref == -1; }
 
-				static guard & instance() {
-					static guard g;
-					return g;
-				}
-			private:
-				void clear();
-				bool load_module(HANDLE, HMODULE);
-				int  m_ref;
-		};
+                static guard & instance() {
+                    static guard g;
+                    return g;
+                }
+            private:
+                void clear();
+                bool load_module(HANDLE, HMODULE);
+                int  m_ref;
+        };
 
 };
 

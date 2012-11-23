@@ -87,9 +87,9 @@ namespace asl {
         DEFINE_EXCEPTION(Exception, asl::Exception);
         DEFINE_EXCEPTION(ClosedException, asl::Exception);
     private:
-        pthread_mutex_t	_myMutex;
-        pthread_cond_t	_myCondition;
-        int			    _myValue;
+        pthread_mutex_t _myMutex;
+        pthread_cond_t  _myCondition;
+        int             _myValue;
         bool            _myCreated;
     };
 }

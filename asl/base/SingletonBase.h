@@ -37,7 +37,7 @@ public:
     // This way singletons can correctly shut down, independent of the order of destruction.
     virtual void stop() {};
 
-	virtual ~SingletonBase() {}
+    virtual ~SingletonBase() {}
 };
 
 /* @} */

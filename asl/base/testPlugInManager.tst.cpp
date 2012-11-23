@@ -62,7 +62,7 @@ public:
 
             _myTouchIndicator = "untouched";
 
-	        asl::Ptr<PlugInBase> myPlugIn = myManager.getPlugIn(ourPlugInName);
+            asl::Ptr<PlugInBase> myPlugIn = myManager.getPlugIn(ourPlugInName);
             // ensure we actually got something
             ENSURE(myPlugIn.get());
             // ensure the manager considers the plugin loaded

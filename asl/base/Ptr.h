@@ -92,7 +92,7 @@ namespace asl {
         //  ReferenceCounter<ThreadingModel> * next;
         AtomicCount<ThreadingModel> smartCount;
 
-	// Note:
+    // Note:
         // weakCount is one higher than the number of weak pointers as long as the smart
         // count is at least one. This allows an atomic test for destruction of the reference
         // counter: if the weak count is 0, no more references exist.

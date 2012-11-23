@@ -47,22 +47,22 @@ namespace asl {
     /* @{ */
 
     DEFINE_EXCEPTION(StreamException,Exception);
-	DEFINE_EXCEPTION(StreamPositionMismatch, Exception);
-	DEFINE_EXCEPTION(StreamReadFailed, Exception);
-	DEFINE_EXCEPTION(StreamWriteFailed, Exception);
-	DEFINE_EXCEPTION(StreamReadNumberTooLargeForVariable, Exception);
-	DEFINE_EXCEPTION(StreamWriteNumberTooLargeForVariable, Exception);
+    DEFINE_EXCEPTION(StreamPositionMismatch, Exception);
+    DEFINE_EXCEPTION(StreamReadFailed, Exception);
+    DEFINE_EXCEPTION(StreamWriteFailed, Exception);
+    DEFINE_EXCEPTION(StreamReadNumberTooLargeForVariable, Exception);
+    DEFINE_EXCEPTION(StreamWriteNumberTooLargeForVariable, Exception);
 
     template <class InternalFormat, class ExternalFormat>
     class BinaryArranger;
 
     union Number32 {
-	Float32 asFloat;
-	Unsigned32 asUnsigned;
+    Float32 asFloat;
+    Unsigned32 asUnsigned;
     };
     union Number64 {
-	Float64 asFloat;
-	Unsigned64 asUnsigned;
+    Float64 asFloat;
+    Unsigned64 asUnsigned;
     };
 
     class SameOrder {
@@ -73,23 +73,23 @@ namespace asl {
             return theNumber;
         }
         static Float32 getFloatIn(Unsigned32 theNumber) {
-	    Number32 myNumber;
-	    myNumber.asUnsigned = theNumber;
+        Number32 myNumber;
+        myNumber.asUnsigned = theNumber;
             return myNumber.asFloat;
         }
         static Float64 getFloatIn(Unsigned64 theNumber) {
-	    Number64 myNumber;
-	    myNumber.asUnsigned = theNumber;
+        Number64 myNumber;
+        myNumber.asUnsigned = theNumber;
             return myNumber.asFloat;
         }
         static Unsigned32 getFloatOut(Float32 theNumber) {
-	    Number32 myNumber;
-	    myNumber.asFloat = theNumber;
+        Number32 myNumber;
+        myNumber.asFloat = theNumber;
             return myNumber.asUnsigned;
         }
         static Unsigned64 getFloatOut(Float64 theNumber) {
-	    Number64 myNumber;
-	    myNumber.asFloat = theNumber;
+        Number64 myNumber;
+        myNumber.asFloat = theNumber;
             return myNumber.asUnsigned;
         }
     };
@@ -103,23 +103,23 @@ namespace asl {
     public:
         typedef ReverseOrder self;
         static Float32 getFloatIn(Unsigned32 theNumber) {
-	    Number32 myNumber;
-	    myNumber.asUnsigned = SWAP_BYTE_ORDER_32(theNumber);
+        Number32 myNumber;
+        myNumber.asUnsigned = SWAP_BYTE_ORDER_32(theNumber);
             return myNumber.asFloat;
         }
         static Float64 getFloatIn(Unsigned64 theNumber) {
-	    Number64 myNumber;
-	    myNumber.asUnsigned = SWAP_BYTE_ORDER_64(theNumber);
+        Number64 myNumber;
+        myNumber.asUnsigned = SWAP_BYTE_ORDER_64(theNumber);
             return myNumber.asFloat;
         }
         static Unsigned32 getFloatOut(Float32 theNumber) {
-	    Number32 myNumber;
-	    myNumber.asFloat = theNumber;
+        Number32 myNumber;
+        myNumber.asFloat = theNumber;
             return SWAP_BYTE_ORDER_32(myNumber.asUnsigned);
         }
         static Unsigned64 getFloatOut(Float64 theNumber) {
-	    Number64 myNumber;
-	    myNumber.asFloat = theNumber;
+        Number64 myNumber;
+        myNumber.asFloat = theNumber;
             return SWAP_BYTE_ORDER_64(myNumber.asUnsigned);
         }
         static Signed16 get(Signed16 theNumber) {
@@ -189,19 +189,19 @@ namespace asl {
     template <>
     struct NumberReader<ReverseOrder,Float32, 4> {
         static void swapBytes(Float32 & theDest) {
-	    Number32 myTmp;
-	    myTmp.asFloat = theDest;
-	    myTmp.asUnsigned = SWAP_BYTE_ORDER_32(myTmp.asUnsigned);
-	    theDest = myTmp.asFloat;
+        Number32 myTmp;
+        myTmp.asFloat = theDest;
+        myTmp.asUnsigned = SWAP_BYTE_ORDER_32(myTmp.asUnsigned);
+        theDest = myTmp.asFloat;
         }
     };
     template <>
     struct NumberReader<ReverseOrder,Float64, 8> {
         static void swapBytes(Float64 & theDest) {
-	    Number64 myTmp;
-	    myTmp.asFloat = theDest;
-	    myTmp.asUnsigned = SWAP_BYTE_ORDER_64(myTmp.asUnsigned);
-	    theDest = myTmp.asFloat;
+        Number64 myTmp;
+        myTmp.asFloat = theDest;
+        myTmp.asUnsigned = SWAP_BYTE_ORDER_64(myTmp.asUnsigned);
+        theDest = myTmp.asFloat;
         }
     };
 
@@ -648,7 +648,7 @@ namespace asl {
         void countBytes(Unsigned64 theCount) {
             _myByteCounter += theCount;
         }
-		virtual ~WriteableArrangedStream() {}
+        virtual ~WriteableArrangedStream() {}
     private:
         Unsigned64 _myByteCounter;
     };

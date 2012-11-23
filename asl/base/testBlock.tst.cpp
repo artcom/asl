@@ -33,10 +33,10 @@ using namespace std;
 using namespace asl;
 
 struct SomeStruct {
-	int a;
-	float f;
-	char c;
-	char x[99];
+    int a;
+    float f;
+    char c;
+    char x[99];
 };
 
 
@@ -44,135 +44,135 @@ struct SomeStruct {
 class BlockUnitTest : public UnitTest {
 public:
     BlockUnitTest() : UnitTest("BlockUnitTest") {  }
-	void testEmptyReadable(const ReadableBlock & theBlock) {
-		ENSURE(theBlock.size() == 0);
-		ENSURE(theBlock.end() == theBlock.begin());
-		ENSURE(theBlock.strend() == theBlock.strbegin());
-		ENSURE(theBlock.wend() == theBlock.wbegin());
-		ENSURE(theBlock.wsize() == 0);
+    void testEmptyReadable(const ReadableBlock & theBlock) {
+        ENSURE(theBlock.size() == 0);
+        ENSURE(theBlock.end() == theBlock.begin());
+        ENSURE(theBlock.strend() == theBlock.strbegin());
+        ENSURE(theBlock.wend() == theBlock.wbegin());
+        ENSURE(theBlock.wsize() == 0);
 #ifdef goodNewCompiler
-		try {
-			theBlock.as<char>();
-		}
-		catch (BlockTooSmall & ex) {
-			SUCCESS("correct exception thrown");
-			DTITLE(ex);
-			return;
-		}
-		FAILURE("theBlock.as<char> did not throw correct exception");
+        try {
+            theBlock.as<char>();
+        }
+        catch (BlockTooSmall & ex) {
+            SUCCESS("correct exception thrown");
+            DTITLE(ex);
+            return;
+        }
+        FAILURE("theBlock.as<char> did not throw correct exception");
 #endif
     }
 
-	void testEmptyWriteable(WriteableBlock & theBlock) {
-		ENSURE(theBlock.size() == 0);
-		ENSURE(theBlock.end() == theBlock.begin());
-		ENSURE(theBlock.strend() == theBlock.strbegin());
-		ENSURE(theBlock.wend() == theBlock.wbegin());
-		ENSURE(theBlock.wsize() == 0);
+    void testEmptyWriteable(WriteableBlock & theBlock) {
+        ENSURE(theBlock.size() == 0);
+        ENSURE(theBlock.end() == theBlock.begin());
+        ENSURE(theBlock.strend() == theBlock.strbegin());
+        ENSURE(theBlock.wend() == theBlock.wbegin());
+        ENSURE(theBlock.wsize() == 0);
 #ifdef goodNewCompiler
-		try {
-			theBlock.as<char>();
-			FAILURE("theBlock.as<char> did not throw correct exception");
-		}
-		catch (BlockTooSmall & ex) {
-			SUCCESS("correct exception thrown");
-			DTITLE(ex);
-		}
+        try {
+            theBlock.as<char>();
+            FAILURE("theBlock.as<char> did not throw correct exception");
+        }
+        catch (BlockTooSmall & ex) {
+            SUCCESS("correct exception thrown");
+            DTITLE(ex);
+        }
 #endif
-	}
-	void testWriteable(WriteableBlock & theBlock, const ReadableBlock & theTestData) {
-		ENSURE(theBlock.size());
-		ENSURE(theBlock.end() != theBlock.begin());
-		ENSURE(theBlock.strend() != theBlock.strbegin());
-		ENSURE(theBlock.wend() != theBlock.wbegin());
-		ENSURE(theBlock.wsize() == theBlock.size()/2);
+    }
+    void testWriteable(WriteableBlock & theBlock, const ReadableBlock & theTestData) {
+        ENSURE(theBlock.size());
+        ENSURE(theBlock.end() != theBlock.begin());
+        ENSURE(theBlock.strend() != theBlock.strbegin());
+        ENSURE(theBlock.wend() != theBlock.wbegin());
+        ENSURE(theBlock.wsize() == theBlock.size()/2);
 
-		Block anotherBlock(asl::begin_ptr(theTestData),asl::end_ptr(theTestData));
-		ENSURE(anotherBlock != theBlock);
-		copy(anotherBlock,theBlock);
-		ENSURE(anotherBlock == theBlock);
+        Block anotherBlock(asl::begin_ptr(theTestData),asl::end_ptr(theTestData));
+        ENSURE(anotherBlock != theBlock);
+        copy(anotherBlock,theBlock);
+        ENSURE(anotherBlock == theBlock);
 
-		anotherBlock.resize(1);
-		try {
-			copy(anotherBlock, theBlock);
-			FAILURE("size mismatch not caught");
-		}
-		catch (BlockSizeMismatch & ex) {
-			SUCCESS("caught size mismatch");
-			DTITLE(ex);
-		}
-	}
+        anotherBlock.resize(1);
+        try {
+            copy(anotherBlock, theBlock);
+            FAILURE("size mismatch not caught");
+        }
+        catch (BlockSizeMismatch & ex) {
+            SUCCESS("caught size mismatch");
+            DTITLE(ex);
+        }
+    }
 
-	template <class RESIZEABLE_BLOCK>
- 	void testResize(RESIZEABLE_BLOCK & theBlock) {
-		theBlock.resize(1);
-		ENSURE(theBlock.size() == 1);
-		DDUMP(theBlock.size());
-		ENSURE(theBlock.end() != theBlock.begin());
-		ENSURE(theBlock.end() - theBlock.begin() == 1);
-		theBlock[0] = 'x';
-		ENSURE(theBlock[0] == 'x');
-		ENSURE(*theBlock.begin() == 'x');
-		ENSURE(*theBlock.strbegin() == 'x');
-		ENSURE(theBlock.strend() - theBlock.strbegin() == 1);
+    template <class RESIZEABLE_BLOCK>
+    void testResize(RESIZEABLE_BLOCK & theBlock) {
+        theBlock.resize(1);
+        ENSURE(theBlock.size() == 1);
+        DDUMP(theBlock.size());
+        ENSURE(theBlock.end() != theBlock.begin());
+        ENSURE(theBlock.end() - theBlock.begin() == 1);
+        theBlock[0] = 'x';
+        ENSURE(theBlock[0] == 'x');
+        ENSURE(*theBlock.begin() == 'x');
+        ENSURE(*theBlock.strbegin() == 'x');
+        ENSURE(theBlock.strend() - theBlock.strbegin() == 1);
 #ifdef goodNewCompiler
-		try {
-			ENSURE(theBlock.as<char>() == 'x');
-			ENSURE(theBlock.as<char>(0) == 'x');
-		}
-		catch (BlockTooSmall & ex) {
-			FAILURE("exception thrown");
-			DTITLE(ex);
-		}
+        try {
+            ENSURE(theBlock.as<char>() == 'x');
+            ENSURE(theBlock.as<char>(0) == 'x');
+        }
+        catch (BlockTooSmall & ex) {
+            FAILURE("exception thrown");
+            DTITLE(ex);
+        }
 #endif
-		char c = 'y';
-		theBlock.append(&c, sizeof(c));
-		ENSURE(theBlock.size() == 2);
-		ENSURE(theBlock[0] == 'x');
-		ENSURE(theBlock[1] == 'y');
-		std::string myString(theBlock.strbegin(),theBlock.strend());
-		ENSURE(myString == "xy");
-		ENSURE(theBlock.wsize() == 1);
-		ENSURE(theBlock.wend() - theBlock.wbegin() == 1);
+        char c = 'y';
+        theBlock.append(&c, sizeof(c));
+        ENSURE(theBlock.size() == 2);
+        ENSURE(theBlock[0] == 'x');
+        ENSURE(theBlock[1] == 'y');
+        std::string myString(theBlock.strbegin(),theBlock.strend());
+        ENSURE(myString == "xy");
+        ENSURE(theBlock.wsize() == 1);
+        ENSURE(theBlock.wend() - theBlock.wbegin() == 1);
 
-		char d = 'a';
-		theBlock.readData(d,0);
-		ENSURE(d == 'x');
-		theBlock.readData(d,1);
-		ENSURE(d == 'y');
-		try {
-			theBlock.readData(d,2);
-			FAILURE("no exception thrown");
-		}
-		catch (BlockTooSmall & ex) {
-			SUCCESS("correct exception thrown");
-			DTITLE(ex);
-		}
-		theBlock.appendUnsigned(23);
-		theBlock.appendUnsigned16(42);
-		theBlock.appendUnsigned8(5);
-		AC_SIZE_TYPE myResult;
-		ENSURE(theBlock.readUnsigned(myResult,2) == 2 + sizeof(unsigned char));
-		ENSURE(myResult == 23);
-		unsigned short myWord;
-		ENSURE(theBlock.readUnsigned16(myWord,2+sizeof(unsigned char)) == 2 + sizeof(unsigned char)+sizeof(unsigned short));
-		ENSURE(myWord == 42);
+        char d = 'a';
+        theBlock.readData(d,0);
+        ENSURE(d == 'x');
+        theBlock.readData(d,1);
+        ENSURE(d == 'y');
+        try {
+            theBlock.readData(d,2);
+            FAILURE("no exception thrown");
+        }
+        catch (BlockTooSmall & ex) {
+            SUCCESS("correct exception thrown");
+            DTITLE(ex);
+        }
+        theBlock.appendUnsigned(23);
+        theBlock.appendUnsigned16(42);
+        theBlock.appendUnsigned8(5);
+        AC_SIZE_TYPE myResult;
+        ENSURE(theBlock.readUnsigned(myResult,2) == 2 + sizeof(unsigned char));
+        ENSURE(myResult == 23);
+        unsigned short myWord;
+        ENSURE(theBlock.readUnsigned16(myWord,2+sizeof(unsigned char)) == 2 + sizeof(unsigned char)+sizeof(unsigned short));
+        ENSURE(myWord == 42);
 
-		unsigned char myByte;
-		ENSURE(theBlock.readUnsigned8(myByte,2+sizeof(unsigned char)+sizeof(unsigned short))
-			== 2 + sizeof(unsigned char)+sizeof(unsigned short)+sizeof(unsigned char));
-		ENSURE(myByte == 5);
+        unsigned char myByte;
+        ENSURE(theBlock.readUnsigned8(myByte,2+sizeof(unsigned char)+sizeof(unsigned short))
+            == 2 + sizeof(unsigned char)+sizeof(unsigned short)+sizeof(unsigned char));
+        ENSURE(myByte == 5);
 
-		int myLen = theBlock.size();
-		theBlock.appendCountedString("blafasel");
-		ENSURE(theBlock.size() == myLen + 8 + sizeof(unsigned char));
-		string myString2;
-		ENSURE(theBlock.readCountedString(myString2,myLen) == myLen+8+sizeof(unsigned char));
-		ENSURE(myString2 == "blafasel");
+        int myLen = theBlock.size();
+        theBlock.appendCountedString("blafasel");
+        ENSURE(theBlock.size() == myLen + 8 + sizeof(unsigned char));
+        string myString2;
+        ENSURE(theBlock.readCountedString(myString2,myLen) == myLen+8+sizeof(unsigned char));
+        ENSURE(myString2 == "blafasel");
 
         asl::Block myTestData;
-		myTestData.appendCountedString("1234567890098761525125");
-		myLen = theBlock.size();
+        myTestData.appendCountedString("1234567890098761525125");
+        myLen = theBlock.size();
         theBlock.append(myTestData);
         ENSURE(theBlock.size() == myLen+myTestData.size());
         asl::Block myBlock;
@@ -237,57 +237,57 @@ public:
         theBlock.resize(0);
         theBlock.appendUnsigned8('x');
         theBlock.appendUnsigned8('y');
- 		{
-			Block myBlock = theBlock;
-			ENSURE(myBlock[0] == 'x');
-			ENSURE(myBlock[1] == 'y');
-			ENSURE(myBlock.size() == 2);
+        {
+            Block myBlock = theBlock;
+            ENSURE(myBlock[0] == 'x');
+            ENSURE(myBlock[1] == 'y');
+            ENSURE(myBlock.size() == 2);
 
-			ENSURE(theBlock == myBlock);
-			ENSURE(!(theBlock != myBlock));
-			ENSURE(theBlock >= myBlock);
-			ENSURE(theBlock <= myBlock);
-			ENSURE(!(theBlock < myBlock));
-			ENSURE(!(theBlock > myBlock));
+            ENSURE(theBlock == myBlock);
+            ENSURE(!(theBlock != myBlock));
+            ENSURE(theBlock >= myBlock);
+            ENSURE(theBlock <= myBlock);
+            ENSURE(!(theBlock < myBlock));
+            ENSURE(!(theBlock > myBlock));
 
-			ENSURE(myBlock == theBlock);
-			ENSURE(!(myBlock != theBlock));
-			ENSURE(myBlock >= theBlock);
-			ENSURE(myBlock <= theBlock);
-			ENSURE(!(myBlock < theBlock));
-			ENSURE(!(myBlock > theBlock));
+            ENSURE(myBlock == theBlock);
+            ENSURE(!(myBlock != theBlock));
+            ENSURE(myBlock >= theBlock);
+            ENSURE(myBlock <= theBlock);
+            ENSURE(!(myBlock < theBlock));
+            ENSURE(!(myBlock > theBlock));
 
-			myBlock.resize(1);
-			ENSURE(!(theBlock == myBlock));
-			ENSURE(theBlock != myBlock);
-			ENSURE(theBlock >= myBlock);
-			ENSURE(!(theBlock <= myBlock));
-			ENSURE(!(theBlock < myBlock));
-			ENSURE(theBlock > myBlock);
+            myBlock.resize(1);
+            ENSURE(!(theBlock == myBlock));
+            ENSURE(theBlock != myBlock);
+            ENSURE(theBlock >= myBlock);
+            ENSURE(!(theBlock <= myBlock));
+            ENSURE(!(theBlock < myBlock));
+            ENSURE(theBlock > myBlock);
 
-			ENSURE(!(myBlock == theBlock));
-			ENSURE(myBlock != theBlock);
-			ENSURE(!(myBlock >= theBlock));
-			ENSURE(myBlock <= theBlock);
-			ENSURE(myBlock < theBlock);
-			ENSURE(!(myBlock > theBlock));
+            ENSURE(!(myBlock == theBlock));
+            ENSURE(myBlock != theBlock);
+            ENSURE(!(myBlock >= theBlock));
+            ENSURE(myBlock <= theBlock);
+            ENSURE(myBlock < theBlock);
+            ENSURE(!(myBlock > theBlock));
 
-			ENSURE(as_string(theBlock) == "7879");
+            ENSURE(as_string(theBlock) == "7879");
 
-		}
+        }
 
-		{
-			Block myBlock;
-			copy(theBlock, myBlock);
-			ENSURE(myBlock == theBlock);
-		}
+        {
+            Block myBlock;
+            copy(theBlock, myBlock);
+            ENSURE(myBlock == theBlock);
+        }
 
-		myTestData.resize(9);
+        myTestData.resize(9);
         for (asl::AC_SIZE_TYPE i = 0; i < 9; ++i) {
-			myTestData[i] = static_cast<unsigned char>(i);
-		}
-		theBlock.resize(myTestData.size());
-		testWriteable(theBlock, myTestData);
+            myTestData[i] = static_cast<unsigned char>(i);
+        }
+        theBlock.resize(myTestData.size());
+        testWriteable(theBlock, myTestData);
 
         {
             Block myIOBlock;
@@ -308,96 +308,96 @@ public:
         {
             ENSURE_EXCEPTION(asl::as<Block>("1234567 890"), ParseException);
         }
-	}
-	void testResizeAbstract(ResizeableBlock & theBlock) {
-		testResize(theBlock);
-	}
+    }
+    void testResizeAbstract(ResizeableBlock & theBlock) {
+        testResize(theBlock);
+    }
     void run() {
 
-		Block myBlock;
-		testEmptyReadable(myBlock);
-		testEmptyWriteable(myBlock);
-		testResize(myBlock);
-		testResizeAbstract(myBlock);
+        Block myBlock;
+        testEmptyReadable(myBlock);
+        testEmptyWriteable(myBlock);
+        testResize(myBlock);
+        testResizeAbstract(myBlock);
 
-		DTITLE("Starting FixedBlock Tests");
-		FixedBlock<SomeStruct> myFixedBlock;
-		testEmptyReadable(myFixedBlock);
-		testEmptyWriteable(myFixedBlock);
-		testResize(myFixedBlock);
-		testResizeAbstract(myFixedBlock);
+        DTITLE("Starting FixedBlock Tests");
+        FixedBlock<SomeStruct> myFixedBlock;
+        testEmptyReadable(myFixedBlock);
+        testEmptyWriteable(myFixedBlock);
+        testResize(myFixedBlock);
+        testResizeAbstract(myFixedBlock);
 
-		myFixedBlock.resize(sizeof(SomeStruct));
-		SUCCESS("Fixeblock resize ok")
-		try {
-			myFixedBlock.resize(sizeof(SomeStruct)+1);
-			FAILURE("capacitycheck failed, no exception thrown");
-		}
-		catch (NotEnoughCapacity & ex) {
-			SUCCESS("capacitycheck works, exception thrown");
-			DTITLE(ex);
-		}
+        myFixedBlock.resize(sizeof(SomeStruct));
+        SUCCESS("Fixeblock resize ok")
+        try {
+            myFixedBlock.resize(sizeof(SomeStruct)+1);
+            FAILURE("capacitycheck failed, no exception thrown");
+        }
+        catch (NotEnoughCapacity & ex) {
+            SUCCESS("capacitycheck works, exception thrown");
+            DTITLE(ex);
+        }
 
-		DTITLE("Starting SizeBlock Tests");
-		SizeBlock mySizeBlock;
-		testEmptyReadable(mySizeBlock);
-		testEmptyWriteable(mySizeBlock);
-		mySizeBlock.getSizeField() = 2;
-		mySizeBlock[0] = 'a';
-		mySizeBlock[1] = 'b';
-		ENSURE(mySizeBlock.size() == 2);
-		ENSURE(mySizeBlock.end() - mySizeBlock.begin()== 2);
-		*mySizeBlock.getSizeFieldPtr() = 0;
-		testEmptyReadable(mySizeBlock);
-		testEmptyWriteable(mySizeBlock);
+        DTITLE("Starting SizeBlock Tests");
+        SizeBlock mySizeBlock;
+        testEmptyReadable(mySizeBlock);
+        testEmptyWriteable(mySizeBlock);
+        mySizeBlock.getSizeField() = 2;
+        mySizeBlock[0] = 'a';
+        mySizeBlock[1] = 'b';
+        ENSURE(mySizeBlock.size() == 2);
+        ENSURE(mySizeBlock.end() - mySizeBlock.begin()== 2);
+        *mySizeBlock.getSizeFieldPtr() = 0;
+        testEmptyReadable(mySizeBlock);
+        testEmptyWriteable(mySizeBlock);
 
-		testResize(mySizeBlock);
-		testResizeAbstract(mySizeBlock);
+        testResize(mySizeBlock);
+        testResizeAbstract(mySizeBlock);
 
-		DTITLE("Starting Adapter Tests");
+        DTITLE("Starting Adapter Tests");
 
-		Block anotherBlock(30);
-		for (AC_SIZE_TYPE i=0; i< anotherBlock.size();++i) {
-			anotherBlock[i] = static_cast<unsigned char>(i);
-		};
-		DTITLE("Starting Readable Block Adapter Tests");
+        Block anotherBlock(30);
+        for (AC_SIZE_TYPE i=0; i< anotherBlock.size();++i) {
+            anotherBlock[i] = static_cast<unsigned char>(i);
+        };
+        DTITLE("Starting Readable Block Adapter Tests");
 
-		ReadableBlockAdapter emptyRBAdapter;
-		testEmptyReadable(emptyRBAdapter);
+        ReadableBlockAdapter emptyRBAdapter;
+        testEmptyReadable(emptyRBAdapter);
 
-		DTITLE("Starting Writeable Block Adapter Tests");
+        DTITLE("Starting Writeable Block Adapter Tests");
 
-		ReadableBlockAdapter myRBAdapter(anotherBlock);
-		Block anotherWriteableBlock;
-		anotherWriteableBlock.resize(anotherBlock.size());
-		testWriteable(anotherWriteableBlock, myRBAdapter);
+        ReadableBlockAdapter myRBAdapter(anotherBlock);
+        Block anotherWriteableBlock;
+        anotherWriteableBlock.resize(anotherBlock.size());
+        testWriteable(anotherWriteableBlock, myRBAdapter);
 
-		DTITLE("Starting both Readable/Writeable Block Adapter Tests");
+        DTITLE("Starting both Readable/Writeable Block Adapter Tests");
 
-		anotherBlock[0] = 1; // modify anotherblock
-		WriteableBlockAdapter myWBAdapter(anotherWriteableBlock);
-		testWriteable(myWBAdapter, myRBAdapter);
+        anotherBlock[0] = 1; // modify anotherblock
+        WriteableBlockAdapter myWBAdapter(anotherWriteableBlock);
+        testWriteable(myWBAdapter, myRBAdapter);
 
-		WriteableBlockAdapter emptyWBAdapter;
-		testEmptyWriteable(emptyWBAdapter);
+        WriteableBlockAdapter emptyWBAdapter;
+        testEmptyWriteable(emptyWBAdapter);
 
-		DTITLE("Starting FixedBlockAdapter Tests");
+        DTITLE("Starting FixedBlockAdapter Tests");
 
-		anotherBlock[0] = 2; // modify anotherblock
-		FixedBlockAdapter myFBAdapter(anotherWriteableBlock);
-		testWriteable(myFBAdapter, myRBAdapter);
+        anotherBlock[0] = 2; // modify anotherblock
+        FixedBlockAdapter myFBAdapter(anotherWriteableBlock);
+        testWriteable(myFBAdapter, myRBAdapter);
 
-		FixedBlockAdapter emptyFBAdapter;
-		testEmptyWriteable(emptyFBAdapter);
-		testResize(myFBAdapter);
-		testResizeAbstract(myFBAdapter);
+        FixedBlockAdapter emptyFBAdapter;
+        testEmptyWriteable(emptyFBAdapter);
+        testResize(myFBAdapter);
+        testResizeAbstract(myFBAdapter);
 
-		DTITLE("Starting CowBlock Tests");
+        DTITLE("Starting CowBlock Tests");
         CowBlock myCowBlock;
-		testEmptyReadable(myCowBlock);
-		testEmptyWriteable(myCowBlock);
-		testResize(myCowBlock);
-		testResizeAbstract(myCowBlock);
+        testEmptyReadable(myCowBlock);
+        testEmptyWriteable(myCowBlock);
+        testResize(myCowBlock);
+        testResizeAbstract(myCowBlock);
     }
 };
 

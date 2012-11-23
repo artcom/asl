@@ -36,7 +36,7 @@ typedef struct { ptrdiff_t counter; } atomic_t;
 
 #if defined(UNIX_X86)
 
-#define ATOMIC_INIT(i)	{ (i) }
+#define ATOMIC_INIT(i)  { (i) }
 
 /**
 * atomic_read - read atomic variable
@@ -45,7 +45,7 @@ typedef struct { ptrdiff_t counter; } atomic_t;
 * Atomically reads the value of @v.  Note that the guaranteed
 * useful range of an atomic_t is only 24 bits.
 */
-#define atomic_read(v)		((v)->counter)
+#define atomic_read(v)      ((v)->counter)
 
 /**
 * atomic_set - set atomic variable
@@ -55,9 +55,9 @@ typedef struct { ptrdiff_t counter; } atomic_t;
 * Atomically sets the value of @v to @i.  Note that the guaranteed
 * useful range of an atomic_t is only 24 bits.
 */
-#define atomic_set(v,i)		(((v)->counter) = (i))
-#define ATOMIC_INIT(i)	{ (i) }
-#define atomic_read(v)		((v)->counter)
+#define atomic_set(v,i)     (((v)->counter) = (i))
+#define ATOMIC_INIT(i)  { (i) }
+#define atomic_read(v)      ((v)->counter)
 
 static __inline__ int atomic_dec_and_test(atomic_t *v)
 {

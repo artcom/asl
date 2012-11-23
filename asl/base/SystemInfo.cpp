@@ -51,7 +51,7 @@ namespace asl {
 
        if(canDetect)
        {
-	       DetectWindowsVersion();
+           DetectWindowsVersion();
           DetectWindowsEdition();
           DetectWindowsServicePack();
        }
@@ -607,20 +607,20 @@ namespace asl {
        DWORD dwProductInfo = PRODUCT_UNDEFINED;
 
     #if _WIN32_WINNT >= 0x0600 
-	    if(m_osvi.dwMajorVersion >= 6)
-	    {
-		    PGetProductInfo lpProducInfo = (PGetProductInfo)GetProcAddress(
-			    GetModuleHandle(_T("kernel32.dll")), "GetProductInfo");
+        if(m_osvi.dwMajorVersion >= 6)
+        {
+            PGetProductInfo lpProducInfo = (PGetProductInfo)GetProcAddress(
+                GetModuleHandle(_T("kernel32.dll")), "GetProductInfo");
 
-		    if(NULL != lpProducInfo)
-		    {
-			    lpProducInfo(m_osvi.dwMajorVersion, 
-							    m_osvi.dwMinorVersion, 
-							    m_osvi.wServicePackMajor, 
-							    m_osvi.wServicePackMinor, 
-							    &dwProductInfo);
-		    }
-	    }
+            if(NULL != lpProducInfo)
+            {
+                lpProducInfo(m_osvi.dwMajorVersion, 
+                                m_osvi.dwMinorVersion, 
+                                m_osvi.wServicePackMajor, 
+                                m_osvi.wServicePackMinor, 
+                                &dwProductInfo);
+            }
+        }
     #endif
 
        return dwProductInfo;
@@ -628,7 +628,7 @@ namespace asl {
 
     WindowsVersion SystemInfo::GetWindowsVersion() const
     {
-	    return m_nWinVersion;
+        return m_nWinVersion;
     }
 
     WindowsEdition SystemInfo::GetWindowsEdition() const
@@ -638,57 +638,57 @@ namespace asl {
 
     bool SystemInfo::IsNTPlatform() const
     {
-	    return m_osvi.dwPlatformId == VER_PLATFORM_WIN32_NT;
+        return m_osvi.dwPlatformId == VER_PLATFORM_WIN32_NT;
     }
 
     bool SystemInfo::IsWindowsPlatform() const
     {
-	    return m_osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS;
+        return m_osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS;
     }
 
     bool SystemInfo::IsWin32sPlatform() const
     {
-	    return m_osvi.dwPlatformId == VER_PLATFORM_WIN32s;
+        return m_osvi.dwPlatformId == VER_PLATFORM_WIN32s;
     }
-    	
+        
     DWORD SystemInfo::GetMajorVersion() const
     {
-	    return m_osvi.dwMajorVersion;
+        return m_osvi.dwMajorVersion;
     }
 
     DWORD SystemInfo::GetMinorVersion() const
     {
-	    return m_osvi.dwMinorVersion;
+        return m_osvi.dwMinorVersion;
     }
 
     DWORD SystemInfo::GetBuildNumber() const
     {
-	    return m_osvi.dwBuildNumber;
+        return m_osvi.dwBuildNumber;
     }
 
     DWORD SystemInfo::GetPlatformID() const
     {
-	    return m_osvi.dwPlatformId;	
+        return m_osvi.dwPlatformId; 
     }
 
     // PARAMETER szServicePack must not be NULL
     void SystemInfo::GetServicePackInfo(TCHAR* szServicePack) const
     {
-	    if(szServicePack == NULL) return;
-    	
-	    _tcscpy(szServicePack, m_szServicePack);
+        if(szServicePack == NULL) return;
+        
+        _tcscpy(szServicePack, m_szServicePack);
     }
 
     bool SystemInfo::Is32bitPlatform() const
     {
-	    return !Is64bitPlatform();
+        return !Is64bitPlatform();
     }
 
     bool SystemInfo::Is64bitPlatform() const
     {
-	    return (
-		    m_SysInfo.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_IA64 || 
-		    m_SysInfo.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64 ||
-		    m_SysInfo.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_ALPHA64);
+        return (
+            m_SysInfo.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_IA64 || 
+            m_SysInfo.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64 ||
+            m_SysInfo.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_ALPHA64);
     }
 }

@@ -30,27 +30,27 @@
 /* @{ */
 
 #ifdef _WIN32
-	#include "windows.h"
-	namespace asl {typedef ::HINSTANCE DLHandle;}
-	#define EXPORT __declspec(dllexport)
+    #include "windows.h"
+    namespace asl {typedef ::HINSTANCE DLHandle;}
+    #define EXPORT __declspec(dllexport)
 #else
-	#include "dlfcn.h"
-	namespace asl {typedef void* DLHandle;}
-	#define EXPORT
+    #include "dlfcn.h"
+    namespace asl {typedef void* DLHandle;}
+    #define EXPORT
 #endif
 
 namespace asl {
 
 class ASL_BASE_DECL PlugInBase {
 public:
-	PlugInBase(DLHandle theDLHandle);
-	virtual ~PlugInBase() {}
-	DLHandle getDLHandle() const;
+    PlugInBase(DLHandle theDLHandle);
+    virtual ~PlugInBase() {}
+    DLHandle getDLHandle() const;
 protected:
-	virtual void _initializeSingletonManager(SingletonManager* theSingletonManager);
-	friend class PlugInManager;
+    virtual void _initializeSingletonManager(SingletonManager* theSingletonManager);
+    friend class PlugInManager;
 
-	DLHandle _myDLHandle;
+    DLHandle _myDLHandle;
 };
 
 typedef Ptr<PlugInBase> PlugInBasePtr;

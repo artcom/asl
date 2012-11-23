@@ -860,11 +860,11 @@ ReadableArrangedStream<EXTERNAL_BYTE_ORDER, SIZE_TYPE, OFFSET_TYPE>::readBlock(W
         /// copies all data from theSource to the location pointed to by the WriteableBlockAdapter
         /// source and destination size must match
         virtual void assign(const ReadableBlock & theSource) {
-			if (theSource.size() != size()) {
-				throw BlockSizeMismatch(std::string("Blocks have different size. Source-size: ") + as_string(theSource.size()) +
-					" blocksize: " + as_string(size()), PLUS_FILE_LINE);
-			}
-			std::copy(theSource.begin(),theSource.end(),_myBegin);
+            if (theSource.size() != size()) {
+                throw BlockSizeMismatch(std::string("Blocks have different size. Source-size: ") + as_string(theSource.size()) +
+                    " blocksize: " + as_string(size()), PLUS_FILE_LINE);
+            }
+            std::copy(theSource.begin(),theSource.end(),_myBegin);
         }
         /// stores a writeable reference to the theBlock denoted by [theBegin..theEnd[
         WriteableBlockAdapter(unsigned char * theBegin, unsigned char * theEnd)

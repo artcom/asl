@@ -362,7 +362,7 @@ namespace asl {
 
         private:
             asl::NanoTime   _myLastElapsed;
-            asl::NanoTime	_myElapsed;
+            asl::NanoTime   _myElapsed;
             asl::NanoTime   _myStartTime;
             asl::NanoTime   _myMinTime;
             asl::NanoTime   _myMaxTime;

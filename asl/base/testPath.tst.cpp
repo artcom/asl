@@ -23,32 +23,32 @@ public:
         ENSURE(true);
 #ifdef WINDOWS
         Path myLocalePath("\u00B5", Locale); // mu
-		ENSURE(myLocalePath.toUTF8().size() == 2);
+        ENSURE(myLocalePath.toUTF8().size() == 2);
 #else
         Path myLocalePath("m", Locale); // m
 #endif
-		ENSURE(myLocalePath.toLocale().size() == 1);
-		ENSURE(myLocalePath == myLocalePath);
+        ENSURE(myLocalePath.toLocale().size() == 1);
+        ENSURE(myLocalePath == myLocalePath);
 
-		Path myUTFPath(myLocalePath.toUTF8(), UTF8);
-		ENSURE(myUTFPath.toLocale().size() == 1);
+        Path myUTFPath(myLocalePath.toUTF8(), UTF8);
+        ENSURE(myUTFPath.toLocale().size() == 1);
 
-		ENSURE(myUTFPath.toLocale() == myLocalePath.toLocale());
-		ENSURE(myUTFPath.toUTF8() == myLocalePath.toUTF8());
-		ENSURE(myUTFPath == myLocalePath);
+        ENSURE(myUTFPath.toLocale() == myLocalePath.toLocale());
+        ENSURE(myUTFPath.toUTF8() == myLocalePath.toUTF8());
+        ENSURE(myUTFPath == myLocalePath);
 
         {
             Path myCopy(myLocalePath);
-		    ENSURE(myCopy.toLocale() == myLocalePath.toLocale());
-		    ENSURE(myCopy.toUTF8() == myLocalePath.toUTF8());
-		    ENSURE(myCopy == myLocalePath);
+            ENSURE(myCopy.toLocale() == myLocalePath.toLocale());
+            ENSURE(myCopy.toUTF8() == myLocalePath.toUTF8());
+            ENSURE(myCopy == myLocalePath);
         }
         {
             Path myCopy("foo", Locale);
             myCopy = myLocalePath;
-		    ENSURE(myCopy.toLocale() == myLocalePath.toLocale());
-		    ENSURE(myCopy.toUTF8() == myLocalePath.toUTF8());
-		    ENSURE(myCopy == myLocalePath);
+            ENSURE(myCopy.toLocale() == myLocalePath.toLocale());
+            ENSURE(myCopy.toUTF8() == myLocalePath.toUTF8());
+            ENSURE(myCopy == myLocalePath);
         }
     }
 };

@@ -34,93 +34,93 @@ using namespace asl;
 
 class MappedBlockUnitTest : public UnitTest {
 public:
-	MappedBlockUnitTest() : UnitTest("MappedBlockUnitTest") {  }
-	void run() {
-		const string testFileName = "MappedBlockUnitTest.testoutput";
+    MappedBlockUnitTest() : UnitTest("MappedBlockUnitTest") {  }
+    void run() {
+        const string testFileName = "MappedBlockUnitTest.testoutput";
 
-		perform_putget(testFileName, 1);
-		perform_putget(testFileName, 65536-1);
-		perform_putget(testFileName, 65536);
-		perform_putget(testFileName, 65536+1);
-		perform_putget(testFileName, 2*65536-1);
-		perform_putget(testFileName, 2*65536);
-		perform_putget(testFileName, 2*65536+1);
+        perform_putget(testFileName, 1);
+        perform_putget(testFileName, 65536-1);
+        perform_putget(testFileName, 65536);
+        perform_putget(testFileName, 65536+1);
+        perform_putget(testFileName, 2*65536-1);
+        perform_putget(testFileName, 2*65536);
+        perform_putget(testFileName, 2*65536+1);
 
-		perform_putget(testFileName, 20*65536-1);
-		perform_putget(testFileName, 20*65536);
-		perform_putget(testFileName, 20*65536+1);
-		perform_putget(testFileName, 0);
-	}
+        perform_putget(testFileName, 20*65536-1);
+        perform_putget(testFileName, 20*65536);
+        perform_putget(testFileName, 20*65536+1);
+        perform_putget(testFileName, 0);
+    }
 
 
-	void perform_putget(const string & testFileName, int contentSize) {
-		DPRINT2("Test with content of size", contentSize);
-		Block largeTestContent;
-		largeTestContent.resize(contentSize);
-		for (int i = 0; i< contentSize; ++i) {
-			largeTestContent[i] = ' ' + i%(255-' ');
-		}
-		perform_putget(testFileName, largeTestContent);
-	}
-	void perform_putget(const string & testFileName, const asl::ReadableBlock & testContent) {
-		ENSURE(writeFile(testFileName,testContent));
-		asl::Block fromFile;
-		ENSURE(readFile(testFileName,fromFile));
-		ENSURE(fromFile == testContent);
-		ENSURE(fileExists(testFileName));
+    void perform_putget(const string & testFileName, int contentSize) {
+        DPRINT2("Test with content of size", contentSize);
+        Block largeTestContent;
+        largeTestContent.resize(contentSize);
+        for (int i = 0; i< contentSize; ++i) {
+            largeTestContent[i] = ' ' + i%(255-' ');
+        }
+        perform_putget(testFileName, largeTestContent);
+    }
+    void perform_putget(const string & testFileName, const asl::ReadableBlock & testContent) {
+        ENSURE(writeFile(testFileName,testContent));
+        asl::Block fromFile;
+        ENSURE(readFile(testFileName,fromFile));
+        ENSURE(fromFile == testContent);
+        ENSURE(fileExists(testFileName));
         ENSURE( static_cast<asl::AC_SIZE_TYPE>(getFileSize(testFileName)) == testContent.size());
 
         {
             ConstMappedBlock myBlock(testFileName);
-		    ENSURE(fromFile == myBlock);
+            ENSURE(fromFile == myBlock);
         }
         {
-		    ConstMappedBlock mySizedBlock(testFileName,fromFile.size());
-		    ENSURE(fromFile == mySizedBlock);
+            ConstMappedBlock mySizedBlock(testFileName,fromFile.size());
+            ENSURE(fromFile == mySizedBlock);
         }
 
-		string otherTestFileName = std::string("WRB1-") + testFileName;
-		asl::Block otherContent;
-		{
-			ENSURE(writeFile(otherTestFileName,testContent));
-			WriteableMappedBlock myWriteableBlock(otherTestFileName);
-			ENSURE(testContent == myWriteableBlock);
-			otherContent.resize(testContent.size());
+        string otherTestFileName = std::string("WRB1-") + testFileName;
+        asl::Block otherContent;
+        {
+            ENSURE(writeFile(otherTestFileName,testContent));
+            WriteableMappedBlock myWriteableBlock(otherTestFileName);
+            ENSURE(testContent == myWriteableBlock);
+            otherContent.resize(testContent.size());
             for (asl::ReadableBlock::size_type i = 0; i< testContent.size(); ++i) {
-				myWriteableBlock[i] = 'A' + i%26;
-				otherContent[i] = myWriteableBlock[i];
-			}
-			ENSURE(testContent.size()==0 || testContent != myWriteableBlock);
-		}
-		asl::Block fromMappedFile;
-		ENSURE(readFile(otherTestFileName,fromMappedFile));
-		ENSURE(fromMappedFile == otherContent);
+                myWriteableBlock[i] = 'A' + i%26;
+                otherContent[i] = myWriteableBlock[i];
+            }
+            ENSURE(testContent.size()==0 || testContent != myWriteableBlock);
+        }
+        asl::Block fromMappedFile;
+        ENSURE(readFile(otherTestFileName,fromMappedFile));
+        ENSURE(fromMappedFile == otherContent);
 
         asl::deleteFile(testFileName);
         asl::deleteFile(otherTestFileName);
-	}
+    }
 };
 class ResizeableMappedBlockUnitTest : public UnitTest {
 public:
-	ResizeableMappedBlockUnitTest() : UnitTest("ResizeableMappedBlockUnitTest") {  }
-	void run() {
-		const string testFileName = "MappedBlockUnitTest.testoutput";
+    ResizeableMappedBlockUnitTest() : UnitTest("ResizeableMappedBlockUnitTest") {  }
+    void run() {
+        const string testFileName = "MappedBlockUnitTest.testoutput";
 
-		perform_resize(testFileName, 0);
-		perform_resize(testFileName, 1);
-		perform_resize(testFileName, 2);
-		perform_resize(testFileName, 5);
+        perform_resize(testFileName, 0);
+        perform_resize(testFileName, 1);
+        perform_resize(testFileName, 2);
+        perform_resize(testFileName, 5);
 
-		perform_resize(testFileName, 65536-1);
-		perform_resize(testFileName, 65536);
-		perform_resize(testFileName, 65536+1);
-		perform_resize(testFileName, 2*65536-1);
-		perform_resize(testFileName, 2*65536);
-		perform_resize(testFileName, 2*65536+1);
+        perform_resize(testFileName, 65536-1);
+        perform_resize(testFileName, 65536);
+        perform_resize(testFileName, 65536+1);
+        perform_resize(testFileName, 2*65536-1);
+        perform_resize(testFileName, 2*65536);
+        perform_resize(testFileName, 2*65536+1);
 
-		perform_resize(testFileName, 20*65536-1);
-		perform_resize(testFileName, 20*65536);
-		perform_resize(testFileName, 20*65536+1);
+        perform_resize(testFileName, 20*65536-1);
+        perform_resize(testFileName, 20*65536);
+        perform_resize(testFileName, 20*65536+1);
 
         testResizePerformance(testFileName, 1024, 1024);
         testResizePerformance(testFileName, 1, 1024 * 1024);
@@ -141,17 +141,17 @@ public:
         */
     }
 
-	void perform_resize(const string & testFileName, int contentSize) {
-		DPRINT2("Resize Test with content of size", contentSize);
+    void perform_resize(const string & testFileName, int contentSize) {
+        DPRINT2("Resize Test with content of size", contentSize);
         Block myTestContent;
         {
-		    MappedBlock mappedTestContent(testFileName);
+            MappedBlock mappedTestContent(testFileName);
             ENSURE(mappedTestContent);
-		    for (int i = 0; i< contentSize; ++i) {
+            for (int i = 0; i< contentSize; ++i) {
                 unsigned char myNextContentByte = ' ' + i%(255-' ');
-			    myTestContent.appendUnsigned8(myNextContentByte);
+                myTestContent.appendUnsigned8(myNextContentByte);
                 mappedTestContent.appendUnsigned8(myNextContentByte);
-		    }
+            }
             DB2(
             cerr << "myTestContent = " << myTestContent << endl;
             cerr << "mappedTestContent = " << mappedTestContent << endl;
@@ -159,19 +159,19 @@ public:
             ENSURE(myTestContent == mappedTestContent);
         }
         {
-		    ConstMappedBlock myMapWrittenBlock(testFileName);
+            ConstMappedBlock myMapWrittenBlock(testFileName);
             ENSURE(myTestContent == myMapWrittenBlock);
         }
         asl::deleteFile(testFileName);
-	}
-	void testResizePerformance(const string & testFileName, unsigned int chunkSize, unsigned int chunkCount) {
-		DPRINT2("Resize Performance Test with content of size", chunkSize*chunkCount);
+    }
+    void testResizePerformance(const string & testFileName, unsigned int chunkSize, unsigned int chunkCount) {
+        DPRINT2("Resize Performance Test with content of size", chunkSize*chunkCount);
         Block myTestContent;
         {
-		    for (unsigned int i = 0; i< chunkSize; ++i) {
+            for (unsigned int i = 0; i< chunkSize; ++i) {
                 unsigned char myNextContentByte = ' ' + i%(255-' ');
-			    myTestContent.appendUnsigned8(myNextContentByte);
-		    }
+                myTestContent.appendUnsigned8(myNextContentByte);
+            }
         }
 //#define SKIP_WRITE_COMPARE
 #ifndef SKIP_WRITE_COMPARE
@@ -200,7 +200,7 @@ public:
 #endif
         const string testMapFileName = string("xmapped-")+testFileName;
         {
-		    MappedBlock mappedTestContent(testMapFileName, 0);
+            MappedBlock mappedTestContent(testMapFileName, 0);
             ENSURE(mappedTestContent);
             NoisyScopeTimer myTimer(string("mapped write ") + as_string(chunkCount) + " chunks of size " + as_string(chunkSize), chunkSize*chunkCount);
             for (unsigned int i = 0; i < chunkCount; ++i) {
@@ -215,19 +215,19 @@ public:
 
         {
             NoisyScopeTimer myTimer(string("compare two blocks of size ") + as_string(chunkCount*chunkSize/1024.0/1024.0) + " MB", chunkSize*chunkCount);
-		    ConstMappedBlock myMapWrittenBlock(testFileName);
-		    ConstMappedBlock myFileWrittenBlock(testMapFileName);
+            ConstMappedBlock myMapWrittenBlock(testFileName);
+            ConstMappedBlock myFileWrittenBlock(testMapFileName);
             ENSURE(myMapWrittenBlock == myFileWrittenBlock);
         }
 //        asl::deleteFile(testFileName);
 #endif
         asl::deleteFile(testMapFileName);
-	}
+    }
 };
 
 class AppendMappedBlockTest : public UnitTest {
 public:
-	AppendMappedBlockTest() : UnitTest("AppendMappedBlockTest") {  }
+    AppendMappedBlockTest() : UnitTest("AppendMappedBlockTest") {  }
 
     string createData(int begin, int end) {
         string myData;
@@ -237,8 +237,8 @@ public:
         return myData;
     }
 
-	void run() {
-		const string testFileName = "AppendMappedBlockTest.testoutput";
+    void run() {
+        const string testFileName = "AppendMappedBlockTest.testoutput";
 
         string myData1 = createData(1,1000);
         string myData2 = createData(1000,2000);
