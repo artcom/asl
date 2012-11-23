@@ -116,9 +116,9 @@ namespace inet {
         int newFD;
         if ((newFD=accept(fd,(sockaddr *)&remoteEndpoint,&remoteEndpointLen)) == INVALID_SOCKET) {
             int err = getLastSocketError();
-        	if(err != OS_SOCKET_ERROR(EWOULDBLOCK)) {
-        		throw SocketError(err, "TCPServer::waitForConnection: can't accept connection");
-        	}
+            if(err != OS_SOCKET_ERROR(EWOULDBLOCK)) {
+                throw SocketError(err, "TCPServer::waitForConnection: can't accept connection");
+            }
             return 0;
         }
         TCPSocket * newSocket = new TCPSocket(newFD, _myFromAddr, remoteEndpoint);

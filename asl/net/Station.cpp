@@ -67,12 +67,12 @@ using namespace asl;
 
     inline
     LAST_ERROR_TYPE lastError() {
-	    return errno;
+        return errno;
     }
 
     inline
     std::string errorDescription(LAST_ERROR_TYPE err) {
-	    return strerror(err);
+        return strerror(err);
     }
 #endif
 
@@ -84,29 +84,29 @@ using namespace asl;
 
     inline
     LAST_ERROR_TYPE lastError() {
-	    return GetLastError();
+        return GetLastError();
     }
 
     inline
     std::string errorDescription(LAST_ERROR_TYPE err) {
-	    LPVOID lpMsgBuf;
-	    if (!FormatMessage(
-		    FORMAT_MESSAGE_ALLOCATE_BUFFER |
-		    FORMAT_MESSAGE_FROM_SYSTEM |
-		    FORMAT_MESSAGE_IGNORE_INSERTS,
-		    NULL,
-		    err,
-		    MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-		    (LPTSTR) &lpMsgBuf,
-		    0,
-		    NULL ))
-	    {
-		    // Handle the error.
-		    return std::string("unknown error code=")+asl::as_string(err);
-	    }
-	    std::string myResult = static_cast<const char*>(lpMsgBuf);
-	    LocalFree( lpMsgBuf );
-	    return myResult;
+        LPVOID lpMsgBuf;
+        if (!FormatMessage(
+            FORMAT_MESSAGE_ALLOCATE_BUFFER |
+            FORMAT_MESSAGE_FROM_SYSTEM |
+            FORMAT_MESSAGE_IGNORE_INSERTS,
+            NULL,
+            err,
+            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+            (LPTSTR) &lpMsgBuf,
+            0,
+            NULL ))
+        {
+            // Handle the error.
+            return std::string("unknown error code=")+asl::as_string(err);
+        }
+        std::string myResult = static_cast<const char*>(lpMsgBuf);
+        LocalFree( lpMsgBuf );
+        return myResult;
     }
 
 #endif
@@ -248,122 +248,122 @@ Station::defaultBroadcastPort() {
 #if 0
 int main (int argc, char * argv[])
 {
-	struct ifconf
-		ifc; /* holds IOCTL return value for SIOCGIFCONF */
-	int
-		return_val,
-		fd = -1,
-		numreqs = 30,
-		n;
-	struct ifreq
-		*ifr; /* points to one interface returned from ioctl */
+    struct ifconf
+        ifc; /* holds IOCTL return value for SIOCGIFCONF */
+    int
+        return_val,
+        fd = -1,
+        numreqs = 30,
+        n;
+    struct ifreq
+        *ifr; /* points to one interface returned from ioctl */
 
-	fd = socket (PF_INET, SOCK_DGRAM, 0);
+    fd = socket (PF_INET, SOCK_DGRAM, 0);
 
-	if (fd < 0) {
-		fprintf (stderr, "Opening socket:");
-		fprintf (stderr, "got error %d (%s)\n", errno, strerror(errno));
-		exit(1);
-	}
+    if (fd < 0) {
+        fprintf (stderr, "Opening socket:");
+        fprintf (stderr, "got error %d (%s)\n", errno, strerror(errno));
+        exit(1);
+    }
 
-	memset (&ifc, 0, sizeof(ifc));
+    memset (&ifc, 0, sizeof(ifc));
 
-	ifc.ifc_buf = NULL;
-	ifc.ifc_len =  sizeof(struct ifreq) * numreqs;
-	ifc.ifc_buf = malloc(ifc.ifc_len);
+    ifc.ifc_buf = NULL;
+    ifc.ifc_len =  sizeof(struct ifreq) * numreqs;
+    ifc.ifc_buf = malloc(ifc.ifc_len);
 
-	/* This code attempts to handle an arbitrary number of interfaces,
-	   it keeps trying the ioctl until it comes back OK and the size
-	   returned is less than the size we sent it.
-	 */
-	for (;;) {
-		ifc.ifc_len = sizeof(struct ifreq) * numreqs;
-		ifc.ifc_buf = realloc(ifc.ifc_buf, ifc.ifc_len);
+    /* This code attempts to handle an arbitrary number of interfaces,
+       it keeps trying the ioctl until it comes back OK and the size
+       returned is less than the size we sent it.
+     */
+    for (;;) {
+        ifc.ifc_len = sizeof(struct ifreq) * numreqs;
+        ifc.ifc_buf = realloc(ifc.ifc_buf, ifc.ifc_len);
 
-		if ((return_val = ioctl(fd, SIOCGIFCONF, &ifc)) < 0) {
-			perror("SIOCGIFCONF");
-			break;
-		}
-		if (ifc.ifc_len == sizeof(struct ifreq) * numreqs) {
-			/* assume it overflowed and try again */
-			numreqs += 10;
-			continue;
-		}
-		break;
-	}
+        if ((return_val = ioctl(fd, SIOCGIFCONF, &ifc)) < 0) {
+            perror("SIOCGIFCONF");
+            break;
+        }
+        if (ifc.ifc_len == sizeof(struct ifreq) * numreqs) {
+            /* assume it overflowed and try again */
+            numreqs += 10;
+            continue;
+        }
+        break;
+    }
 
-	if (return_val < 0) {
-		fprintf (stderr, "ioctl:");
-		fprintf (stderr, "got error %d (%s)\n", errno, strerror(errno));
-		exit(1);
-	}
-
-
-	/* loop through interfaces returned from SIOCGIFCONF */
-	ifr=ifc.ifc_req;
-	for (n=0; n < ifc.ifc_len; n+=sizeof(struct ifreq)) {
-
-		printf ("ifr_name %s\n", ifr->ifr_name);
-
-		/* Get the flags for this interface*/
-		return_val = ioctl(fd,SIOCGIFFLAGS, ifr);
-		if (return_val == 0 ) {
-			printf ("ifr_flags %08X\n", ifr->ifr_flags);
-		} else {
-			perror ("Get flags failed");
-		}
-
-		/* Get the Destination Address for this interface */
-		return_val = ioctl(fd,SIOCGIFDSTADDR, ifr);
-		if (return_val == 0 ) {
-			if (ifr->ifr_broadaddr.sa_family == AF_INET) {
-				struct sockaddr_in
-					*sin = (struct sockaddr_in *)
-					&ifr->ifr_dstaddr;
-
-				printf ("ifr_dstaddr %s\n",
-					inet_ntoa(sin->sin_addr));
-
-			}
-			else
-			{
-				printf ("unsupported family for dest\n");
-			}
-		} else {
-			perror ("Get dest failed");
-		}
+    if (return_val < 0) {
+        fprintf (stderr, "ioctl:");
+        fprintf (stderr, "got error %d (%s)\n", errno, strerror(errno));
+        exit(1);
+    }
 
 
-		/* Get the BROADCAST address */
-		return_val = ioctl(fd,SIOCGIFBRDADDR, ifr);
-		if (return_val == 0 ) {
-			if (ifr->ifr_broadaddr.sa_family == AF_INET) {
-				struct sockaddr_in
-					*sin = (struct sockaddr_in *)
-					&ifr->ifr_broadaddr;
+    /* loop through interfaces returned from SIOCGIFCONF */
+    ifr=ifc.ifc_req;
+    for (n=0; n < ifc.ifc_len; n+=sizeof(struct ifreq)) {
 
-				printf ("ifr_broadaddr %s\n",
-					inet_ntoa(sin->sin_addr));
+        printf ("ifr_name %s\n", ifr->ifr_name);
 
-			}
-			else
-			{
-				printf ("unsupported family for broadcast\n");
-			}
+        /* Get the flags for this interface*/
+        return_val = ioctl(fd,SIOCGIFFLAGS, ifr);
+        if (return_val == 0 ) {
+            printf ("ifr_flags %08X\n", ifr->ifr_flags);
+        } else {
+            perror ("Get flags failed");
+        }
 
-		} else {
-			perror ("Get broadcast failed");
-		}
+        /* Get the Destination Address for this interface */
+        return_val = ioctl(fd,SIOCGIFDSTADDR, ifr);
+        if (return_val == 0 ) {
+            if (ifr->ifr_broadaddr.sa_family == AF_INET) {
+                struct sockaddr_in
+                    *sin = (struct sockaddr_in *)
+                    &ifr->ifr_dstaddr;
 
-		/* check the next entry returned */
-		ifr++;
-	}
+                printf ("ifr_dstaddr %s\n",
+                    inet_ntoa(sin->sin_addr));
 
-	/* we don't need this memory any more */
-	free (ifc.ifc_buf);
-	close (fd);
+            }
+            else
+            {
+                printf ("unsupported family for dest\n");
+            }
+        } else {
+            perror ("Get dest failed");
+        }
 
-	return 0;
+
+        /* Get the BROADCAST address */
+        return_val = ioctl(fd,SIOCGIFBRDADDR, ifr);
+        if (return_val == 0 ) {
+            if (ifr->ifr_broadaddr.sa_family == AF_INET) {
+                struct sockaddr_in
+                    *sin = (struct sockaddr_in *)
+                    &ifr->ifr_broadaddr;
+
+                printf ("ifr_broadaddr %s\n",
+                    inet_ntoa(sin->sin_addr));
+
+            }
+            else
+            {
+                printf ("unsupported family for broadcast\n");
+            }
+
+        } else {
+            perror ("Get broadcast failed");
+        }
+
+        /* check the next entry returned */
+        ifr++;
+    }
+
+    /* we don't need this memory any more */
+    free (ifc.ifc_buf);
+    close (fd);
+
+    return 0;
 }
 #endif
 #endif
