@@ -12,30 +12,8 @@
 // Description:
 //    C++ Library fuer TCP-Sockets (based on Sockets.c++ from Pavel 11.9.92)
 //
-// Last Review:  ms & ab 2007-08-14
-//
-//  review status report: (perfect, ok, fair, poor, disaster, notapp (not applicable))
-//    usefulness              :      ok
-//    formatting              :      fair
-//    documentation           :      ok
-//    test coverage           :      ok
-//    names                   :      ok
-//    style guide conformance :      fair
-//    technological soundness :      ok
-//    dead code               :      ok
-//    readability             :      ok
-//    understandability       :      ok
-//    interfaces              :      ok
-//    confidence              :      ok
-//    integration             :      ok
-//    dependencies            :      ok
-//    error handling          :      ok
-//    logging                 :      notapp
-//    cheesyness              :      fair
-//
-//    overall review status   :      ok
-//
 //    recommendations: change namespace, fix unreferenced local variable work-around
+// __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 
 //own header

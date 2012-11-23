@@ -12,30 +12,8 @@
 // Description:
 //    Check whether internet access is available
 //
-// Last Review:  ms & ab 2007-08-14
-//
-//  review status report: (perfect, ok, fair, poor, disaster, notapp (not applicable))
-//    usefulness              :      poor
-//    formatting              :      ok
-//    documentation           :      poor
-//    test coverage           :      ok
-//    names                   :      ok
-//    style guide conformance :      ok
-//    technological soundness :      ok
-//    dead code               :      ok
-//    readability             :      ok
-//    understandability       :      ok
-//    interfaces              :      ok
-//    confidence              :      fair
-//    integration             :      ok
-//    dependencies            :      poor
-//    error handling          :      ok
-//    logging                 :      notapp
-//    cheesyness              :      fair
-//
-//    overall review status   :      poor
-//
 //    recommendations: move this to its own component
+// __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 
 //own header

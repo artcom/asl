@@ -9,13 +9,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt)
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 //
-//    $RCSfile: net_functions.cpp,v $
-//
-//   $Revision: 1.3 $
-//
 // Description: misc operating system & environment helper functions
-//
-//
 // __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 
