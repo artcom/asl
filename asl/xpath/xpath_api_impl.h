@@ -241,7 +241,7 @@ namespace xpath {
                             currentNodes.push_back(*it);
                         }
                         break;
-            	    case NodeTest::Type_ProcessingInstructionTest :
+                    case NodeTest::Type_ProcessingInstructionTest :
                         if( (*it)->nodeType() == dom::Node::PROCESSING_INSTRUCTION_NODE ) {
                             if( !nodeTest.getValue().empty() ) {
                                 if( nodeTest.getValue()!=(*it)->nodeValueAs<std::string>() ) {
