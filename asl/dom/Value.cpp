@@ -87,7 +87,7 @@ dom::NodeIDRegistry::unregisterID(const DOMString & theIDAttributeName, const DO
 
 void
 dom::NodeIDRegistry::registerNodeName(dom::Node * theNode) {
-    AC_TRACE << "Node::registerNodeName: registering node @"<<asl::as_string((void*)theNode)<<" with name <"<<theNode->nodeName()<<"> at registry "<<(void*)this;
+    DB(AC_TRACE << "Node::registerNodeName: registering node @"<<asl::as_string((void*)theNode)<<" with name <"<<theNode->nodeName()<<"> at registry "<<(void*)this);
     NodeSet & myNodes = _myNodeNames[theNode->nodeName()];
     NodeSet::iterator myEntry = myNodes.find(theNode);
     if (myEntry != myNodes.end()) {
@@ -97,7 +97,7 @@ dom::NodeIDRegistry::registerNodeName(dom::Node * theNode) {
 }
 void
 dom::NodeIDRegistry::unregisterNodeName(dom::Node * theNode) {
-    AC_TRACE << "Node::registerNodeName: unregistering node @"<<asl::as_string((void*)theNode)<<" with name <"<<theNode->nodeName()<<"> at registry "<<(void*)this;
+    DB(AC_TRACE << "Node::registerNodeName: unregistering node @"<<asl::as_string((void*)theNode)<<" with name <"<<theNode->nodeName()<<"> at registry "<<(void*)this);
     NodeNameMap::iterator myNodes = _myNodeNames.find(theNode->nodeName());
     if (myNodes == _myNodeNames.end()) {
         throw Node::NodeNotRegistered(std::string("No node with name '")+theNode->nodeName()+", especially not @"+asl::as_string((void*)theNode)+"' is not registered at the document", PLUS_FILE_LINE);
