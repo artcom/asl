@@ -37,7 +37,7 @@ public:
         std::vector<std::string> myDeviceNames;
         if (getSerialDeviceNames(myDeviceNames)) {
             for (unsigned i = 0; i < myDeviceNames.size();++i) {
-				DPRINT(myDeviceNames[i]);
+                DPRINT(myDeviceNames[i]);
                 SerialDevice * myPort = getSerialDevice(i);
                 ENSURE_MSG(myPort->getDeviceName() == myDeviceNames[i], "Testing name factory");
                 try {

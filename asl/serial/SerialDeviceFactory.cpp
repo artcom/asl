@@ -45,17 +45,17 @@ bool getSerialDeviceNames(std::vector<std::string> & theSerialDevicesNames) {
             //Check to see if the error was because some other app had the port open or a general failure
             if (dwError == ERROR_ACCESS_DENIED || dwError == ERROR_GEN_FAILURE || dwError == ERROR_SHARING_VIOLATION || dwError == ERROR_SEM_TIMEOUT) {
                 exists = true;
-			}
-		} else {
-			//The port was opened successfully
-			exists = true;
-			CloseHandle(hPort);
-		}
-		if (exists) {
-			theSerialDevicesNames.push_back(myPort);
-			AC_DEBUG << "Found serial device #" << theSerialDevicesNames.size()-1 << " , name = "<<theSerialDevicesNames.back();
-		}
-	}
+            }
+        } else {
+            //The port was opened successfully
+            exists = true;
+            CloseHandle(hPort);
+        }
+        if (exists) {
+            theSerialDevicesNames.push_back(myPort);
+            AC_DEBUG << "Found serial device #" << theSerialDevicesNames.size()-1 << " , name = "<<theSerialDevicesNames.back();
+        }
+    }
     return theSerialDevicesNames.size() != 0;
 }
 
