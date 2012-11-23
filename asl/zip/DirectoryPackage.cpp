@@ -21,6 +21,8 @@
 #include <asl/base/file_functions.h>
 #include <asl/base/MappedBlock.h>
 
+#define DB(x) //x
+
 using namespace std;
 
 namespace asl {
@@ -46,7 +48,7 @@ DirectoryPackage::getAbsolutePath(const std::string & theRelativePath) const
 
 DirectoryPackage::FileList
 DirectoryPackage::getFileList(const std::string & theSubDir, bool theRecurseFlag) {
-    AC_DEBUG << "getFileList dir='" << _myDirectory << "' path='" << theSubDir << "'";
+    DB(AC_DEBUG << "getFileList dir='" << _myDirectory << "' path='" << theSubDir << "'";)
     std::string myDirToSearch = getAbsolutePath(theSubDir);
     FileList myDirList = getDirectoryEntries(myDirToSearch);
     FileList myFileList;
@@ -72,7 +74,7 @@ DirectoryPackage::getFileList(const std::string & theSubDir, bool theRecurseFlag
 
 std::string
 DirectoryPackage::findFile(const std::string & theRelativePath) const {
-    AC_DEBUG << "findFile dir='" << _myDirectory << "' path='" << theRelativePath << "'";
+    DB(AC_DEBUG << "findFile dir='" << _myDirectory << "' path='" << theRelativePath << "'";)
     std::string myAbsolutePath = getAbsolutePath(theRelativePath);
     if (fileExists(myAbsolutePath)) {
         return myAbsolutePath;

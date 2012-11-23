@@ -124,7 +124,7 @@ PackageManager::findPackage(const std::string & theRelativePath,
         if ((myPackage != "" && (*iter)->getPath() != myPackage)) {
             continue;
         }
-        if ((*iter)->findFile(theRelativePath) != "") {
+        if (!((*iter)->findFile(theRelativePath).empty())) {
             return *iter;
         }
     }
@@ -163,17 +163,20 @@ PackageManager::readFile(const std::string & theRelativePath,
 
 std::string
 PackageManager::searchFile(const std::string & theRelativePath) const {
+    AC_TRACE << "searchFile path='" << theRelativePath << "'";
     if (_myPackages.size() == 0) {
         AC_WARNING << "No packages to search!";
     }
     for (PackageList::const_iterator iter = _myPackages.begin();
          iter != _myPackages.end(); ++iter) {
         std::string myAbsolutePath = (*iter)->findFile(theRelativePath);
-        if (myAbsolutePath.empty() == false) {
+        if (!myAbsolutePath.empty()) {
+            AC_DEBUG << "searchFile found file at path='" << myAbsolutePath << "'";
             return myAbsolutePath;
         }
     }
     if (fileExists(theRelativePath)) {
+        AC_DEBUG << "searchFile found file at path='" << theRelativePath << "'";
         return theRelativePath;
     }
     return "";
@@ -185,7 +188,7 @@ PackageManager::listPackageFiles(IPackagePtr thePackage,
                                  bool doRecursiveSearch)
 {
     IPackage::FileList myFileList;
-    if (thePackage && thePackage->findFile(theRelativePath).empty() == false) {
+    if (thePackage && !(thePackage->findFile(theRelativePath).empty())) {
         myFileList = thePackage->getFileList(theRelativePath, doRecursiveSearch);
     }
 
@@ -199,7 +202,7 @@ PackageManager::findFiles(const std::string & theRelativePath,
 {
     AC_TRACE << "findFiles pkg='" << thePackage << "' path='" << theRelativePath << "'";
     IPackage::FileList myFileList;
-    if (thePackage.empty() == false) {
+    if (!thePackage.empty()) {
         IPackagePtr myPackage = findPackage("", thePackage);
         myFileList = listPackageFiles(myPackage, theRelativePath, doRecursiveSearch);
     } else {
