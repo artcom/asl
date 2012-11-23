@@ -38,7 +38,7 @@ class DirectSoundPump : public Singleton<DirectSoundPump>, public Pump
     private:
         DirectSoundPump();
         void openOutput();
-		void handleDeviceSelection();
+        void handleDeviceSelection();
         void closeOutput();
         bool isOutputOpen() const;
         void initPrimaryBuffer();
@@ -53,8 +53,8 @@ class DirectSoundPump : public Singleton<DirectSoundPump>, public Pump
 
         bool _myIsOutOpen;
 
-		LPDIRECTSOUND _myDS;
-		DSCAPS _myDSCaps;
+        LPDIRECTSOUND _myDS;
+        DSCAPS _myDSCaps;
         LPDIRECTSOUNDBUFFER _myPrimaryBuffer;
         LPDIRECTSOUNDBUFFER _myDSBuffer;
 
@@ -71,7 +71,7 @@ class DirectSoundPump : public Singleton<DirectSoundPump>, public Pump
         asl::ThreadLock _myTimeLock;
         Unsigned64 _myFramesPlayed;
 
-		LPCGUID _mySoundCardId;
+        LPCGUID _mySoundCardId;
 };
 
 }

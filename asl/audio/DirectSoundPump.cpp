@@ -41,25 +41,25 @@
 using namespace std;
 
 namespace asl {
-	typedef map<string,LPGUID> SoundDeviceMap;
+    typedef map<string,LPGUID> SoundDeviceMap;
 
-	BOOL CALLBACK enumerateDSSoundCards(LPGUID theId,
-				LPSTR theDescription,
-				LPSTR theDriverName,
-				LPVOID theStorage )
-	{
-		LPGUID myIdPtr = NULL;
+    BOOL CALLBACK enumerateDSSoundCards(LPGUID theId,
+                LPSTR theDescription,
+                LPSTR theDriverName,
+                LPVOID theStorage )
+    {
+        LPGUID myIdPtr = NULL;
 
-		SoundDeviceMap * myMap = static_cast<SoundDeviceMap*>(theStorage);
-		if (theId != NULL)  {
-			if ((myIdPtr = (LPGUID)malloc(sizeof(GUID))) == NULL) {
-				return true;
-	        }
-		    memcpy(myIdPtr, theId, sizeof(GUID));
-	    }
+        SoundDeviceMap * myMap = static_cast<SoundDeviceMap*>(theStorage);
+        if (theId != NULL)  {
+            if ((myIdPtr = (LPGUID)malloc(sizeof(GUID))) == NULL) {
+                return true;
+            }
+            memcpy(myIdPtr, theId, sizeof(GUID));
+        }
 
-		(*myMap)[std::string((LPCTSTR)theDescription)] = myIdPtr;
-		return true;
+        (*myMap)[std::string((LPCTSTR)theDescription)] = myIdPtr;
+        return true;
     }
 
 void dumpDSCaps(const DSCAPS& theDSCaps);
@@ -100,21 +100,21 @@ DirectSoundPump::DirectSoundPump ()
       _myWriteCursor(0),
       _myNumUnderruns(0),
       _myFramesPlayed(0),
-	  _mySoundCardId(NULL)
+      _mySoundCardId(NULL)
 {
     AC_INFO << "DirectSoundPump::DirectSoundPump";
 
     _myFramesPerBuffer = unsigned(getLatency() * getNativeSampleRate())*2;
 
-	string myDeviceName = "DirectSound default device";//default";
+    string myDeviceName = "DirectSound default device";//default";
     get_environment_var_as("Y60_SOUND_DEVICE_NAME", myDeviceName);
     AC_DEBUG << "DirectSound Device name: \"" << myDeviceName << "\"";
     setDeviceName(myDeviceName);
 
 
-	setCardName("");
+    setCardName("");
 
-	handleDeviceSelection();
+    handleDeviceSelection();
 
 //    dumpState();
     start();
@@ -122,35 +122,35 @@ DirectSoundPump::DirectSoundPump ()
 
 void
 DirectSoundPump::handleDeviceSelection() {
-	unsigned myDeviceNum = 0;
-	get_environment_var_as("Y60_SOUND_DEVICE_NUM", myDeviceNum);
+    unsigned myDeviceNum = 0;
+    get_environment_var_as("Y60_SOUND_DEVICE_NUM", myDeviceNum);
     AC_DEBUG << "DirectSound Device num: \"" << myDeviceNum << "\"";
-	SoundDeviceMap mySoundCardMap;
-	if (FAILED(DirectSoundEnumerate((LPDSENUMCALLBACK)enumerateDSSoundCards, (LPVOID)&mySoundCardMap))) {
-		AC_WARNING << "Sorry, an error occured while enumerating sounddevices";
+    SoundDeviceMap mySoundCardMap;
+    if (FAILED(DirectSoundEnumerate((LPDSENUMCALLBACK)enumerateDSSoundCards, (LPVOID)&mySoundCardMap))) {
+        AC_WARNING << "Sorry, an error occured while enumerating sounddevices";
     }
-	if (myDeviceNum > mySoundCardMap.size()-1) {
-		AC_WARNING << "Sorry, Y60_SOUND_DEVICE_NUM: " << myDeviceNum << " invalid, there are only "
-			       << mySoundCardMap.size()-1 << " sounddevices";
-	}
-	SoundDeviceMap::iterator myBegin = mySoundCardMap.begin();
-	SoundDeviceMap::iterator myEnd = mySoundCardMap.end();
-	unsigned myCounter = 0;
-	for (;myBegin !=  myEnd; myBegin++) {
-		AC_DEBUG <<  "Audio device: " << myBegin->first << " -> " << &myBegin->second;
-		if (myCounter == myDeviceNum) {
-			_mySoundCardId = myBegin->second;
-			AC_DEBUG <<  "    use Audio device: " << myBegin->first;
-		}
-		myCounter++;
-	}
-	openOutput();
+    if (myDeviceNum > mySoundCardMap.size()-1) {
+        AC_WARNING << "Sorry, Y60_SOUND_DEVICE_NUM: " << myDeviceNum << " invalid, there are only "
+                   << mySoundCardMap.size()-1 << " sounddevices";
+    }
+    SoundDeviceMap::iterator myBegin = mySoundCardMap.begin();
+    SoundDeviceMap::iterator myEnd = mySoundCardMap.end();
+    unsigned myCounter = 0;
+    for (;myBegin !=  myEnd; myBegin++) {
+        AC_DEBUG <<  "Audio device: " << myBegin->first << " -> " << &myBegin->second;
+        if (myCounter == myDeviceNum) {
+            _mySoundCardId = myBegin->second;
+            AC_DEBUG <<  "    use Audio device: " << myBegin->first;
+        }
+        myCounter++;
+    }
+    openOutput();
 
-	myBegin = mySoundCardMap.begin();
-	myEnd = mySoundCardMap.end();
-	for (;myBegin !=  myEnd; myBegin++) {
-		free(myBegin->second);
-	}
+    myBegin = mySoundCardMap.begin();
+    myEnd = mySoundCardMap.end();
+    for (;myBegin !=  myEnd; myBegin++) {
+        free(myBegin->second);
+    }
 
 }
 

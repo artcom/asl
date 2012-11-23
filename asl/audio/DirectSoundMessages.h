@@ -151,20 +151,20 @@ namespace asl {
     class DSException : public AudioException {
     public:
         DSException(const std::string & what, const std::string & where)
-		    : AudioException(what, where, "DSException") {}
+            : AudioException(what, where, "DSException") {}
         DSException(HRESULT error, const std::string & where)
-		    : AudioException(DSoundMessages::ErrorMessage(error), where, "DSException") {}
+            : AudioException(DSoundMessages::ErrorMessage(error), where, "DSException") {}
     protected:
         DSException(const std::string & what, const std::string & where, const char* name)
-			: AudioException(what, where, name) {}
+            : AudioException(what, where, name) {}
     };
 
-	inline void
-	checkDSRetVal (HRESULT theRetVal, const std::string& theWhere) {
-		if (FAILED(theRetVal)) {
-			throw DSException(theRetVal, theWhere);
-		}
-	}
+    inline void
+    checkDSRetVal (HRESULT theRetVal, const std::string& theWhere) {
+        if (FAILED(theRetVal)) {
+            throw DSException(theRetVal, theWhere);
+        }
+    }
 
 
 }
