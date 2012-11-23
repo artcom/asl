@@ -12,30 +12,8 @@
 // Description:
 //     Classes for networked or local communication between processes
 //
-// Last Review:  ms 2007-08-15
-//
-//  review status report: (perfect, ok, fair, poor, disaster, notapp (not applicable))
-//    usefulness              :      ok
-//    formatting              :      fair
-//    documentation           :      ok
-//    test coverage           :      ok
-//    names                   :      ok
-//    style guide conformance :      ok
-//    technological soundness :      ok
-//    dead code               :      ok
-//    readability             :      ok
-//    understandability       :      fair
-//    interfaces              :      ok
-//    confidence              :      ok
-//    integration             :      ok
-//    dependencies            :      ok
-//    error handling          :      ok
-//    logging                 :      notapp
-//    cheesyness              :      ok
-//
-//    overall review status   :      ok
-//
-//    recommendations: add high-level documentation, improve doxygen documentation
+// Recommendations: add high-level documentation, improve doxygen documentation
+// __ ___ ____ _____ ______ _______ ________ _______ ______ _____ ____ ___ __
 */
 #ifndef __asl_NamedPipePolicy_included
 #define __asl_NamedPipePolicy_included
