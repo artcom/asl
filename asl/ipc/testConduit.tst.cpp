@@ -102,16 +102,16 @@ class MessageConduitTest : public TemplateUnitTest {
             string myOutputString("Hello\0World!");
             myClient->send(myOutputString);
 
-			// did the message get to the server?
+            // did the message get to the server?
             asl::Ptr<typename MessageAcceptor<POLICY>::Message> myMessage;
             while (!(myMessage = _myAcceptor->popIncomingMessage())) {
                 msleep(100);
             }
-			ENSURE(myMessage);
-			ENSURE(myMessage->as_string() == "Hello\0World!");
-			// send a return message
+            ENSURE(myMessage);
+            ENSURE(myMessage->as_string() == "Hello\0World!");
+            // send a return message
             myOutputString = "You Too!";
-			_myAcceptor->pushOutgoingMessage(myMessage->server, myOutputString);
+            _myAcceptor->pushOutgoingMessage(myMessage->server, myOutputString);
             // did the message get back?
             string myInputString;
             while (!myClient->receive(myInputString)) {

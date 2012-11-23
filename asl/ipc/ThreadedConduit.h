@@ -92,7 +92,7 @@ virtual bool processData() {
           **/
         virtual bool processData()  = 0;
     private:
-    	bool _cancelFlag;
+        bool _cancelFlag;
 
         // hide default ctors
         ThreadedConduit();
@@ -128,7 +128,7 @@ virtual bool processData() {
             return (void*)static_cast<ptrdiff_t>(myResult);
         }
         static void onThreadDone(void * theThisPointer) {
-	        //AC_WARNING << "onThreadDone";
+            //AC_WARNING << "onThreadDone";
         }
 };
 

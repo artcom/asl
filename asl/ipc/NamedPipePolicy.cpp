@@ -91,10 +91,10 @@ NamedPipePolicy::createOnConnect(Handle & theListenHandle, unsigned theMaxConnec
 
     }
     SetEvent(theListenHandle.accept_overlap.hEvent);
-	theListenHandle.accept_overlap.Internal= 0;
-	theListenHandle.accept_overlap.InternalHigh = 0;
-	theListenHandle.accept_overlap.Offset = 0;
-	theListenHandle.accept_overlap.OffsetHigh = 0;
+    theListenHandle.accept_overlap.Internal= 0;
+    theListenHandle.accept_overlap.InternalHigh = 0;
+    theListenHandle.accept_overlap.Offset = 0;
+    theListenHandle.accept_overlap.OffsetHigh = 0;
     if (ConnectNamedPipe(theListenHandle.pipeInstance, &(theListenHandle.accept_overlap))) {
         throw ConduitException(string("NamedPipePolicy::ConnectNamePipe failed - ")+
                 errorDescription(lastError()), PLUS_FILE_LINE);
@@ -103,20 +103,20 @@ NamedPipePolicy::createOnConnect(Handle & theListenHandle, unsigned theMaxConnec
         case ERROR_PIPE_CONNECTED :
             break; // ok, we are connected
         case ERROR_IO_PENDING:
-			{
-				DWORD myDummy;
-				int myRetVal;
-            	do {
-		            myRetVal = waitForOverlapped(theListenHandle,
-					    &myDummy , false, theTimeout);
-		            pthread_testcancel();
-	            } while (myRetVal == STILL_WAITING);
+            {
+                DWORD myDummy;
+                int myRetVal;
+                do {
+                    myRetVal = waitForOverlapped(theListenHandle,
+                        &myDummy , false, theTimeout);
+                    pthread_testcancel();
+                } while (myRetVal == STILL_WAITING);
 
                 if (myRetVal != RECEIVED_DATA) {
-					return Handle();
-				}
-				break;
-			}
+                    return Handle();
+                }
+                break;
+            }
         case ERROR_NO_DATA :
             return Handle();
         default:
@@ -304,7 +304,7 @@ NamedPipePolicy::onWriteCompleted(DWORD theError, DWORD theBytesTransferred, LPO
         case ERROR_SUCCESS :
             break;
         case ERROR_OPERATION_ABORTED :
-			{AC_WARNING << *myHandle << " pipe broken on writing" << endl;}
+            {AC_WARNING << *myHandle << " pipe broken on writing" << endl;}
             return;
         case ERROR_BROKEN_PIPE :
             DBT(*myHandle << " pipe broken on writing" << endl);

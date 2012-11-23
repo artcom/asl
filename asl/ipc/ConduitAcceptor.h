@@ -105,7 +105,7 @@ class ConduitAcceptor {
 
         void stopAllServers() {
             DB(AC_TRACE << "ACCEPTOR: stopping all servers\n");
-			//int myServerCount = _myServers.size();
+            //int myServerCount = _myServers.size();
             for (typename ServerList::iterator i = _myServers.begin(); i != _myServers.end(); ++i) {
                 (*i)->stop();
             }
@@ -121,7 +121,7 @@ class ConduitAcceptor {
                 typename ConduitServer<POLICY>::Ptr
                         myNewServer(_createServerProc(myServerHandle));
                 myNewServer->setSelf(myNewServer);
-				myNewServer->setAcceptor(this);
+                myNewServer->setAcceptor(this);
                 _myServers.push_back(myNewServer);
                 myNewServer->start();
             }
