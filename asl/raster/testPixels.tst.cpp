@@ -124,74 +124,74 @@ public:
 
         ENSURE(sizeof(DXT1)  == 8);
         ENSURE(sizeof(DXT1a) == 8);
-		ENSURE(sizeof(DXT3)  == 16);
-		ENSURE(sizeof(DXT5)  == 16);
+        ENSURE(sizeof(DXT3)  == 16);
+        ENSURE(sizeof(DXT5)  == 16);
 
-		{
-			raster<DXT1> myRaster(4, 4);
-			ENSURE(myRaster.getDataVector().size() == 1);
-			ENSURE((char *)myRaster.end() - (char *)myRaster.begin() == 8);
+        {
+            raster<DXT1> myRaster(4, 4);
+            ENSURE(myRaster.getDataVector().size() == 1);
+            ENSURE((char *)myRaster.end() - (char *)myRaster.begin() == 8);
 
-			DXT1 myPixel;
-			myPixel.value = 111;
-			DXT1 myOtherPixel;
-			myOtherPixel.value = 222;
+            DXT1 myPixel;
+            myPixel.value = 111;
+            DXT1 myOtherPixel;
+            myOtherPixel.value = 222;
 
-			ENSURE(!(myPixel == myOtherPixel));
-			ENSURE(myPixel + myPixel == myOtherPixel);
-			ENSURE(myOtherPixel - myPixel == myPixel);
-		}
-		{
-			raster<DXT1a> myRaster(4, 4);
-			ENSURE(myRaster.getDataVector().size() == 1);
-			ENSURE((char *)myRaster.end() - (char *)myRaster.begin() == 8);
+            ENSURE(!(myPixel == myOtherPixel));
+            ENSURE(myPixel + myPixel == myOtherPixel);
+            ENSURE(myOtherPixel - myPixel == myPixel);
+        }
+        {
+            raster<DXT1a> myRaster(4, 4);
+            ENSURE(myRaster.getDataVector().size() == 1);
+            ENSURE((char *)myRaster.end() - (char *)myRaster.begin() == 8);
 
-			DXT1a myPixel;
-			myPixel.value = 111;
-			DXT1a myOtherPixel;
-			myOtherPixel.value = 222;
+            DXT1a myPixel;
+            myPixel.value = 111;
+            DXT1a myOtherPixel;
+            myOtherPixel.value = 222;
 
-			ENSURE(!(myPixel == myOtherPixel));
-			ENSURE(myPixel + myPixel == myOtherPixel);
-			ENSURE(myOtherPixel - myPixel == myPixel);
-		}
-		{
-			raster<DXT3> myRaster(4, 4);
-			ENSURE(myRaster.getDataVector().size() == 1);
-			ENSURE((char *)myRaster.end() - (char *)myRaster.begin() == 16);
+            ENSURE(!(myPixel == myOtherPixel));
+            ENSURE(myPixel + myPixel == myOtherPixel);
+            ENSURE(myOtherPixel - myPixel == myPixel);
+        }
+        {
+            raster<DXT3> myRaster(4, 4);
+            ENSURE(myRaster.getDataVector().size() == 1);
+            ENSURE((char *)myRaster.end() - (char *)myRaster.begin() == 16);
 
-			DXT3 myPixel;
-			myPixel.value1 = 111;
-			myPixel.value2 = 333;
-			DXT3 myOtherPixel;
-			myOtherPixel.value1 = 222;
-			myOtherPixel.value2 = 666;
+            DXT3 myPixel;
+            myPixel.value1 = 111;
+            myPixel.value2 = 333;
+            DXT3 myOtherPixel;
+            myOtherPixel.value1 = 222;
+            myOtherPixel.value2 = 666;
 
-			ENSURE(!(myPixel == myOtherPixel));
-			ENSURE(myPixel + myPixel == myOtherPixel);
-			ENSURE(myOtherPixel - myPixel == myPixel);
-		}
-		{
-			raster<DXT5> myRaster(4, 4);
-			ENSURE(myRaster.getDataVector().size() == 1);
-			ENSURE((char *)myRaster.end() - (char *)myRaster.begin() == 16);
+            ENSURE(!(myPixel == myOtherPixel));
+            ENSURE(myPixel + myPixel == myOtherPixel);
+            ENSURE(myOtherPixel - myPixel == myPixel);
+        }
+        {
+            raster<DXT5> myRaster(4, 4);
+            ENSURE(myRaster.getDataVector().size() == 1);
+            ENSURE((char *)myRaster.end() - (char *)myRaster.begin() == 16);
 
-			DXT5 myPixel;
-			myPixel.value1 = 111;
-			myPixel.value2 = 333;
-			DXT5 myOtherPixel;
-			myOtherPixel.value1 = 222;
-			myOtherPixel.value2 = 666;
+            DXT5 myPixel;
+            myPixel.value1 = 111;
+            myPixel.value2 = 333;
+            DXT5 myOtherPixel;
+            myOtherPixel.value1 = 222;
+            myOtherPixel.value2 = 666;
 
-			ENSURE(!(myPixel == myOtherPixel));
-			ENSURE(myPixel + myPixel == myOtherPixel);
-			ENSURE(myOtherPixel - myPixel == myPixel);
-		}
-		{
-			raster<RGB> myRaster(2, 4);
-			ENSURE(myRaster.getDataVector().size() == 8);
-			ENSURE((char *)myRaster.end() - (char *)myRaster.begin() == 24);
-		}
+            ENSURE(!(myPixel == myOtherPixel));
+            ENSURE(myPixel + myPixel == myOtherPixel);
+            ENSURE(myOtherPixel - myPixel == myPixel);
+        }
+        {
+            raster<RGB> myRaster(2, 4);
+            ENSURE(myRaster.getDataVector().size() == 8);
+            ENSURE((char *)myRaster.end() - (char *)myRaster.begin() == 24);
+        }
     }
 };
 

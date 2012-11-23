@@ -221,10 +221,10 @@ struct Pair {
     }
 
     bool operator==(const DERIVED & y) const {
-	    return (first() == y.first() && second() == y.second() );
+        return (first() == y.first() && second() == y.second() );
     }
     bool operator!=(const DERIVED & y) const {
-	    return (first() != y.first() || second() != y.second() );
+        return (first() != y.first() || second() != y.second() );
     }
 protected:
     T1 _first;

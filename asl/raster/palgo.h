@@ -184,8 +184,8 @@ void scale2d(const Srcmat & src, Destmat & dest)
 template <class InputIterator, class T>
 T paccumulate(InputIterator first, InputIterator last, T init) {
     while (first != last) {
-        //	std::cerr << "paccumulate << " << *first << std::endl;
-        //	init = init + *first++;
+        //  std::cerr << "paccumulate << " << *first << std::endl;
+        //  init = init + *first++;
         init = init + auto_cast<T>(*first);
         ++first;
     }
@@ -198,19 +198,19 @@ struct average_function : public std::binary_function<Iterator, Iterator, T> {
     average_function(const T & Init_val) : init_val(Init_val) {}
     T operator()(const Iterator& begin, const Iterator& end) const {
         SumT result = auto_cast<SumT>(init_val);
-        //	std::cerr << "average_function:" << std::endl;
+        //  std::cerr << "average_function:" << std::endl;
         //T beginval = *begin;
         //T endval = *end;
-        //	void * bp = (void*)&(*begin);
-        //	void * ep = (void*)&(*end);
-        //	std::cerr << "average_function: begin = " << beginval << " @ " << bp << std::endl;
-        //	std::cerr << "average_function: end = " << endval << " @ " << ep << std::endl;
+        //  void * bp = (void*)&(*begin);
+        //  void * ep = (void*)&(*end);
+        //  std::cerr << "average_function: begin = " << beginval << " @ " << bp << std::endl;
+        //  std::cerr << "average_function: end = " << endval << " @ " << ep << std::endl;
 
         int numvalues = end - begin;
-        //	std::cerr << "average_function: numvalues = " << numvalues << std::endl;
-        //	std::cerr << "average_function: initval = " << result << std::endl;
+        //  std::cerr << "average_function: numvalues = " << numvalues << std::endl;
+        //  std::cerr << "average_function: initval = " << result << std::endl;
         result = paccumulate(begin, end, result) / numvalues;
-        //	std::cerr << "average_function: result = " << result << std::endl;
+        //  std::cerr << "average_function: result = " << result << std::endl;
         return auto_cast<T>(result);
     }
     T init_val;
@@ -456,8 +456,8 @@ struct bilinear {
                      maxmin * (       xratio  * (1.0 - yratio)) +
                      minmax * ((1.0 - xratio) *        yratio ) +
                      maxmax * (       xratio  *        yratio ));
-        //	std::cerr << "bilinear(" << minmin << "," << maxmin << "," << minmax << "," << maxmax << ","
-        //	     << xratio << "," <<yratio << ") = " << result << std::endl;
+        //  std::cerr << "bilinear(" << minmin << "," << maxmin << "," << minmax << "," << maxmax << ","
+        //       << xratio << "," <<yratio << ") = " << result << std::endl;
         return result;
     }
 };
@@ -479,7 +479,7 @@ struct offset_get_pixel{
     T operator()(const Mat& src, float x, float y )
     {
         T result = auto_cast<T>(src(x+xoffset, y+yoffset));
-        //	std::cerr << "offset_get_pixel(" << x << "," << y << ") = " << result << std::endl;
+        //  std::cerr << "offset_get_pixel(" << x << "," << y << ") = " << result << std::endl;
         return result;
     }
 };
@@ -489,7 +489,7 @@ struct default_get_pixel {
     T operator()(const Mat & src, int x, int y )
     {
         T result = auto_cast<T>(src(x, y));
-        //	std::cerr << "default_get_pixel(" << x << "," << y << ") = " << result << std::endl;
+        //  std::cerr << "default_get_pixel(" << x << "," << y << ") = " << result << std::endl;
         return result;
     }
 };

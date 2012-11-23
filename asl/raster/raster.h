@@ -38,7 +38,7 @@ namespace asl {
 
 template <class T>
 struct PackedRaster {
-	enum {Factor = 1};
+    enum {Factor = 1};
 };
 
 
@@ -197,7 +197,7 @@ class raster {
         // same as std::vector:
 
         iterator begin() {
-			return begin_ptr(_data);
+            return begin_ptr(_data);
         }
         const_iterator begin() const {
             return begin_ptr(_data);
@@ -268,7 +268,7 @@ class raster {
         }
 private:
         void reserve(size_type n) {
-			_data.reserve(n / PackedRaster<T>::Factor);
+            _data.reserve(n / PackedRaster<T>::Factor);
         }
         reference front() {
             return *begin();
@@ -309,7 +309,7 @@ private:
 
         }
         void resize_vec(size_type new_size, const T& x) {
-			new_size = new_size / PackedRaster<T>::Factor;
+            new_size = new_size / PackedRaster<T>::Factor;
             if (new_size < size())
                 erase(begin() + new_size, end());
             else

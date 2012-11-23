@@ -767,22 +767,22 @@ struct PackedRaster;
 
 template <>
 struct PackedRaster<DXT1> {
-	enum {Factor = 16};
+    enum {Factor = 16};
 };
 
 template <>
 struct PackedRaster<DXT1a> {
-	enum {Factor = 16};
+    enum {Factor = 16};
 };
 
 template <>
 struct PackedRaster<DXT3> {
-	enum {Factor = 16};
+    enum {Factor = 16};
 };
 
 template <>
 struct PackedRaster<DXT5> {
-	enum {Factor = 16};
+    enum {Factor = 16};
 };
 
 inline std::ostream& operator<<(std::ostream& o, const DXT1 & s) {
@@ -817,9 +817,9 @@ inline std::istream & operator>>(std::istream & is, DXT5 & s) {
 template <class SRC, class DEST>
 struct route : public std::unary_function<SRC, DEST> {
     DEST operator()(const SRC & src) {
-	DEST result;
-	result.set(result_type( src.get(src)() ));
-	return result;
+    DEST result;
+    result.set(result_type( src.get(src)() ));
+    return result;
     }
 };
 
@@ -831,11 +831,11 @@ struct output3 {
     typedef typename CONV2::argument_type CONV2_argument_type;
     typedef typename CONV3::argument_type CONV3_argument_type;
     result_type operator()(const argument_type& src) {
-	    result_type result;
-	    result.set(CONV1()(src.get(CONV1_argument_type())));
-	    result.set(CONV2()(src.get(CONV2_argument_type())));
-	    result.set(CONV3()(src.get(CONV3_argument_type())));
-	    return result;
+        result_type result;
+        result.set(CONV1()(src.get(CONV1_argument_type())));
+        result.set(CONV2()(src.get(CONV2_argument_type())));
+        result.set(CONV3()(src.get(CONV3_argument_type())));
+        return result;
     }
 };
 
@@ -848,12 +848,12 @@ struct output4 {
     typedef typename CONV3::argument_type CONV3_argument_type;
     typedef typename CONV4::argument_type CONV4_argument_type;
     result_type operator()(const argument_type& src) {
-	    result_type result;
-	    result.set(CONV1()(src.get(CONV1_argument_type())));
-	    result.set(CONV2()(src.get(CONV2_argument_type())));
-	    result.set(CONV3()(src.get(CONV3_argument_type())));
-	    result.set(CONV4()(src.get(CONV4_argument_type())));
-	    return result;
+        result_type result;
+        result.set(CONV1()(src.get(CONV1_argument_type())));
+        result.set(CONV2()(src.get(CONV2_argument_type())));
+        result.set(CONV3()(src.get(CONV3_argument_type())));
+        result.set(CONV4()(src.get(CONV4_argument_type())));
+        return result;
     }
 };
 #endif

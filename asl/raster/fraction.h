@@ -281,7 +281,7 @@ Int round(const asl::base_frac<Int>& f) {
     if (f.p >= 0)
         return (2*f.p+f.q)/(2*f.q);
     else {
-        //	return (2*f.p-f.q)/(2*f.q);
+        //  return (2*f.p-f.q)/(2*f.q);
         return floor(f + asl::base_frac<Int>(1, 2));
     }
 }
@@ -324,10 +324,10 @@ struct frac : base_frac<Int> {
         base::norm();
     }
     void mult(const frac& f) {
-        //	cerr << *this << " * " << f << endl;
+        //  cerr << *this << " * " << f << endl;
         base::mult(f);
         base::norm();
-        //	cerr << " == " << *this << endl;
+        //  cerr << " == " << *this << endl;
     }
     void div(const frac& f) {
         base::div(f);
@@ -474,7 +474,7 @@ Int round(const asl::frac<Int>& f) {
     if (f.p >= 0)
         return (2*f.p+f.q)/(2*f.q);
     else {
-        //	return (2*f.p-f.q)/(2*f.q);
+        //  return (2*f.p-f.q)/(2*f.q);
         return floor(f + asl::frac<int>(1, 2));
     }
 }

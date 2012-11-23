@@ -318,10 +318,10 @@ bool all_non_zero(char p) {
 template <class SRC, class DEST>
 struct make_rgb : public std::unary_function<SRC, DEST> {
     DEST operator()(const SRC & src) {
-	    DEST result;
-	    result.set(src.get(RED()));
-	    result.set(src.get(GREEN()));
-	    result.set(src.get(BLUE()));
+        DEST result;
+        result.set(src.get(RED()));
+        result.set(src.get(GREEN()));
+        result.set(src.get(BLUE()));
 
         return result;
     }
@@ -330,11 +330,11 @@ struct make_rgb : public std::unary_function<SRC, DEST> {
 template <class SRC, class DEST>
 struct make_hsv_from_rgb : public std::unary_function<SRC, DEST> {
     DEST operator()(const SRC & src) {
-	    DEST result;
+        DEST result;
 
-	    int red = src.get(RED())();
-	    int green = src.get(GREEN())();
-	    int blue = src.get(BLUE())();
+        int red = src.get(RED())();
+        int green = src.get(GREEN())();
+        int blue = src.get(BLUE())();
 
         float h, s, v;
         int min, max;
@@ -402,11 +402,11 @@ struct make_hsv_from_rgb : public std::unary_function<SRC, DEST> {
 template <class SRC, class DEST>
 struct imake_hsv_from_rgb : public std::unary_function<SRC, DEST> {
     DEST operator()(const SRC & src) {
-	    DEST result;
+        DEST result;
 
-	    int red = src.get(RED())();
-	    int green = src.get(GREEN())();
-	    int blue = src.get(BLUE())();
+        int red = src.get(RED())();
+        int green = src.get(GREEN())();
+        int blue = src.get(BLUE())();
 
         int h, s, v;
         int min, max;
@@ -474,11 +474,11 @@ struct imake_hsv_from_rgb : public std::unary_function<SRC, DEST> {
 template <class SRC, class DEST>
 struct make_rgb_from_hsv : public std::unary_function<SRC, DEST> {
     DEST operator()(const SRC & src) {
-	    DEST result;
+        DEST result;
 
-	    int h = src.get(HUE())();
-	    int s = src.get(SATURATION())();
-	    int v = src.get(GRAY())();
+        int h = src.get(HUE())();
+        int s = src.get(SATURATION())();
+        int v = src.get(GRAY())();
 
         float hue, saturation, value;
         float f, p, q, t;
@@ -501,8 +501,8 @@ struct make_rgb_from_hsv : public std::unary_function<SRC, DEST> {
             t = value * (1.0 - (saturation * (1.0 - f)));
 
             switch ((int) hue)
-	        {
-	            case 0:
+            {
+                case 0:
                   h = value * 255;
                   s = t * 255;
                   v = p * 255;
@@ -544,84 +544,84 @@ struct make_rgb_from_hsv : public std::unary_function<SRC, DEST> {
 template <class SRC, class DEST>
 struct make_rgba : public std::unary_function<SRC, DEST> {
     DEST operator()(const SRC & src) {
-	DEST result;
+    DEST result;
 /*
-	set(result, get(src,RED()));
-	set(result, get(src,GREEN()));
-	set(result, get(src,BLUE()));
-	set(result, get(src,ALPHA()));
+    set(result, get(src,RED()));
+    set(result, get(src,GREEN()));
+    set(result, get(src,BLUE()));
+    set(result, get(src,ALPHA()));
 
 */
-	result.set(src.get(RED()));
-	result.set(src.get(GREEN()));
-	result.set(src.get(BLUE()));
-	result.set(src.get(ALPHA()));
-	return result;
+    result.set(src.get(RED()));
+    result.set(src.get(GREEN()));
+    result.set(src.get(BLUE()));
+    result.set(src.get(ALPHA()));
+    return result;
     }
 };
 template <class SRC, class DEST>
 struct make_gray_alpha : public std::unary_function<SRC, DEST> {
     DEST operator()(const SRC & src) {
-	DEST result;
+    DEST result;
 /*
-	set(result, get(src,GRAY()));
-	set(result, get(src,ALPHA()));
+    set(result, get(src,GRAY()));
+    set(result, get(src,ALPHA()));
 */
-	result.set(src.get(GRAY()));
-	result.set(src.get(ALPHA()));
-	return result;
+    result.set(src.get(GRAY()));
+    result.set(src.get(ALPHA()));
+    return result;
     }
 };
 
 template <class SRC, class DEST>
 struct make_gray : public std::unary_function<SRC, DEST> {
     DEST operator()(const SRC & src) {
-	DEST result;
-//	set(result, get(src,GRAY()));
-	result.set(src.get(GRAY()));
-	return result;
+    DEST result;
+//  set(result, get(src,GRAY()));
+    result.set(src.get(GRAY()));
+    return result;
     }
 };
 
 template <class SRC, class DEST>
 struct read_red : public std::unary_function<SRC, DEST> {
     DEST operator()(const SRC& src) {
-	    DEST result;
-	    result=src.get(RED())();
-	    return result;
+        DEST result;
+        result=src.get(RED())();
+        return result;
     }
 };
 template <class SRC, class DEST>
 struct read_green : public std::unary_function<SRC, DEST> {
     DEST operator()(const SRC & src) {
-	    DEST result;
-	    result=src.get(GREEN())();
-	    return result;
+        DEST result;
+        result=src.get(GREEN())();
+        return result;
     }
 };
 template <class SRC, class DEST>
 struct read_blue : public std::unary_function<SRC, DEST> {
     DEST operator()(const SRC & src) {
-	    DEST result;
-	    result=src.get(BLUE())();
-	    return result;
+        DEST result;
+        result=src.get(BLUE())();
+        return result;
     }
 };
 template <class SRC, class DEST>
 struct read_luminance : public std::unary_function<SRC, DEST> {
     DEST operator()(const SRC & src) {
-	    DEST result;
-	    result=(src.get(RED())()+src.get(GREEN())()+src.get(BLUE())())/3;
-	    return result;
+        DEST result;
+        result=(src.get(RED())()+src.get(GREEN())()+src.get(BLUE())())/3;
+        return result;
     }
 };
 
 template <class SRC1, class SRC2, class DEST>
 struct copy_alpha : public std::binary_function<SRC1,SRC2,DEST> {
     DEST operator()(const SRC1 & base, const SRC2 & component) {
-	    DEST result(base);
-	    result.set(component.get(ALPHA()));
-	    return result;
+        DEST result(base);
+        result.set(component.get(ALPHA()));
+        return result;
     }
 };
 

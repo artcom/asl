@@ -208,9 +208,9 @@ public:
         for (q = 1; q<=999; q++) {
             dq += q/(double)p;
             result += fraction(q, p);
-            //	    cerr << setprecision(10) << "result = " << result << endl;
-            //	    cerr << setprecision(10) << "as_double(result) = " << as_double(result) << endl;
-            //	    cerr << setprecision(10) << "dq = " << dq << endl;
+            //      cerr << setprecision(10) << "result = " << result << endl;
+            //      cerr << setprecision(10) << "as_double(result) = " << as_double(result) << endl;
+            //      cerr << setprecision(10) << "dq = " << dq << endl;
         }
         ENSURE(result == fraction(500));
     }

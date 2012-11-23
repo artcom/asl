@@ -45,10 +45,10 @@ template <class RASTER>
 class subraster_base_iterator
     : public std::iterator<
             std::random_access_iterator_tag,
-			typename RASTER::value_type,
-			typename RASTER::difference_type,
-			typename RASTER::pointer,
-			typename RASTER::reference>
+            typename RASTER::value_type,
+            typename RASTER::difference_type,
+            typename RASTER::pointer,
+            typename RASTER::reference>
 {
     public:
         typedef typename RASTER::value_type value_type;

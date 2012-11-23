@@ -718,7 +718,7 @@ void scale_perf(const char* testname)
         int n = 2;
         raster<RGB> m(1280, 1024);
         raster<RGB> zm(1280/2, 1024 / 2);
-        //	    int i;
+        //      int i;
         ptime start;
         scale2d(m, zm);
         ptime stop; double duration = ptime(stop-start).seconds();
@@ -733,7 +733,7 @@ void scale_perf(const char* testname)
         int n = 2;
         raster<RGB> m(1280, 1024);
         raster<RGB> zm(1280/2, 1024 / 2);
-        //	    int i;
+        //      int i;
         ptime start;
         halfsize(m, zm, RGB_t<int>());
         ptime stop; double duration = ptime(stop-start).seconds();
@@ -748,7 +748,7 @@ void scale_perf(const char* testname)
         int n = 2;
         raster<char> m(1280, 1024);
         raster<char> zm(1280/2, 1024 / 2);
-        //	    int i;
+        //      int i;
         ptime start;
         scale2d(m, zm);
         ptime stop; double duration = ptime(stop-start).seconds();
@@ -763,7 +763,7 @@ void scale_perf(const char* testname)
         int n = 2;
         raster<RGB> m(1280, 1024);
         raster<RGB> zm(600, 500);
-        //	    int i;
+        //      int i;
         ptime start;
         scale2d(m, zm);
         ptime stop; double duration = ptime(stop-start).seconds();
@@ -778,7 +778,7 @@ void scale_perf(const char* testname)
         int n = 2;
         raster<RGB> m(1280, 1024);
         raster<RGB> zm(1280/2, 1024 / 2);
-        //	    int i;
+        //      int i;
         ptime start;
         scale_down(m, zm, RGB_t<int>(0));
         ptime stop; double duration = ptime(stop-start).seconds();
@@ -793,7 +793,7 @@ void scale_perf(const char* testname)
         int n = 2;
         raster<char> m(1280, 1024);
         raster<char> zm(1280/2, 1024 / 2);
-        //	    int i;
+        //      int i;
         ptime start;
         scale_down(m, zm, int(0));
         ptime stop; double duration = ptime(stop-start).seconds();
@@ -808,7 +808,7 @@ void scale_perf(const char* testname)
         int n = 2;
         raster<RGB> m(1280, 1024);
         raster<RGB> zm(600, 500);
-        //	    int i;
+        //      int i;
         ptime start;
         scale_down(m, zm, RGB_t<int>(0));
         ptime stop; double duration = ptime(stop-start).seconds();
@@ -823,9 +823,9 @@ void scale_perf(const char* testname)
         int n = 2;
         raster<RGB> m(1280, 1024);
         raster<RGB> zm(600, 500);
-        //	    int i;
+        //      int i;
         ptime start;
-        //	    resample(zm, m, RGB_t<float>(0));
+        //      resample(zm, m, RGB_t<float>(0));
         resample(zm, m, RGB_t<int>(0,0,0));
         ptime stop; double duration = ptime(stop-start).seconds();
 
@@ -839,7 +839,7 @@ void scale_perf(const char* testname)
         int n = 2;
         raster<int> m(1280, 1024);
         raster<int> zm(600, 500);
-        //	    int i;
+        //      int i;
         ptime start;
         resample(zm, m, int(0));
         ptime stop; double duration = ptime(stop-start).seconds();
@@ -854,7 +854,7 @@ void scale_perf(const char* testname)
         int n = 2;
         mat m(1280, 1024);
         mat zm(600, 500);
-        //	    int i;
+        //      int i;
         ptime start;
         resample(zm, m, char(0));
         ptime stop; double duration = ptime(stop-start).seconds();
@@ -869,7 +869,7 @@ void scale_perf(const char* testname)
         int n = 2;
         raster<float> m(1280, 1024);
         raster<float> zm(600, 500);
-        //	    int i;
+        //      int i;
         ptime start;
         resample(zm, m, float(0));
         ptime stop; double duration = ptime(stop-start).seconds();
@@ -1125,10 +1125,10 @@ void algo_perf(const char* testname)
     {
         typedef raster<int> mat;
         // Performance
-        //	    int n = 100000;
+        //      int n = 100000;
         raster<int> m(1280, 1024);
         subraster<int> s(m, AC_OFFSET_TYPE(10), AC_OFFSET_TYPE(10), m.xsize()-20,  m.ysize()-20);
-        //	    int i;
+        //      int i;
         ptime start;
         subraster<int>::iterator it = s.begin();
         raster<int>::iterator begin;
@@ -1160,13 +1160,13 @@ void algo_perf(const char* testname)
         cerr << "bresenham_fill int rate 2: " << setprecision(4) << (80*s.size()/duration*sizeof(mat::value_type)/1024/1024) << " MB/sec" << endl;
         cerr << "bresenham_fill int rate 2: " << setprecision(4) << (8*s.size()/duration/1024) << " k 10-pix-lines/sec" << endl;
     }
-   	{
+    {
         typedef raster<int> mat;
         // Performance
-        //	    int n = 100000;
+        //      int n = 100000;
         raster<int> m(1280, 1024);
         subraster<int> s(m, AC_OFFSET_TYPE(100), AC_OFFSET_TYPE(100), m.xsize()-700, m.ysize() - 700);
-        //	    int i;
+        //      int i;
         ptime start;
         subraster<int>::iterator it = s.begin();
         raster<int>::iterator begin;
@@ -1201,10 +1201,10 @@ void algo_perf(const char* testname)
     {
         typedef raster<RGB> mat;
         // Performance
-        //	    int n = 100000;
+        //      int n = 100000;
         raster<RGB> m(1280, 1024);
         subraster<RGB> s(m, AC_OFFSET_TYPE(10), AC_OFFSET_TYPE(10), m.xsize()-20, m.ysize()-20);
-        //	    int i;
+        //      int i;
         ptime start;
         subraster<RGB>::iterator it = s.begin();
         raster<RGB>::iterator begin;
@@ -1239,10 +1239,10 @@ void algo_perf(const char* testname)
     {
         // Performance
         typedef raster<char> mat;
-        //	    int n = 100000;
+        //      int n = 100000;
         raster<char> m(1280, 1024);
         subraster<char> s(m, AC_OFFSET_TYPE(10), AC_OFFSET_TYPE(10), m.xsize()-20, m.ysize()-20);
-        //	    int i;
+        //      int i;
         ptime start;
         subraster<char>::iterator it = s.begin();
         raster<char>::iterator begin;
