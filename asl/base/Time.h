@@ -209,7 +209,6 @@ namespace asl {
                     return *this;
                 }
 
-                
                 int secs() {
                         return when.tv_sec;
                 }
@@ -383,56 +382,57 @@ namespace asl {
  #endif
                 }
                 static unsigned long long perSecond() {
-                        static unsigned long long perSecond = 0;
-                        if (perSecond == 0) {
+                    static unsigned long long perSecond = 0;
+                    if (perSecond == 0) {
 #ifdef _WIN32
-                                QueryPerformanceFrequency((LARGE_INTEGER*)&perSecond);
+                        QueryPerformanceFrequency((LARGE_INTEGER*)&perSecond);
 #else
 #ifdef USE_TIME_OF_DAY
-                perSecond = asl::Unsigned64(1000000000); // nsec
+                        perSecond = asl::Unsigned64(1000000000); // nsec
 #else
-                /*
-                perSecond = cpu_khz;
-                perSecond *=1000;
-                */
+                        /*
+                           perSecond = cpu_khz;
+                           perSecond *=1000;
+                        */
 
-                                double myCalibTime = Time();
-                                unsigned long long myCalibCounter = get_cycles();
-                                msleep(200);
-                                double myCalibDurationTime = Time() - myCalibTime;
-                                unsigned long long myCalibCounterElapsed = get_cycles() - myCalibCounter;
-                                perSecond = static_cast<unsigned long long>(myCalibCounterElapsed/myCalibDurationTime);
+                        double myCalibTime = Time();
+                        unsigned long long myCalibCounter = get_cycles();
+                        msleep(200);
+                        double myCalibDurationTime = Time() - myCalibTime;
+                        unsigned long long myCalibCounterElapsed = get_cycles() - myCalibCounter;
+                        perSecond = static_cast<unsigned long long>(myCalibCounterElapsed/myCalibDurationTime);
 #endif
 #endif
-                        }
-                        return perSecond;
+                    }
+                    return perSecond;
                 }
 
-        static double nanoSecondsPerTick() {
-            static double myNanoSecondsPerTick = 1E9 / double(perSecond());
-            return myNanoSecondsPerTick;
-        }
+                static double nanoSecondsPerTick() {
+                    static double myNanoSecondsPerTick = 1E9 / double(perSecond());
+                    return myNanoSecondsPerTick;
+                }
 
-        static double microSecondPerTick() {
-            static double myMicroSecondPerTick = 1E6 / double(perSecond());
-            return myMicroSecondPerTick;
-        }
+                static double microSecondPerTick() {
+                    static double myMicroSecondPerTick = 1E6 / double(perSecond());
+                    return myMicroSecondPerTick;
+                }
 
-        static double milliSecondPerTick() {
-            static double myMilliSecondPerTick =  1E3 / double(perSecond());
-            return myMilliSecondPerTick;
-        }
+                static double milliSecondPerTick() {
+                    static double myMilliSecondPerTick =  1E3 / double(perSecond());
+                    return myMilliSecondPerTick;
+                }
 
 
-        static double _myTicksPerMilliSecond;
+                static double _myTicksPerMilliSecond;
 
                 NanoTime & operator+=(const NanoTime & theOther) {
                         _myCounter += theOther.ticks();
                         return *this;
                 }
-        private:
+            private:
                 unsigned long long _myCounter;
         };
+
         inline
         NanoTime operator-(const NanoTime & a, const NanoTime & b) {
                 return NanoTime(a.ticks() - b.ticks());
@@ -445,28 +445,28 @@ namespace asl {
         bool operator>(const NanoTime & a, const NanoTime & b) {
                 return a.ticks() > b.ticks();
         }
-    inline
+        inline
         bool operator<(const NanoTime & a, const NanoTime & b) {
                 return a.ticks() < b.ticks();
         }
-    inline
+        inline
         bool operator>=(const NanoTime & a, const NanoTime & b) {
                 return a.ticks() >= b.ticks();
         }
-    inline
+        inline
         bool operator<=(const NanoTime & a, const NanoTime & b) {
                 return a.ticks() <= b.ticks();
         }
-    inline
+        inline
         bool operator==(const NanoTime & a, const NanoTime & b) {
                 return a.ticks() == b.ticks();
         }
-    inline
+        inline
         bool operator!=(const NanoTime & a, const NanoTime & b) {
                 return a.ticks() != b.ticks();
         }
 
-    class NoisyScopeTimer {
+        class NoisyScopeTimer {
         public:
         NoisyScopeTimer(const std::string & theTitle = "", int theCount = 1)
             : _myCount(theCount), _myTitle(theTitle)
@@ -484,9 +484,9 @@ namespace asl {
             std::string _myTitle;
             NanoTime _myStartTime;
         };
-    inline std::ostream & operator<<(std::ostream& s, const asl::Time & t) {
-        return t.print(s);
-    }
+        inline std::ostream & operator<<(std::ostream& s, const asl::Time & t) {
+            return t.print(s);
+        }
 } // end of namespace asl
 
 
