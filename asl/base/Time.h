@@ -48,7 +48,7 @@
 #   pragma warning( pop )
 #else
     #ifdef OSX
-        #include <Carbon/Carbon.h>
+        #include <mach/mach_time.h>
     #endif
     #include <sys/time.h>
     #include <unistd.h>
@@ -83,15 +83,11 @@ typedef asl::Unsigned64 cycles_t;
 #endif
 
 #ifdef OSX
-
-#include <mach/mach_time.h>
-
-inline
-cycles_t
-get_cycles() {
-    return mach_absolute_time();
-}
-
+    inline
+    cycles_t
+    get_cycles() {
+        return mach_absolute_time();
+    }
 #endif
 
 
@@ -368,8 +364,12 @@ namespace asl {
                     QueryPerformanceCounter((LARGE_INTEGER*)&_myCounter);
 #else
     #ifdef OSX
-                    Nanoseconds myNanos=AbsoluteToNanoseconds(UpTime());
-                    _myCounter = *(asl::Unsigned64*)(&myNanos);
+                    static mach_timebase_info_data_t    myTimebaseInfo;
+                    uint64_t now = mach_absolute_time();
+                    if ( myTimebaseInfo.denom == 0 ) {
+                        (void) mach_timebase_info(&myTimebaseInfo);
+                    }
+                    _myCounter = now * myTimebaseInfo.numer / myTimebaseInfo.denom;
     #else
         #ifdef USE_TIME_OF_DAY
                     timespec tv;
