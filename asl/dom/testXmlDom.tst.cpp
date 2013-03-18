@@ -425,11 +425,11 @@ class XmlSchemaUnitTest : public UnitTest {
                         "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>"
                         "   <xs:element name='scene'>\n"
                         "       <xs:complexType>\n"
-                        "           <xs:sequence maxOccurs='6'>\n"
+                        "           <xs:sequence minOccurs='3' maxOccurs='6'>\n"
                         "               <xs:element name='shapes' type='xs:int' maxOccurs='unbounded'/>\n"
                         "               <xs:element name='materials' type='xs:int'/>\n"
-                        "               <xs:element ref='worlds'/>\n"
-                        "               <xs:element ref='uvset'/>\n"
+                        "               <xs:element ref='worlds' minOccurs='1' />\n"
+                        "               <xs:element ref='uvset' maxOccurs='1'/>\n"
                         "               <xs:element name='newchild' type='xs:int'/>\n"
                         "           </xs:sequence>\n"
                         "           <xs:attribute name='version' type='xs:unsignedLong'/>\n"
@@ -453,7 +453,7 @@ class XmlSchemaUnitTest : public UnitTest {
                         "           <xs:attribute name='name' type='xs:string' />\n"
                         "       </xs:complexType>\n"
                         "   </xs:element>\n"
-                        "   <xs:element name='uvset' maxOccurs='1'>\n"
+                        "   <xs:element name='uvset'>\n"
                         "       <xs:complexType>\n"
                         "           <xs:simpleContent>\n"
                         "               <xs:extension base='xs:int'>\n"
@@ -478,10 +478,17 @@ class XmlSchemaUnitTest : public UnitTest {
                         "   <worlds></worlds>\n"
                         "   <worlds></worlds>\n"
                         "   <worlds></worlds>\n"
-                        "   <uvset name='bla'>23</uvset>\n"
+                        "   <uvset name='bla0'>23</uvset>\n"
                         "</scene>\n";
-
                     ENSURE(!myBrokenDocument.parse(my2MuchWorldsInSceneDocumentString));
+
+                    const char * myNoWorldsInSceneDocumentString =
+                        "<scene version='214'>"
+                        "   <shapes>12345</shapes>\n"
+                        "   <materials/>\n"
+                        "   <uvset name='bla0'>23</uvset>\n"
+                        "</scene>\n";
+                    ENSURE(!myBrokenDocument.parse(myNoWorldsInSceneDocumentString));
 
                     const char * my2MuchWorldInWorldsDocumentString =
                         "<scene version='214'>"
@@ -493,7 +500,7 @@ class XmlSchemaUnitTest : public UnitTest {
                         "       <world></world>\n"
                         "   </worlds>\n"
                         "   <worlds></worlds>\n"
-                        "   <uvset name='bla'>23</uvset>\n"
+                        "   <uvset name='bla1'>23</uvset>\n"
                         "</scene>\n";
 
                     ENSURE(!myBrokenDocument.parse(my2MuchWorldInWorldsDocumentString));
@@ -504,7 +511,7 @@ class XmlSchemaUnitTest : public UnitTest {
                         "   <materials/>\n"
                         "   <worlds></worlds>\n"
                         "   <worlds></worlds>\n"
-                        "   <uvset name='bla'>23</uvset>\n"
+                        "   <uvset name='bla2'>23</uvset>\n"
                         "   <uvset name='blaFasel'>23</uvset>\n"
                         "</scene>\n";
 
@@ -518,10 +525,18 @@ class XmlSchemaUnitTest : public UnitTest {
                         "   <materials/>\n"
                         "   <worlds></worlds>\n"
                         "   <worlds></worlds>\n"
-                        "   <uvset name='bla'>23</uvset>\n"
+                        "   <uvset name='bla3'>23</uvset>\n"
                         "</scene>\n";
 
                     ENSURE(!myBrokenDocument.parse(my2MuchNodesInSceneDocumentString));
+
+                    const char * my2LessNodesInSceneDocumentString =
+                        "<scene version='214'>"
+                        "   <shapes>12345</shapes>\n"
+                        "   <worlds></worlds>\n"
+                        "</scene>\n";
+
+                    ENSURE(!myBrokenDocument.parse(my2LessNodesInSceneDocumentString));
 
                     dom::Document myDocument;
                     myDocument.setValueFactory(asl::Ptr<dom::ValueFactory>(new dom::ValueFactory()));
@@ -1542,7 +1557,6 @@ public:
         }
     }
 };
-
 class MyTestSuite : public UnitTestSuite {
 public:
     MyTestSuite(const char * myName, int argc, char *argv[]) : UnitTestSuite(myName, argc, argv) {}

@@ -1532,14 +1532,15 @@ dom::Node::parseAll(const String& is) {
             }
             // check root node against schema restrictions
             if (new_child->_mySchemaInfo && new_child->self().lock()) {
-                new_child->_mySchemaInfo->getSchema()->checkSchemaRestriction(new_child->_mySchemaInfo->_myType, new_child->_mySchemaInfo->_mySchemaDeclaration, new_child.getNativePtr());
+                new_child->_mySchemaInfo->getSchema()->checkSchemaRestriction(new_child->_mySchemaInfo->_myType, 
+                                                                              new_child->_mySchemaInfo->_mySchemaDeclaration, 
+                                                                              new_child.getNativePtr(), false);
+                // first traversal done, check scheme restrictions again, for checks, that need fully setup dom, i.e. minOccurs of sequences
+                checkSchemaRestrictions(new_child, new_child.getNativePtr());
             }
         } while (completed_pos > pos);
         // read potentially trailing whitespace
         _myParseCompletionPos = asl::read_whitespace(is,pos);
-
-
-
     }
 
     catch (ParseException & pex) {
@@ -1559,6 +1560,16 @@ dom::Node::parseAll(const String& is) {
     }
     setVersion(1);
     return _myParseCompletionPos;
+}
+
+void Node::checkSchemaRestrictions(const NodePtr theNewNode, const Node* theNativePtr) {
+    _mySchemaInfo->getSchema()->checkSchemaRestriction(theNewNode->parentNode()->_mySchemaInfo->_myType, theNewNode->_mySchemaInfo->_mySchemaDeclaration, theNativePtr, true);
+    for (NodeList::size_type child = 0; child < getChildren().size();++child) {
+        NodePtr myChild = getChildren().item(child);
+        if (myChild->_mySchemaInfo && myChild->self().lock()) {
+            myChild->checkSchemaRestrictions(myChild, myChild.getNativePtr());
+        }
+    }
 }
 
 void Node::parseFile(const std::string & theFileName) {
@@ -2183,7 +2194,7 @@ dom::Node::appendChild(NodePtr theNewChild) {
 
     // check schema restrictions
     if (_mySchemaInfo) {
-        _mySchemaInfo->getSchema()->checkSchemaRestriction(_mySchemaInfo->_myType, theNewChild->_mySchemaInfo->_mySchemaDeclaration, theNewChild.getNativePtr());
+        _mySchemaInfo->getSchema()->checkSchemaRestriction(_mySchemaInfo->_myType, theNewChild->_mySchemaInfo->_mySchemaDeclaration, theNewChild.getNativePtr(),  false);
     }
 
     return theNewChild;
@@ -3315,7 +3326,7 @@ Node::reparent(Node * theNewParent, Node * theTopNewParent, bool theBumpVersionF
 
         // check schema restrictions
         if (_mySchemaInfo && theNewParent && theTopNewParent) {
-            _mySchemaInfo->getSchema()->checkSchemaRestriction(theNewParent->_mySchemaInfo->_myType, _mySchemaInfo->_mySchemaDeclaration, this);
+            _mySchemaInfo->getSchema()->checkSchemaRestriction(theNewParent->_mySchemaInfo->_myType, _mySchemaInfo->_mySchemaDeclaration, this, false);
         }
     }
 #endif

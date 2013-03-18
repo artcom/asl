@@ -571,6 +571,7 @@ namespace dom {
             of the last parsed character; does not propagate parse exceptions
             */
         asl::Unsigned32 parseAll(const DOMString & is);
+        void checkSchemaRestrictions(const NodePtr theNewNode, const Node* theNativePtr);
 
         void parseFile(const std::string & theFileName);
 
