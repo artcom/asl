@@ -278,7 +278,7 @@ Schema::findType(NodePtr theSchemaDeclaration, unsigned long theParsePos) {
 bool
 dom::Schema::checkSchemaRestriction(const NodePtr theParentElementType,
                                     const NodePtr theSchemaDeclaration, 
-                                    const Node* theElement)
+                                    const Node* theElement, bool theDomIsCompleteFlag)
 {
     if (theElement && theElement->parentNode() && theSchemaDeclaration) {
         if (theParentElementType) {
@@ -313,11 +313,31 @@ dom::Schema::checkSchemaRestriction(const NodePtr theParentElementType,
                 myMaxSequenceChildCountAttr = mySequence->getAttribute(MAXOCCURS_NAME);
                 if (myMaxSequenceChildCountAttr && myMaxSequenceChildCountAttr->nodeValue() != UNBOUNDED_MAXOCCURS) {
                     unsigned myMaxSequenceChildCount = asl::as<int>(myMaxSequenceChildCountAttr->nodeValue());
+                    //if (theElement->parentNode()) {
+                        unsigned myChildNodeCount = theElement->parentNode()->childNodesLength();
+                        if (myChildNodeCount > myMaxSequenceChildCount) {
+                            throw Schema::ElementNotAllowed(
+                                string("'")+ theElement->nodeName()+"' is not allowed as child #"+ asl::as_string(myChildNodeCount) +" of '"+theElement->parentNode()->nodeName()+"'"
+                                +" because of maxOccurs restrictions, declaration:\n"+asl::as_string(*mySequence),
+                                "Node::checkElementRestriction");
+                        }
+                    //}
+                }
+
+            }
+
+
+            // check minoccurs of any childnodes in a sequence only on a full setup dom
+            NodePtr myMinSequenceChildCountAttr;
+            if (theDomIsCompleteFlag && mySequence) {
+                myMinSequenceChildCountAttr = mySequence->getAttribute(MINOCCURS_NAME);
+                if (myMinSequenceChildCountAttr && asl::as<int>(myMinSequenceChildCountAttr->nodeValue()) > 0) {
+                    unsigned myMinSequenceChildCount = asl::as<int>(myMinSequenceChildCountAttr->nodeValue());
                     unsigned myChildNodeCount = theElement->parentNode()->childNodesLength();
-                    if (myChildNodeCount > myMaxSequenceChildCount) {
+                    if (myChildNodeCount < myMinSequenceChildCount) {
                         throw Schema::ElementNotAllowed(
                             string("'")+ theElement->nodeName()+"' is not allowed as child #"+ asl::as_string(myChildNodeCount) +" of '"+theElement->parentNode()->nodeName()+"'"
-                            +" because of maxOccurs restrictions, declaration:\n"+asl::as_string(*mySequence),
+                            +" because of minOccurs restrictions, declaration:\n"+asl::as_string(*mySequence),
                             "Node::checkElementRestriction");
                     }
                 }
@@ -325,16 +345,51 @@ dom::Schema::checkSchemaRestriction(const NodePtr theParentElementType,
         }
 
 
-        // check maxoccurs of specific xs:elements-declaration as part of a sequence
-        NodePtr myMaxOccursAttr = theSchemaDeclaration->getAttribute(MAXOCCURS_NAME);
-        if (myMaxOccursAttr && myMaxOccursAttr->nodeValue() != UNBOUNDED_MAXOCCURS) {
-            unsigned myMaxOccurs = asl::as<int>(myMaxOccursAttr->nodeValue());
-            unsigned myElementCount = theElement->parentNode()->childNodesLength(theElement->nodeName());
-            if (myElementCount > myMaxOccurs) {
-                throw Schema::ElementNotAllowed(
-                    string("'")+ theElement->nodeName()+"' is not allowed as child #"+ asl::as_string(myElementCount) +" of '"+theElement->parentNode()->nodeName()+"'"
-                    +" because of maxOccurs restrictions, declaration:\n"+asl::as_string(*theSchemaDeclaration),
-                    "Node::checkElementRestriction");
+        if (theParentElementType) {
+            // check if node is part of a sequence
+            NodePtr mySequence = theParentElementType->childNode(XS_SEQUENCE);
+            if (mySequence) {
+                for (NodeList::size_type child = 0; child < mySequence->childNodes().size();++child) {
+                    NodePtr myChild = mySequence->childNode(child);
+                    NodePtr myChildRefAttr = myChild->getAttribute(ATTR_REF);
+                    if (myChildRefAttr) {
+                        unsigned myElementCount = theElement->parentNode()->childNodesLength(myChildRefAttr->nodeValue());
+                        // check maxoccurs of specific xs:elements-declaration as part of a sequence
+                        NodePtr myMaxOccursAttr = myChild->getAttribute(MAXOCCURS_NAME);
+                        if (!myMaxOccursAttr) {
+                            NodePtr myRefNode = getRootNode()->getElementByAttribute(XS_ELEMENT, ATTR_NAME, myChildRefAttr->nodeValue());
+                            if (myRefNode) {
+                                myMaxOccursAttr = myRefNode->getAttribute(MAXOCCURS_NAME);
+                            }
+                        }
+                        if (myChildRefAttr && myMaxOccursAttr && myMaxOccursAttr->nodeValue() != UNBOUNDED_MAXOCCURS) {
+                            unsigned myMaxOccurs = asl::as<int>(myMaxOccursAttr->nodeValue());
+                            if (myElementCount > myMaxOccurs) {
+                                throw Schema::ElementNotAllowed(
+                                    string("'")+ theElement->nodeName()+"' is not allowed as child #"+ asl::as_string(myElementCount) +" of '"+theElement->parentNode()->nodeName()+"'"
+                                    +" because of maxOccurs restrictions, declaration:\n"+asl::as_string(*theSchemaDeclaration),
+                                    "Node::checkElementRestriction");
+                            }
+                        }
+                        // check minoccurs of specific xs:elements-declaration as part of a sequence only on a full setup dom
+                        NodePtr myMinOccursAttr = myChild->getAttribute(MINOCCURS_NAME);
+                        if (!myMinOccursAttr) {
+                            NodePtr myRefNode = getRootNode()->getElementByAttribute(XS_ELEMENT, ATTR_NAME, myChildRefAttr->nodeValue());
+                            if (myRefNode) {
+                                myMinOccursAttr = myRefNode->getAttribute(MINOCCURS_NAME);
+                            }
+                        }
+                        if (theDomIsCompleteFlag && myChildRefAttr && myMinOccursAttr && asl::as<int>(myMinOccursAttr->nodeValue())> 0) {
+                            unsigned myMinOccurs = asl::as<int>(myMinOccursAttr->nodeValue());
+                            if (myElementCount < myMinOccurs) {
+                                throw Schema::ElementNotAllowed(
+                                    string("'")+ theElement->nodeName()+"' is not allowed as child #"+ asl::as_string(myElementCount) +" of '"+theElement->parentNode()->nodeName()+"'"
+                                    +" because of minOccurs restrictions, declaration:\n"+asl::as_string(*theSchemaDeclaration),
+                                    "Node::checkElementRestriction");
+                            }                        
+                        }
+                    }
+                }
             }
         }
     }

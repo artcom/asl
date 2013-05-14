@@ -54,6 +54,7 @@ const String ATTR_TYPE("type");
 const String ATTR_NAME("name");
 const String ATTR_REF("ref");
 const String MAXOCCURS_NAME("maxOccurs");
+const String MINOCCURS_NAME("minOccurs");
 const String UNBOUNDED_MAXOCCURS("unbounded");
 const String ATTR_BASE("base");
 const String ATTR_SUBSTITUTIONGROUP("substitutionGroup");
