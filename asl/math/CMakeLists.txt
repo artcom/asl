@@ -8,6 +8,7 @@ PerlinNoise.cpp
 Spline.cpp
 Statistic.cpp
 SvgPath.cpp
+simplexnoise.cpp
 VectorManipulator.cpp
 )
 
@@ -40,6 +41,7 @@ SvgPath.h
 Triangle.h
 Vector234.h
 VectorManipulator.h
+simplexnoise.h
 )
 
 set(TESTS
