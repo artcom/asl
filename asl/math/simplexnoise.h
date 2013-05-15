@@ -44,6 +44,7 @@ dimension, you can ensure that each gets a unique noise value and they don't
 all look identical.
 */
 
+#include "asl_math_settings.h"
 
 // Multi-octave Simplex noise
 // For each octave, a higher frequency/lower amplitude function will be added to the original.
@@ -115,9 +116,9 @@ float scaled_raw_noise_4d( const float loBound,
 
 
 // Raw Simplex noise - a single noise value.
-float raw_noise_2d(const float x, const float y);
-float raw_noise_3d(const float x, const float y, const float z);
-float raw_noise_4d(const float x, const float y, const float, const float w);
+ASL_MATH_DECL float raw_noise_2d(const float x, const float y);
+ASL_MATH_DECL float raw_noise_3d(const float x, const float y, const float z);
+ASL_MATH_DECL float raw_noise_4d(const float x, const float y, const float, const float w);
 
 
 int fastfloor(const float x);
