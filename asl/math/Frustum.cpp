@@ -599,14 +599,12 @@ std::ostream & operator << (std::ostream & os, const Frustum & theFrustum) {
 
 std::istream & operator>>(std::istream & is, Frustum & theFrustum) {
     //throw asl::Exception("Frustum istream operator not yet implemented", PLUS_FILE_LINE);
-    ProjectionType myType;
     is >> theFrustum._myProjectionType;
 
     Frustum::TupleT myTuple;
     is >> myTuple;
 
     if (is.good()) {
-        theFrustum.setType( myType );
         theFrustum.fromTuple( myTuple );
     }
     return is;
