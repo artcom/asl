@@ -34,7 +34,6 @@
 #include <string>
 #include <iostream>
 
-using namespace std;
 using namespace dom;
 using namespace asl;
 
@@ -209,26 +208,26 @@ class ChildFacade :
         }
 
         void recalculateHalfFloat() {
-            AC_TRACE << "recalculateHalfFloat: this="<<(void*)this <<",node=" << getNode() << endl;
+            AC_TRACE << "recalculateHalfFloat: this="<<(void*)this <<",node=" << getNode() << std::endl;
             set<HalfFloatTag>(get<FloatTag>() / 2);
-            AC_TRACE << "result(HalfFloatTag) =" << get<HalfFloatTag>() << endl;
+            AC_TRACE << "result(HalfFloatTag) =" << get<HalfFloatTag>() << std::endl;
         }
         void recalculateDoubleParentFloat() {
-            AC_TRACE << "recalculateDoubleParentFloat: this="<<(void*)this <<",node=" << getNode() << endl;
+            AC_TRACE << "recalculateDoubleParentFloat: this="<<(void*)this <<",node=" << getNode() << std::endl;
             asl::Ptr<ChildFacade, dom::ThreadingModel> myParent = getNode().parentNode()->getFacade<ChildFacade>();
             if (myParent) {
-                AC_TRACE << "recalculateDoubleParentFloat: parent="<<(void*)myParent.get() <<",node=" << getNode() << endl;
+                AC_TRACE << "recalculateDoubleParentFloat: parent="<<(void*)myParent.get() <<",node=" << getNode() << std::endl;
                 float myValue = myParent->get<DoubleParentFloatTag>();
-                AC_TRACE << "recalculateDoubleParentFloat: parent value="<<myValue<<endl;
+                AC_TRACE << "recalculateDoubleParentFloat: parent value="<<myValue<<std::endl;
                 set<DoubleParentFloatTag>(myParent->get<DoubleParentFloatTag>() * 2);
-                AC_TRACE << "result(DoubleParentFloatTag) =" << get<DoubleParentFloatTag>() << endl;
+                AC_TRACE << "result(DoubleParentFloatTag) =" << get<DoubleParentFloatTag>() << std::endl;
             }
         }
 
         void copyOwnFloat() {
-            AC_TRACE << "copyOwnFloat: this="<<(void*)this <<",node=" << getNode() << endl;
+            AC_TRACE << "copyOwnFloat: this="<<(void*)this <<",node=" << getNode() << std::endl;
             set<DoubleParentFloatTag>(get<FloatTag>());
-            AC_TRACE << "result(DoubleParentFloatTag) =" << get<DoubleParentFloatTag>() << endl;
+            AC_TRACE << "result(DoubleParentFloatTag) =" << get<DoubleParentFloatTag>() << std::endl;
         }
 
         void calculateChildFloatSum() {
@@ -428,7 +427,7 @@ class FacadeUnitTest : public UnitTest {
                     ENSURE(almostEqual(myFacade->get<FloatTag>(), 2.3f));
 
                     // setAttributeValue  -> Facade->get()
-                    static string myId = "newerid";
+                    static std::string myId = "newerid";
                     myRoot->getAttribute("id")->nodeValueWrapperPtr()->setString(myId);
                     ENSURE(myFacade->get<IdTag>() == "newerid");
                     static float  myFloat = 5.0;
@@ -649,10 +648,10 @@ class FacadeUnitTest : public UnitTest {
                     }
                 }
             } catch (asl::Exception & e) {
-                cerr << "#### failure:" << e << endl;
+                std::cerr << "#### failure:" << e << std::endl;
                 FAILURE("Exception");
             } catch (...) {
-                cerr << "#### unknown exception occured" <<  endl;
+                std::cerr << "#### unknown exception occured" <<  std::endl;
                 FAILURE("unknown Exception");
             }
         }
@@ -688,7 +687,7 @@ int main(int argc, char *argv[]) {
     mySuite.run();
 
     std::cerr << ">> Finished test suite '" << argv[0] << "'"
-              << ", return status = " << mySuite.returnStatus() << endl;
+              << ", return status = " << mySuite.returnStatus() << std::endl;
 
     return mySuite.returnStatus();
 

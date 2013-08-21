@@ -175,6 +175,23 @@ public:
         testBoxIntersection(theFrustum, false, false, false, true);
     }
 
+    void testStream(Frustum theFrustum) {
+        stringstream ss;
+        ss << theFrustum;
+        Frustum otherFrustum;
+        ss >> otherFrustum;
+        ENSURE(theFrustum.getType() == otherFrustum.getType());
+        ENSURE(almostEqual(theFrustum.getWidth(), otherFrustum.getWidth()));
+        ENSURE(almostEqual(theFrustum.getHeight(), otherFrustum.getHeight()));
+        ENSURE(almostEqual(theFrustum.getLeft(), otherFrustum.getLeft()));
+        ENSURE(almostEqual(theFrustum.getRight(), otherFrustum.getRight()));
+        ENSURE(almostEqual(theFrustum.getTop(), otherFrustum.getTop()));
+        ENSURE(almostEqual(theFrustum.getBottom(), otherFrustum.getBottom()));
+        ENSURE(almostEqual(theFrustum.getNear(), otherFrustum.getNear()));
+        ENSURE(almostEqual(theFrustum.getFar(), otherFrustum.getFar()));
+
+    }
+
     void testAsymmetricFrustum(Frustum theFrustum) {
         ENSURE( theFrustum.getHShift() == 0);
         float myOldHeight = theFrustum.getHeight();
@@ -198,6 +215,7 @@ public:
 
         testPlanes(myFrustum);
         testCorners(myFrustum);
+        testStream(myFrustum);
 
         testAsymmetricFrustum( myFrustum );
         Frustum myFrustum2(-0.5, 0.5, -0.5, 0.5, 1, 5);

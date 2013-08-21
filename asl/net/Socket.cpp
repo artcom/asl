@@ -246,10 +246,10 @@ namespace inet {
                                 (char *) &flag_,  /* the cast is historical */
                                 sizeof(int));    /* length of option value */
         if (result < 0) {
-            AC_ERROR << "Socket::setSendNoDelay: Unable to set TCP_NODELAY" << endl;
+            AC_ERROR << "Socket::setTcpNoDelay: Unable to set TCP_NODELAY" << endl;
         }
 #else
-        AC_WARNING << "Socket::setSendNoDelay() not available for Linux/MaxOS";
+        AC_WARNING << "Socket::setTcpNoDelay() not available for Linux/MaxOS";
 #endif
     }
 

@@ -56,7 +56,7 @@ public:
         //DPRINT(productPixel);
         ENSURE(productPixel == blackPixel);
 
-        fill(begin(firstPixel),end(firstPixel),1);
+        fill(begin(firstPixel),end(firstPixel),(unsigned char)(1));
         //DPRINT(firstPixel);
         ENSURE(firstPixel != blackPixel);
         secondPixel = firstPixel;
@@ -73,7 +73,7 @@ public:
 
         secondPixel += firstPixel;
         //DPRINT(secondPixel);
-        fill(begin(firstPixel), end(firstPixel), 2);
+        fill(begin(firstPixel), end(firstPixel), (unsigned char)(2));
         //DPRINT(firstPixel);
         ENSURE(secondPixel == firstPixel);
 

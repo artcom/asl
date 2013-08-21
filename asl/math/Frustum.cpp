@@ -28,6 +28,8 @@ using namespace std;
 #undef verify
 #endif
 
+namespace asl {
+
 static const char * ProjectionTypeStrings[] = {
     "perspective",
     "orthonormal",
@@ -42,8 +44,6 @@ static const char * ResizePolicyStrings[] = {
     ""
 };
 IMPLEMENT_ENUM( asl::ResizePolicy, ResizePolicyStrings);
-
-namespace asl {
 
 Frustum::Frustum() :
     _myLeft(0),
@@ -599,14 +599,14 @@ std::ostream & operator << (std::ostream & os, const Frustum & theFrustum) {
 
 std::istream & operator>>(std::istream & is, Frustum & theFrustum) {
     //throw asl::Exception("Frustum istream operator not yet implemented", PLUS_FILE_LINE);
-    ProjectionType myType;
-    is >> myType;
+    is >> theFrustum._myProjectionType;
 
     Frustum::TupleT myTuple;
     is >> myTuple;
 
-    theFrustum.setType( myType );
-    theFrustum.fromTuple( myTuple );
+    if (is.good()) {
+        theFrustum.fromTuple( myTuple );
+    }
     return is;
 }
 
