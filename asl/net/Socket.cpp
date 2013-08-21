@@ -233,6 +233,27 @@ namespace inet {
     }
 
     void
+    Socket::setTcpNoDelay(bool flag) {
+#ifdef _WIN32
+
+        // Sending small data segments over TCP with Winsock.
+        // Disables the Nagle algorithm for send coalescing.
+
+        int flag_ = (int)flag;
+        int result = setsockopt(fd,              /* socket affected */
+                                IPPROTO_TCP,     /* set option at TCP level */
+                                TCP_NODELAY,     /* name of option */
+                                (char *) &flag_,  /* the cast is historical */
+                                sizeof(int));    /* length of option value */
+        if (result < 0) {
+            AC_ERROR << "Socket::setSendNoDelay: Unable to set TCP_NODELAY" << endl;
+        }
+#else
+        AC_WARNING << "Socket::setSendNoDelay() not available for Linux/MaxOS";
+#endif
+    }
+
+    void
     Socket::setSendBufferSize(int theSize) {
 #ifdef _WIN32
         if (setsockopt(fd, SOL_SOCKET, SO_SNDBUF, (char*) &theSize, sizeof(theSize)) < 0) {

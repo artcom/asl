@@ -102,6 +102,9 @@ class ASL_NET_DECL Socket {
             return ntohs(_myRemoteEndpoint.sin_port);
         }
 
+        // Windows only: Disables the Nagle algorithm for send coalescing.
+        void setTcpNoDelay(bool flag);
+
         // Sets the size of the send buffer in bytes (windows only for now)
         void setSendBufferSize(int theSize);
         int getSendBufferSize() const;
