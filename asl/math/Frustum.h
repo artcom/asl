@@ -65,6 +65,8 @@ DEFINE_ENUM(ResizePolicy, ResizePolicyEnum, ASL_MATH_DECL);
 
 /** This class models perspective and orthonormal viewing volumes. */
 class ASL_MATH_DECL Frustum {
+    friend ASL_MATH_DECL std::ostream & operator << (std::ostream & os, const Frustum & theFrustum);
+    friend ASL_MATH_DECL std::istream & operator >> (std::istream & os, Frustum & theFrustum);
     public:
         Frustum();
         Frustum(const Frustum & otherFrustum);
@@ -152,13 +154,11 @@ class ASL_MATH_DECL Frustum {
         const asl::Plane<float> & getFarPlane() const;
 
 
-        // [DS] Used only by stream operators. Maybe we should make them private and make the
-        // operators our friends
+    protected:
+    private:
         typedef asl::FixedVector<6, float> TupleT;
         TupleT asTuple() const;
         void fromTuple(const TupleT & theTuple);
-    protected:
-    private:
 
         asl::Vector3f constructPlaneNormal(const asl::Vector3f & v1,
                                            const asl::Vector3f & v2,
