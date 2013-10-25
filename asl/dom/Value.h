@@ -200,14 +200,22 @@ namespace dom {
     // automatically writes every POD-Type into a binary stream
     template <class T>
     void binarize(const T & myValue, asl::WriteableStream & theDest) {
+#if defined(__GNUC__) && ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)))
+        typedef typename ValueWrapper<T>::Type CheckType __attribute__((unused)); // make sure only wrapped native values get automatically binarized
+#else
         typedef typename ValueWrapper<T>::Type CheckType; // make sure only wrapped native values get automatically binarized
+#endif
         theDest.appendData(myValue);
     }
 
     // automatically reads every POD-Type from a binary stream
     template <class T>
     asl::AC_SIZE_TYPE debinarize(T & myValue, const asl::ReadableStream & theSource, asl::AC_SIZE_TYPE thePos = 0) {
+#if defined(__GNUC__) && ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)))
+        typedef typename ValueWrapper<T>::Type CheckType __attribute__((unused)); // make sure only wrapped native values get automatically binarized
+#else
         typedef typename ValueWrapper<T>::Type CheckType; // make sure only wrapped native values get automatically binarized
+#endif
         return theSource.readData(myValue,thePos);
     }
 

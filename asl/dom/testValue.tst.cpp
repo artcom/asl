@@ -318,7 +318,7 @@ public:
         // now test vector operations
         ValueType myTestValue(myOriginalVector, 0); // should contain three value
         ENSURE(myTestValue.length() == myOriginalVector.size());
-        typedef typename ValueType::ACCESS_TYPE::ELEMENT_VALUE_TYPE ELEMENT_VALUE_TYPE;
+        //typedef typename ValueType::ACCESS_TYPE::ELEMENT_VALUE_TYPE ELEMENT_VALUE_TYPE;
         //typedef Ptr<ELEMENT_VALUE_TYPE,dom::ThreadingModel> ELEMENT_VALUE_PTR;
 
         //DPRINT(myTestValue.getString());
