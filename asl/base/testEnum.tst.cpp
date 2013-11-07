@@ -40,7 +40,11 @@ static const char * AnimalStrings[] = {
 #define NOPARAMETER
 
 DEFINE_ENUM( Animal, AnimalEnum, NOPARAMETER);
-IMPLEMENT_ENUM( Animal, AnimalStrings);
+
+namespace asl
+{
+    IMPLEMENT_ENUM( Animal, AnimalStrings);
+}
 
 enum PropertyEnum {
     EDIBLE,
@@ -60,7 +64,11 @@ static const char * PropertyStrings[] = {
 
 
 DEFINE_BITSET( Properties, Property, PropertyEnum, NOPARAMETER);
-IMPLEMENT_BITSET( Properties, Property, PropertyStrings );
+
+namespace asl
+{
+    IMPLEMENT_BITSET( Properties, Property, PropertyStrings );
+}
 
 class EnumUnitTest : public UnitTest {
 public:

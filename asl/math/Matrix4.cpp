@@ -37,4 +37,7 @@ static const char * MatrixTypeStrings[] =
 #undef verify
 #endif
 
-IMPLEMENT_ENUM( asl::MatrixType, MatrixTypeStrings );
+namespace asl
+{
+    IMPLEMENT_ENUM( asl::MatrixType, MatrixTypeStrings );
+}

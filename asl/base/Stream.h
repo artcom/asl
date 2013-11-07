@@ -454,7 +454,7 @@ namespace asl {
             return _mySize;
         }
         operator const void*() const {
-            return _myInFile;
+            return &_myInFile;
         }
         const std::string & getName() const {
             return _myFileName.toUTF8();
@@ -680,7 +680,7 @@ namespace asl {
             return *this;
         }
         operator const void*() const {
-            return _myOutFile;
+            return &_myOutFile;
         }
     private:
         // _myFileName must be initialized before the stream

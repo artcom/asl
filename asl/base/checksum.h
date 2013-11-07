@@ -22,9 +22,18 @@ namespace asl {
     template<class T>
     void
     appendCRC32( unsigned long & theCRC, const T & theValue) {
-        const Bytef * myValuePtr = (const Bytef*)(&theValue);
+        const Bytef * myValuePtr = (const Bytef*)&theValue;
         theCRC = crc32(theCRC, myValuePtr, sizeof(T));
     }
+    
+    template<>
+    void
+    appendCRC32( unsigned long & theCRC, const std::__1::__bit_const_reference<std::__1::__bitset<1,5> > & theValue) {
+        bool val = theValue;
+        const Bytef * myValuePtr = (const Bytef*)&val;
+        theCRC = crc32(theCRC, myValuePtr, sizeof(bool));
+    }
+    
     inline void
     appendCRC32( unsigned long & theCRC, const std::string & theValue) {
         const Bytef * myValuePtr = (const Bytef*)( theValue.c_str());

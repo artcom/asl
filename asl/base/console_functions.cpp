@@ -25,7 +25,7 @@
 #include "settings.h"
 
 #include <stdio.h>
-#ifdef LINUX
+#if defined(LINUX) || defined(OSX)
     #include <unistd.h>
 #endif
 
