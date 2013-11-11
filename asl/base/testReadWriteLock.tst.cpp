@@ -47,7 +47,6 @@ public:
 
 private:
     volatile int _mySharedVar;
-    volatile int _otherSharedVar;
     //asl::ReadWriteLock _myLock;
     asl::PriorityCeilingRWLock _myLock;
     pthread_t _myThread;

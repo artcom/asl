@@ -231,7 +231,6 @@ namespace asl {
         unsigned long _myNetworkID;
         unsigned long _myStationID;
         unsigned long _ownIPAddress;
-        unsigned long _myFlags;
         struct sockaddr_in _fromAddress;
         struct sockaddr_in _toAddress;
         int _myFileDescriptor;
