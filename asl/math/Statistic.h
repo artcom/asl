@@ -152,7 +152,7 @@ namespace asl {
             BoolStatistic(std::string const& theName, int theOutputIntervalSamples);
             BoolStatistic(std::string const& theName, double theOutputIntervalTime);
             virtual ~BoolStatistic() {};
-
+            using Statistic::addSample;
             void addSample(bool theSample);
 
             int getNumberOfHits() const;
@@ -186,7 +186,7 @@ namespace asl {
             FrequencyStatistic(std::string const& theName, double theOutputIntervalTime);
 
             virtual ~FrequencyStatistic() {};
-
+            using Statistic::addSample;
             void addSample();
 
             void reset();

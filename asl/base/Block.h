@@ -243,13 +243,16 @@ namespace asl {
         }
 
         /// word versions of begin()
+        using ReadableBlock::wbegin;
         virtual short * wbegin() {
             return reinterpret_cast<short *>(begin());
         }
         /// word versions of end()
+        using ReadableBlock::wend;
         virtual short * wend() {
             return reinterpret_cast<short *>(end());
         }
+
         virtual ~WriteableBlock() {}
     };
 
