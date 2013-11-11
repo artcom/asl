@@ -119,7 +119,7 @@ struct Assure {
 // you should rarely need to use this one directly, but you can if you need an explicit policy
 // and a custom message:
 //#define ASSURE_MSG_WITH(POLICY,EXP,MSG) Assure<POLICY>::check(EXP, MSG, __FILE__, __LINE__);
-#define ASSURE_MSG_WITH(POLICY,EXP,MSG) { Assure<POLICY> myFooBar(EXP, MSG, __FILE__, __LINE__); }
+#define ASSURE_MSG_WITH(POLICY,EXP,MSG) { Assure<POLICY> myFooBar(EXP, MSG, __FILE__, __LINE__); (void)myFooBar; /*avoid unused warning*/}
 
 // use this if you want to show a custom message instead of the expression
 // and the policy define in ASSURED_POLICY

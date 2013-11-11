@@ -166,6 +166,7 @@ namespace asl {
                                     (pthread_getspecific(_theKey_));
                 if (myHead) {
                     int status = pthread_setspecific(_theKey_,myHead->getNextPtr());
+                    (void)(status); // avoid unused warning
                     myHead->init();
                     return myHead;
                 } else {
@@ -175,6 +176,7 @@ namespace asl {
             static void free(ReferenceCounter<ThreadingModel> * anOldPtr) {
                 anOldPtr->setNextPtr(reinterpret_cast<ReferenceCounter<ThreadingModel>*>(pthread_getspecific(_theKey_)));
                 int status = pthread_setspecific(_theKey_,anOldPtr);
+                (void)(status); // avoid unused warning
             }
         private:
             static pthread_key_t _theKey_;
