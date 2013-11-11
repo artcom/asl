@@ -487,7 +487,6 @@ struct make_rgb_from_hsv : public std::unary_function<SRC, DEST> {
         {
             h = v;
             s = v;
-            v = v;
         }
         else
         {
