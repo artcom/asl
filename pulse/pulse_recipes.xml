@@ -47,6 +47,8 @@
     <macro name="run_gmake_build">
         <make args="-j ${parallel.jobs} VERBOSE=1" working-dir="${build.dir}" name="build">
                 <process processor="${gcc.pp}"/>
+                <dir-artifact name="lib" base="${build.dir}/lib" />
+                <dir-artifact name="include" base="${build.dir}/include" />
             </make>
     </macro>
 
@@ -80,19 +82,17 @@
 
     <macro name="run_cpack_windows">
         <executable exe="${cpack.bin}" args="${cpack.agent.args} ${cpack.extra.args}" working-dir="${build.dir}" name="package">
-            
-            <artifact ignore-stale="true" name="installer" file="${build.dir}/ASL-*.*.*-win32.exe"/>
-            <artifact ignore-stale="true" name="binary-zip" file="${build.dir}/ASL-*.*.*-win32.zip"/>
+            <artifact ignore-stale="true" name="installer" file="${build.dir}/ASL-*.*.*-win32*.exe"/>
+            <artifact ignore-stale="true" name="binary-zip" file="${build.dir}/ASL-*.*.*-win32*.zip"/>
         </executable>
     </macro>
 
     <macro name="run_cpack_linux">
         <executable exe="${cpack.bin}" args="${cpack.agent.args} ${cpack.extra.args}" working-dir="${build.dir}" name="package">
-            
-            <artifact ignore-stale="true" name="package-rpm" file="${build.dir}/ASL-*.*.*-Linux.rpm"/>
-            <artifact ignore-stale="true" name="package-deb" file="${build.dir}/ASL-*.*.*-Linux.deb"/>
-            <artifact ignore-stale="true" name="binary-tbz2" file="${build.dir}/ASL-*.*.*-Linux.tar.bz2"/>
-            <artifact ignore-stale="true" name="binary-tgz" file="${build.dir}/ASL-*.*.*-Linux.tar.gz"/>
+            <artifact ignore-stale="true" name="package-rpm" file="${build.dir}/ASL-*.*.*-Linux*.rpm"/>
+            <artifact ignore-stale="true" name="package-deb" file="${build.dir}/ASL-*.*.*-Linux*.deb"/>
+            <artifact ignore-stale="true" name="binary-tbz2" file="${build.dir}/ASL-*.*.*-Linux*.tar.bz2"/>
+            <artifact ignore-stale="true" name="binary-tgz" file="${build.dir}/ASL-*.*.*-Linux*.tar.gz"/>
         </executable>
     </macro>
 
