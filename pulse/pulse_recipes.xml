@@ -172,6 +172,7 @@
         </recipe>
         <recipe name="GMake Release">
             <property name="cmake.generator" value="Unix Makefiles"/>
+            <property name="cmake.recipe.args" value="${cmake.recipe.args} -D CMAKE_INSTALL_PREFIX=${build.installprefix}"/>
             <macro-ref macro="${run_cmake}"/>
             <macro-ref macro="${run_gmake_build}"/>
             <macro-ref macro="${run_gmake_install}"/>
