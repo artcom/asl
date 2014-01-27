@@ -47,8 +47,8 @@
     <macro name="run_gmake_build">
         <make args="-j ${parallel.jobs} VERBOSE=1" working-dir="${build.dir}" name="build">
                 <process processor="${gcc.pp}"/>
-                <dir-artifact name="lib" base="${build.dir}/lib" />
-                <dir-artifact name="include" base="${build.dir}/include" />
+                <dir-artifact name="lib" base="${build.dir}/lib" publish="true" />
+                <dir-artifact name="include" base="${build.dir}/include" publish="true" />
             </make>
     </macro>
 
