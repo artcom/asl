@@ -50,31 +50,31 @@ namespace asl {
         SWAP_USED
     };
 
-    unsigned getMemInfo(unsigned theMemInfo) {
+    asl::Unsigned64 getMemInfo(unsigned theMemInfo) {
         const char* myMemInfoFile = "/proc/meminfo";
         FILE* fp = fopen(myMemInfoFile, "r");
         if (!fp) {
             throw asl::IO_Failure("getMemInfo", std::string("Unable to open ") + myMemInfoFile);
         }
 
-        unsigned myMemTotal = 0, myMemFree = 0;
-        unsigned myMemBuffers = 0, myMemCached = 0;
-        unsigned mySwapTotal = 0, mySwapFree = 0;
+        asl::Unsigned64 myMemTotal = 0, myMemFree = 0;
+        asl::Unsigned64 myMemBuffers = 0, myMemCached = 0;
+        asl::Unsigned64 mySwapTotal = 0, mySwapFree = 0;
 
         char myBuf[1024];
         char myKey[256];
-        unsigned myValue;
+        unsigned long long myValue;
         char myUnit[16];
 
         while (fgets(myBuf, sizeof(myBuf), fp)) {
 
-            int n = sscanf(myBuf, "%s %d %s", myKey, &myValue, myUnit);
+            int n = sscanf(myBuf, "%s %llu %s", myKey, &myValue, myUnit);
             if (n < 2) {
                 continue;
             }
 
             if (n == 3) {
-                unsigned myMemUnit = 1;
+                asl::Unsigned64 myMemUnit = 1;
                 if (strcasecmp(myUnit, "kb") == 0) {
                     myMemUnit = 1024;
                 } else if (strcasecmp(myUnit, "mb") == 0) {
@@ -99,7 +99,7 @@ namespace asl {
         }
         fclose(fp);
 
-        unsigned myMemInfo = 0;
+        asl::Unsigned64 myMemInfo = 0;
         switch (theMemInfo) {
             case MEM_TOTAL:
                 myMemInfo = myMemTotal;
@@ -126,7 +126,7 @@ namespace asl {
         return myMemInfo;
     }
 
-    unsigned getProcMemInfo(pid_t thePid) {
+    Unsigned64 getProcMemInfo(pid_t thePid) {
         char myPidStatusFile[1024];
         snprintf(myPidStatusFile, sizeof(myPidStatusFile), "/proc/%d/status", thePid);
         FILE* fp = fopen(myPidStatusFile, "r");
@@ -134,24 +134,24 @@ namespace asl {
             throw asl::IO_Failure("getProcMemInfo", std::string("Unable to open ") + myPidStatusFile);
         }
 
-        unsigned myMemPhysical = 0;
+        Unsigned64 myMemPhysical = 0;
         // currently unused
         //unsigned myMemVirtual = 0, myMemData = 0, myMemStack = 0, myMemExe = 0;
 
         char myBuf[1024];
         char myKey[256];
-        unsigned myValue;
+        unsigned long long myValue;
         char myUnit[256];
 
         while (fgets(myBuf, sizeof(myBuf), fp)) {
 
-            int n = sscanf(myBuf, "%s %d %s", myKey, &myValue, myUnit);
+            int n = sscanf(myBuf, "%s %llu %s", myKey, &myValue, myUnit);
             if (n < 2) {
                 continue;
             }
 
             if (n == 3) {
-                unsigned myMemUnit = 1;
+                asl::Unsigned64 myMemUnit = 1;
                 if (strcasecmp(myUnit, "kb") == 0) {
                     myMemUnit = 1024;
                 } else if (strcasecmp(myUnit, "mb") == 0) {
@@ -177,8 +177,8 @@ namespace asl {
         }
         fclose(fp);
 
-        unsigned myMemInfo = myMemPhysical;
-        //unsigned myMemInfo = myMemData + myMemStack + myMemExe;
+        asl::Unsigned64 myMemInfo = myMemPhysical;
+        //asl::Unsigned64 myMemInfo = myMemData + myMemStack + myMemExe;
         return myMemInfo;
     }
 #endif
