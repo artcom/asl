@@ -125,7 +125,7 @@ namespace asl {
             redirect();
 
             // write a timestamp
-            cout <<  ourAppStartMessage << myFilenameWithTimestamp << endl;
+            cout <<  ourAppStartMessage << _myOutputFilename << endl;
             cout << "Timestamp: " << getCurrentTimeString() << endl;
             cout << "---------" << endl;
 
