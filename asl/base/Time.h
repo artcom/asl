@@ -110,7 +110,7 @@ namespace asl {
                 };
 #endif
                 struct timeval when;
-                bool _isLocalTime;
+                bool _useLocalTime;
         public:
                 /**
                  * Default Constructor. Creates an instance that holds the current time.
@@ -124,7 +124,7 @@ namespace asl {
                  *    the number of seconds since 1.1.1970 0:00.
                  */
                 Time(const double secs) :
-                    _isLocalTime(false)
+                    _useLocalTime(false)
                 {
                     when.tv_sec=static_cast<long>(floor(secs));
                     when.tv_usec=static_cast<long>(fmod(secs, 1.0)*1.0e6);
@@ -138,7 +138,7 @@ namespace asl {
                  *    the number of seconds since 1.1.1970 0:00.
                  */
                 Time(long secs, long long usecs) :
-                    _isLocalTime(false)
+                    _useLocalTime(false)
                 {
                     when.tv_sec=secs+static_cast<long>(usecs/1000000LL);
                     when.tv_usec=static_cast<long>(usecs % 1000000LL);
@@ -149,7 +149,7 @@ namespace asl {
                  * @return *this
                  */
                 Time& setNow() {
-                    _isLocalTime = false;
+                    _useLocalTime = false;
 #ifdef _WIN32
                     FILETIME fTime;
                     GetSystemTimeAsFileTime(&fTime);
@@ -173,7 +173,6 @@ namespace asl {
                  * @return *this
                  */
                 Time& toLocalTime(){
-                    _isLocalTime = true;
 #ifdef _WIN32
                     SYSTEMTIME sTime;
                     GetLocalTime(&sTime);
@@ -184,23 +183,15 @@ namespace asl {
                     ULARGE_INTEGER inftime;
                     inftime.LowPart = fTime.dwLowDateTime;
                     inftime.HighPart = fTime.dwHighDateTime;
-
-                    //Large int init to the first second of jan 1 1970
-                    SYSTEMTIME jan1970 = { 1970, 1, 4,1,0,0,0,0};
-                    SYSTEMTIME stjan1970;
-                    FILETIME ftjan1970;
-                    SystemTimeToTzSpecificLocalTime(NULL, &jan1970, &stjan1970);
-                    SystemTimeToFileTime(&stjan1970, &ftjan1970);
-                    ULARGE_INTEGER largejan1970;
-                    largejan1970.LowPart = ftjan1970.dwLowDateTime;
-                    largejan1970.HighPart = ftjan1970.dwHighDateTime;
-
+                    __time64_t now = inftime.QuadPart;
                     //shift from 1601 to 1970
-                    __time64_t now = inftime.QuadPart - largejan1970.QuadPart;
-
+                    now -= (SECS_BETWEEN_EPOCHS * SECS_TO_100NS);
                     //convert from 100 nanosecond intervals to seconds
                     when.tv_sec = static_cast<long>(now / SECS_TO_100NS);
                     when.tv_usec = static_cast<long>((now % SECS_TO_100NS) / 10);
+#else
+                    _useLocalTime = true;
+
 #endif
                     return *this;
                 }
@@ -255,7 +246,7 @@ namespace asl {
         inline std::ostream& Time::print(std::ostream& s) const
         {
             const time_t myTvSec = static_cast<time_t>(when.tv_sec);
-            tm *tp = (_isLocalTime) ? localtime(&myTvSec) : gmtime(&myTvSec);
+            tm *tp = (_useLocalTime) ? localtime(&myTvSec) : gmtime(&myTvSec);
             if ( s.iword(TimeStreamFormater::ourIsFormatedFlagIndex) ) {
                 std::string myFormatString( static_cast<const char * >(
                     s.pword(TimeStreamFormater::ourFormatStringIndex)));

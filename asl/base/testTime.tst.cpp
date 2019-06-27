@@ -79,6 +79,13 @@ public:
         cout << "now: " << now << endl;
         cout << "later: " << later << endl;
         ENSURE(later >= now);
+        asl::Time lnow;
+        asl::Time llater;
+        lnow.toLocalTime();
+        llater.toLocalTime();
+        cout << "local now: " << lnow << endl;
+        cout << "local later: " << llater << endl;
+        ENSURE(later >= now);
         double nowd = now;
         asl::Time nowdd = nowd;
         ENSURE(fabs(now - nowd) < 1e-3);
