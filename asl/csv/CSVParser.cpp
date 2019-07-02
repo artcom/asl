@@ -90,16 +90,16 @@ struct CSVParser : grammar<Iterator, std::vector<std::vector<std::string> >()> {
         );
     }
 
-    rule<Iterator, std::string()> subField;
-    rule<Iterator, std::string()> escapedField;
-    rule<Iterator, std::string()> simpleField;
-    rule<Iterator, std::string()> quotedField;
-    rule<Iterator, std::string()> optionalSpaces;
-    rule<Iterator, std::string()> rawField;
-    rule<Iterator, std::string()> rawString;
-    rule<Iterator, std::vector<std::string>()> csvStringList;
-    rule<Iterator, std::vector<std::string>()> csvRecord;
-    rule<Iterator, std::vector<std::vector<std::string> >()> csvFile;
+    boost::spirit::qi::rule<Iterator, std::string()> subField;
+    boost::spirit::qi::rule<Iterator, std::string()> escapedField;
+    boost::spirit::qi::rule<Iterator, std::string()> simpleField;
+    boost::spirit::qi::rule<Iterator, std::string()> quotedField;
+    boost::spirit::qi::rule<Iterator, std::string()> optionalSpaces;
+    boost::spirit::qi::rule<Iterator, std::string()> rawField;
+    boost::spirit::qi::rule<Iterator, std::string()> rawString;
+    boost::spirit::qi::rule<Iterator, std::vector<std::string>()> csvStringList;
+    boost::spirit::qi::rule<Iterator, std::vector<std::string>()> csvRecord;
+    boost::spirit::qi::rule<Iterator, std::vector<std::vector<std::string> >()> csvFile;
 };
 
 namespace asl {
