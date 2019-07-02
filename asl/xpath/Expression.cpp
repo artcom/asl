@@ -1182,7 +1182,7 @@ namespace xpath {
                 if( !predicate_ ) {
                     return v;
                 }
-                if( !v.getType() == Value_NodeSet ) {
+                if( !(v.getType() == Value_NodeSet) ) {
                     throw SyntaxError( "Predicate implies node set expression", PLUS_FILE_LINE );
                 }
                 const NodeSet nodeSet = v.as<NodeSetValue>().getValue();
